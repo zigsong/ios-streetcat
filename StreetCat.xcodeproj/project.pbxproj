@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CE9BF8142376A33600E21B75 /* CatProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9BF8132376A33600E21B75 /* CatProfile.swift */; };
+		CE347EDD237AB52C00C3ADAE /* catProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE347EDC237AB52C00C3ADAE /* catProfile.swift */; };
 		CE9BF8172376B91200E21B75 /* infoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE9BF8192376B91200E21B75 /* infoPlist.strings */; };
 		CEC0C6DD23750F09003C4FD1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC0C6DC23750F09003C4FD1 /* AppDelegate.swift */; };
 		CEC0C6DF23750F09003C4FD1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC0C6DE23750F09003C4FD1 /* SceneDelegate.swift */; };
@@ -18,7 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		CE9BF8132376A33600E21B75 /* CatProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatProfile.swift; sourceTree = "<group>"; };
+		CE347EDC237AB52C00C3ADAE /* catProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = catProfile.swift; sourceTree = "<group>"; };
 		CE9BF8182376B91200E21B75 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/infoPlist.strings; sourceTree = "<group>"; };
 		CEC0C6D923750F09003C4FD1 /* StreetCat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StreetCat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEC0C6DC23750F09003C4FD1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -61,9 +61,9 @@
 			isa = PBXGroup;
 			children = (
 				CEC0C6DC23750F09003C4FD1 /* AppDelegate.swift */,
+				CE347EDC237AB52C00C3ADAE /* catProfile.swift */,
 				CEC0C6DE23750F09003C4FD1 /* SceneDelegate.swift */,
 				CEC0C6E023750F09003C4FD1 /* ViewController.swift */,
-				CE9BF8132376A33600E21B75 /* CatProfile.swift */,
 				CEC0C6E223750F09003C4FD1 /* Main.storyboard */,
 				CEC0C6E523750F0B003C4FD1 /* Assets.xcassets */,
 				CEC0C6E723750F0B003C4FD1 /* LaunchScreen.storyboard */,
@@ -145,7 +145,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE9BF8142376A33600E21B75 /* CatProfile.swift in Sources */,
+				CE347EDD237AB52C00C3ADAE /* catProfile.swift in Sources */,
 				CEC0C6E123750F09003C4FD1 /* ViewController.swift in Sources */,
 				CEC0C6DD23750F09003C4FD1 /* AppDelegate.swift in Sources */,
 				CEC0C6DF23750F09003C4FD1 /* SceneDelegate.swift in Sources */,

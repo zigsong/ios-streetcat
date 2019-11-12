@@ -4,31 +4,6 @@
 //
 //  Created by songji on 08/11/2019.
 //  Copyright © 2019 songji. All rights reserved.
-//
-
-//import MapKit
-//
-//class ViewController: UIViewController {
-//    @IBOutlet weak var mapView: MKMapView!
-//
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//
-//    let location = CLLocationCoordinate2D(latitude: 51.50007773, longitude: -0.1246402)
-//
-//    let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
-//
-//    let region = MKCoordinateRegion(center: location, span: span)
-//        mapView.setRegion(region, animated: true)
-//
-//    let annotation = MKPointAnnotation()
-//       annotation.coordinate = location
-//       annotation.title = "Big Ben"
-//       annotation.subtitle = "London"
-//       mapView.addAnnotation(annotation)
-//
-//    }
-//}
 
 
 import UIKit
@@ -43,14 +18,36 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        locationManager.delegate = self // locatonManager가 현재 mapView에서 delegate처리를 할 수 있도록
+        locationManager.delegate = self // locatonManager가 현재 mapView에서 delegate처리할 수 있도록 설정
         locationManager.desiredAccuracy = kCLLocationAccuracyBest // 위치 정확도 최고
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
-        self.mapView.delegate = self;
-        self.mapView.showsUserLocation = true // 현재위치를 마커로 표시 // CL과 함께 사용
+        mapView.delegate = self;
+        mapView.showsUserLocation = true // 현재위치를 마커로 표시(실제로 표시하지는 않음???) // CL과 함께 사용
+        // print(self.mapView.isUserLocationVisible)
+
+//        func configureLocationServices() {
+//            locationManager.delegate = self
+//            let status = CLLocationManager.authorizationStatus()
+//            if status == .notDetermined {
+//                locationManager.requestWhenInUseAuthorization()
+//            } else if status == .authorizedAlways || status == .authorizedWhenInUse {
+//                beginLocationsUpdate(locationManager: locationManager)
+//            }
+//            print(status)
+//        }
+//
+//        func beginLocationsUpdate(locationManager: CLLocationManager) {
+//            // turn on setting to show location if authorized
+//            mapView.showsUserLocation = true
+//            // accuracy of location data can choose precision
+//            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+//            locationManager.startUpdatingLocation()
+//        }
+//
+//        configureLocationServices()
     }
-        
+    
 //    override func didReceiveMemoryWarning() {
 //        super.didReceiveMemoryWarning()
 //    }
@@ -60,12 +57,15 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         let spanValue = MKCoordinateSpan(latitudeDelta: delta, longitudeDelta: delta)
         // 기존 함수: MKCoordinateSpanMake(delta, delta)
         let locationRegion = MKCoordinateRegion(center: coordinateLocation, span: spanValue)
+        mapView.setRegion(locationRegion, animated: true)
         // 기존함수: MKCoordinateRegionMake(coordinateLocation, spanValue)
+        
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let lastLocation = locations.last
         myLocation(latitude: (lastLocation?.coordinate.latitude)!, longitude: (lastLocation?.coordinate.longitude)!, delta: 0.01)
+
         // delta값이 1보다 작을수록 확대됨. 100배 확대
     }
     
