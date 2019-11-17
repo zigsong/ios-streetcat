@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		78232E842381225D0025A724 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78232E832381225D0025A724 /* SecondViewController.swift */; };
+		78232E87238122800025A724 /* persian.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 78232E86238122800025A724 /* persian.jpg */; };
 		CE9BF8142376A33600E21B75 /* CatProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9BF8132376A33600E21B75 /* CatProfile.swift */; };
 		CE9BF8172376B91200E21B75 /* infoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE9BF8192376B91200E21B75 /* infoPlist.strings */; };
 		CEC0C6DD23750F09003C4FD1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC0C6DC23750F09003C4FD1 /* AppDelegate.swift */; };
@@ -18,6 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		78232E832381225D0025A724 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		78232E86238122800025A724 /* persian.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = persian.jpg; sourceTree = "<group>"; };
 		CE9BF8132376A33600E21B75 /* CatProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatProfile.swift; sourceTree = "<group>"; };
 		CE9BF8182376B91200E21B75 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/infoPlist.strings; sourceTree = "<group>"; };
 		CEC0C6D923750F09003C4FD1 /* StreetCat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StreetCat.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -41,6 +45,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		78232E85238122710025A724 /* image */ = {
+			isa = PBXGroup;
+			children = (
+				78232E86238122800025A724 /* persian.jpg */,
+			);
+			path = image;
+			sourceTree = "<group>";
+		};
 		CEC0C6D023750F09003C4FD1 = {
 			isa = PBXGroup;
 			children = (
@@ -65,9 +77,11 @@
 				CEC0C6E023750F09003C4FD1 /* ViewController.swift */,
 				CE9BF8132376A33600E21B75 /* CatProfile.swift */,
 				CEC0C6E223750F09003C4FD1 /* Main.storyboard */,
+				78232E832381225D0025A724 /* SecondViewController.swift */,
 				CEC0C6E523750F0B003C4FD1 /* Assets.xcassets */,
 				CEC0C6E723750F0B003C4FD1 /* LaunchScreen.storyboard */,
 				CEC0C6EA23750F0B003C4FD1 /* Info.plist */,
+				78232E85238122710025A724 /* image */,
 				CE9BF8192376B91200E21B75 /* infoPlist.strings */,
 			);
 			path = StreetCat;
@@ -131,6 +145,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				78232E87238122800025A724 /* persian.jpg in Resources */,
 				CEC0C6E923750F0B003C4FD1 /* LaunchScreen.storyboard in Resources */,
 				CE9BF8172376B91200E21B75 /* infoPlist.strings in Resources */,
 				CEC0C6E623750F0B003C4FD1 /* Assets.xcassets in Resources */,
@@ -148,6 +163,7 @@
 				CE9BF8142376A33600E21B75 /* CatProfile.swift in Sources */,
 				CEC0C6E123750F09003C4FD1 /* ViewController.swift in Sources */,
 				CEC0C6DD23750F09003C4FD1 /* AppDelegate.swift in Sources */,
+				78232E842381225D0025A724 /* SecondViewController.swift in Sources */,
 				CEC0C6DF23750F09003C4FD1 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
