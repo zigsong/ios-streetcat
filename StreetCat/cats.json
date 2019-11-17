@@ -2,21 +2,5 @@
     {
         "name": "zig",
         "age": 3
-    },
-    {
-        "name": "yankee",
-        "age": 4
-    },
-    {
-        "name": "lion",
-        "age": 7
-    },
-    {
-        "name": "coco",
-        "age": 2
-    },
-    {
-        "name": "mumu",
-        "age": 8
     }
 ]

@@ -14,7 +14,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     
     @IBOutlet weak var mapView: MKMapView!
     let locationManager = CLLocationManager()
-    
+    // self.mapview.delegate = self
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -38,14 +39,21 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         myLocation(latitude: (lastLocation?.coordinate.latitude)!, longitude: (lastLocation?.coordinate.longitude)!, delta: 0.01)
         // delta값이 1보다 작을수록 확대됨. 100배 확대
     }
-    
-    @IBAction makeMockData(_ sender: UIButton) {
-
-        let jsonData = jsonString.data(using: .utf8)!
-        let cat1 = try! JSONDecoder().decode(Cat.self, from: jsonData)
-        print(cat1.name)
-
     }
-
+    
+    @IBAction func makeMockData(_ sender: UIButton) {
+        let cat1 = try! Cat(fileName: "cat")
+       
+//        let position = CLLocationCoordinate2D(latitude: 10, longitude: 10)
+//        let marker = GMSMarker()
+//        // let marker = GMSMarker(position: position) 또는 아래 코드
+//        // marker.position = CLLocationCoordinate2D(latitude: , longitude: )
+//        marker.title = cat1.name
+//        marker.map = mapView
+        
+        // GMSMarker는 GoogleMapkit?
+        
+        let marker = MKMarkerAnnotationView()
+        
     }
 }
