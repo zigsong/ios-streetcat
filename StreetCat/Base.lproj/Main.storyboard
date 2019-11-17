@@ -21,10 +21,20 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="acl-wm-OsV"/>
                                 </connections>
                             </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jQU-uh-8Rp">
+                                <rect key="frame" x="162" y="810" width="90" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="MockData"/>
+                                <connections>
+                                    <action selector="makeMockData:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7nK-Sm-59i"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="fxx-AU-LD7" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="EHd-K7-KbU"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="jQU-uh-8Rp" secondAttribute="bottom" constant="51" id="QNJ-VN-oMS"/>
+                            <constraint firstItem="jQU-uh-8Rp" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="45" id="VyC-R5-2MA"/>
                             <constraint firstItem="fxx-AU-LD7" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="m4u-QA-OoS"/>
                             <constraint firstItem="fxx-AU-LD7" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="tu0-DU-lYX"/>
                             <constraint firstItem="fxx-AU-LD7" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="xc0-yZ-aq8"/>

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE0F9E4D23803B1200EE25D1 /* cat2.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = CE0F9E4A23803B1200EE25D1 /* cat2.jpeg */; };
+		CE0F9E4E23803B1200EE25D1 /* cat1.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = CE0F9E4B23803B1200EE25D1 /* cat1.jpeg */; };
+		CE0F9E5123803B5D00EE25D1 /* cat3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE0F9E5023803B5D00EE25D1 /* cat3.jpg */; };
+		CE11BD16237BBAEC00681931 /* cats.json in Resources */ = {isa = PBXBuildFile; fileRef = CE11BD15237BBAEC00681931 /* cats.json */; };
 		CE347EDD237AB52C00C3ADAE /* catProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE347EDC237AB52C00C3ADAE /* catProfile.swift */; };
 		CE9BF8172376B91200E21B75 /* infoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE9BF8192376B91200E21B75 /* infoPlist.strings */; };
 		CEC0C6DD23750F09003C4FD1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC0C6DC23750F09003C4FD1 /* AppDelegate.swift */; };
@@ -18,6 +22,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CE0F9E4A23803B1200EE25D1 /* cat2.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cat2.jpeg; sourceTree = "<group>"; };
+		CE0F9E4B23803B1200EE25D1 /* cat1.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cat1.jpeg; sourceTree = "<group>"; };
+		CE0F9E5023803B5D00EE25D1 /* cat3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cat3.jpg; sourceTree = "<group>"; };
+		CE11BD15237BBAEC00681931 /* cats.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = cats.json; sourceTree = "<group>"; };
+		CE2551D7238044B6006DE5CC /* jsonTest.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = jsonTest.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		CE347EDC237AB52C00C3ADAE /* catProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = catProfile.swift; sourceTree = "<group>"; };
 		CE9BF8182376B91200E21B75 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/infoPlist.strings; sourceTree = "<group>"; };
 		CEC0C6D923750F09003C4FD1 /* StreetCat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StreetCat.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -41,6 +50,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CE0F9E4923803ABD00EE25D1 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				CE0F9E4B23803B1200EE25D1 /* cat1.jpeg */,
+				CE0F9E4A23803B1200EE25D1 /* cat2.jpeg */,
+				CE0F9E5023803B5D00EE25D1 /* cat3.jpg */,
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
 		CEC0C6D023750F09003C4FD1 = {
 			isa = PBXGroup;
 			children = (
@@ -60,8 +79,10 @@
 		CEC0C6DB23750F09003C4FD1 /* StreetCat */ = {
 			isa = PBXGroup;
 			children = (
+				CE0F9E4923803ABD00EE25D1 /* images */,
 				CEC0C6DC23750F09003C4FD1 /* AppDelegate.swift */,
 				CE347EDC237AB52C00C3ADAE /* catProfile.swift */,
+				CE2551D7238044B6006DE5CC /* jsonTest.playground */,
 				CEC0C6DE23750F09003C4FD1 /* SceneDelegate.swift */,
 				CEC0C6E023750F09003C4FD1 /* ViewController.swift */,
 				CEC0C6E223750F09003C4FD1 /* Main.storyboard */,
@@ -69,6 +90,7 @@
 				CEC0C6E723750F0B003C4FD1 /* LaunchScreen.storyboard */,
 				CEC0C6EA23750F0B003C4FD1 /* Info.plist */,
 				CE9BF8192376B91200E21B75 /* infoPlist.strings */,
+				CE11BD15237BBAEC00681931 /* cats.json */,
 			);
 			path = StreetCat;
 			sourceTree = "<group>";
@@ -132,7 +154,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEC0C6E923750F0B003C4FD1 /* LaunchScreen.storyboard in Resources */,
+				CE0F9E4D23803B1200EE25D1 /* cat2.jpeg in Resources */,
+				CE0F9E5123803B5D00EE25D1 /* cat3.jpg in Resources */,
+				CE0F9E4E23803B1200EE25D1 /* cat1.jpeg in Resources */,
 				CE9BF8172376B91200E21B75 /* infoPlist.strings in Resources */,
+				CE11BD16237BBAEC00681931 /* cats.json in Resources */,
 				CEC0C6E623750F0B003C4FD1 /* Assets.xcassets in Resources */,
 				CEC0C6E423750F09003C4FD1 /* Main.storyboard in Resources */,
 			);
