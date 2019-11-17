@@ -2,21 +2,29 @@
 //  InfoViewController.swift
 //  StreetCat
 //
-//  Created by Claire Hyejee Roh on 2019/11/17.
+//  Created by Claire Hyejee Roh on 2019/11/16.
 //  Copyright © 2019 songji. All rights reserved.
 //
 
 import UIKit
 
 class InfoViewController: UIViewController {
-
+    
+    var catName: String?
+    
+    @IBOutlet weak var catNameLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        catNameLabel.text = catName
     }
     
+    @IBAction func returnToMap(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
+    }
 
+    
     /*
     // MARK: - Navigation
 
