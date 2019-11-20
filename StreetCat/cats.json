@@ -1,6 +1,27 @@
 [
     {
         "name": "zig",
-        "age": 3
+        "character": "small, little cat",
+        "spot": 34
+    },
+    {
+        "name": "ahyeon",
+        "character": "business",
+        "spot": 63
+    },
+    {
+        "name": "gummy",
+        "character": "literature",
+        "spot": 23
+    },
+    {
+        "name": "hyem",
+        "character": "engineering",
+        "spot": 55
+    },
+    {
+        "name": "yes",
+        "character": "liberal",
+        "spot": 20
     }
 ]
