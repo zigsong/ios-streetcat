@@ -56,18 +56,19 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
 //    }
 
     func myLocation(latitudeValue: CLLocationDegrees, longitudeValue: CLLocationDegrees, delta span: Double) -> CLLocationCoordinate2D {
-        let coordinateLocation = CLLocationCoordinate2DMake(latitudeValue, longitudeValue)
+        let pLocation = CLLocationCoordinate2DMake(latitudeValue, longitudeValue)
         let spanValue = MKCoordinateSpan(latitudeDelta: span, longitudeDelta: span)
         // 기존 함수: MKCoordinateSpanMake(delta, delta)
-        let locationRegion = MKCoordinateRegion(center: coordinateLocation, span: spanValue)
+        let locationRegion = MKCoordinateRegion(center: pLocation, span: spanValue)
         // 기존함수: MKCoordinateRegionMake(coordinateLocation, spanValue)
         mapView.setRegion(locationRegion, animated: true)
-        return coordinateLocation
+        return pLocation
     }
 
+
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let lastLocation = locations.last
-        _ = myLocation(latitude: (lastLocation?.coordinate.latitude)!, longitude: (lastLocation?.coordinate.longitude)!, delta: 0.01)
+        let pLocation = locations.last
+        _ = myLocation(latitudeValue: (pLocation?.coordinate.latitude)!, longitudeValue: (pLocation?.coordinate.longitude)!, delta: 0.01)
         // delta값이 1보다 작을수록 확대됨. 100배 확대
     }
     
@@ -76,15 +77,17 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         annotation.coordinate = myLocation(latitudeValue: latitudeValue, longitudeValue: longitudeValue, delta: span)
         annotation.title = strTitle
         annotation.subtitle = strSubtitle
-        myMap.addAnnotation(annotation)
+        mapView.addAnnotation(annotation)
     }
     
-    @IBAction func sgChange(_ sender: UISegmentedControl) {
-        if sender.selectedSegmentIndex == 0 {
-            locationManager.startUpdatingLocation()
-        } else if sender.selectedSegmentIndex == 1 {
-            setAnnotation(latitudeValue: 37.4812114, longitudeValue: 126.9527522, delta: 0.01, title: "설입냥", subtitble: "고양이설명텍스트")
-        }
+    
+    
+//    @IBAction func sgChange(_ sender: UISegmentedControl) {
+//        if sender.selectedSegmentIndex == 0 {
+//            locationManager.startUpdatingLocation()
+//        } else if sender.selectedSegmentIndex == 1 {
+//            setAnnotation(latitudeValue: 37.4812114, longitudeValue: 126.9527522, delta: 0.01, title: "설입냥", subtitble: "고양이설명텍스트")
+//        }
     }
     
 //        self.locationManager.requestWhenInUseAuthorization() // .requestAlwaysAuthorization()
