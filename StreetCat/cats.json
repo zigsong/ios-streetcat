@@ -1,27 +1,44 @@
-[
-    {
-        "name": "zig",
-        "character": "small, little cat",
-        "spot": 34
-    },
-    {
-        "name": "ahyeon",
-        "character": "business",
-        "spot": 63
-    },
-    {
-        "name": "gummy",
-        "character": "literature",
-        "spot": 23
-    },
-    {
-        "name": "hyem",
-        "character": "engineering",
-        "spot": 55
-    },
-    {
-        "name": "yes",
-        "character": "liberal",
-        "spot": 20
-    }
-]
+{
+    "cats": [
+        {
+            "name": "zig",
+            "character": "small, little cat",
+            "spot": {
+                "lat": 126.58,
+                "lon": 37.34
+            }
+        },
+        {
+            "name": "ahyeon",
+            "character": "business",
+            "spot": {
+                "lat": 126.59,
+                "lon": 37.34
+            }
+        },
+        {
+            "name": "gummy",
+            "character": "literature",
+            "spot": {
+                "lat": 126.58,
+                "lon": 37.35
+            }
+        },
+        {
+            "name": "hyem",
+            "character": "engineering",
+            "spot": {
+                "lat": 126.60,
+                "lon": 37.36
+            }
+        },
+        {
+            "name": "yes",
+            "character": "liberal",
+            "spot": {
+                "lat": 126.62,
+                "lon": 37.32
+            }
+        }
+    ]
+}

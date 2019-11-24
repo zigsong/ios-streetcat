@@ -26,7 +26,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="MockData"/>
                                 <connections>
-                                    <action selector="makeMockData:" destination="BYZ-38-t0r" eventType="touchUpInside" id="S6H-oC-Okv"/>
+                                    <action selector="makeMockData:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Lwz-Q0-lN6"/>
                                 </connections>
                             </button>
                         </subviews>

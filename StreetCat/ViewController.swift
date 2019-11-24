@@ -12,6 +12,10 @@ import CoreLocation
 
 class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
+    enum DecodingError: Error {
+        case missingFile
+    }
+    
     @IBOutlet weak var mapView: MKMapView!
     let locationManager = CLLocationManager()
     // self.mapview.delegate = self
@@ -41,60 +45,27 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     }
     }
     
+    func loadMockData() throws -> CatList {
+        guard let url = Bundle.main.url(forResource: "cats", withExtension: "json") else {
+            throw DecodingError.missingFile
+        }
+        
+        let decoder = JSONDecoder()
+        let data = try Data(contentsOf: url)
+        return try decoder.decode(CatList.self, from: data)
+    }
+    
     @IBAction func makeMockData(_ sender: UIButton) {
-  
-        struct Cat: Codable {
-            // typealias CLLocationDegrees = Double
-            var name: String
-            var character: String
-            // var photo: UIImage
-            var spot: Double
-        }
-
-        enum DecodingError: Error {
-            case missingFile
+        do {
+            let catList = try loadMockData()
+            
+            for cat in catList.cats {
+                print("\(cat.name)")
+            }
+        } catch {
+            print(error)
         }
         
-// *** 구글링 1 https://stackoverflow.com/questions/54089660/how-to-parse-json-data-from-local-files
-//        let url = Bundle.main.url(forResource: "cats", withExtension: "json")!
-//        let data = try! Data(contentsOf: url)
-//        let JSON = try! JSONSerialization.jsonObject(with: data, options: [])
-//        // print(".........." , JSON , ".......")
-//        if let cats = JSON as? [[String: Any]] {
-//            for cat in cats {
-//                let name = cat["name"] as? String ?? "No Name"
-//                let character = cat["character"] as? String ?? "No Character"
-//                // let spot = cat["spot"] as? Double ?? "No Spot"
-//                print("=======",name, character, "=======")
-//            }
-//        }
-        
-// *** 구글링 2 https://stackoverflow.com/questions/50945202/how-to-get-data-from-local-json-file-in-swift *** //
-//        let url = Bundle.main.url(forResource: "cats", withExtension: "json")!
-//        do {
-//            let jsonData = try Data(contentsOf: url)
-//            let json = try JSONSerialization.jsonObject(with: jsonData) as! [[String: Any]]
-//
-//            if let cat1 = json.first {
-//                print( cat1["name"] as Any)
-//            }
-//        }
-//        catch {
-//            print(error)
-//        }
-        
-// *** 교수님의 자료 *** //.
-//        let cat1 = Cat(name: "zig", character: "dizzy", spot: 33)
-//        print(cat1.name)
-        
-//        guard let url = Bundle.main.url(forResource: "cats", withExtension: "json") else {
-//            throw DecodingError.missingFile // 위에서 DecodingError를 명시
-//            }
-//        let decoder = JSONDecoder()
-//        let data = try Data(contentsOf: url)
-//        cat = try decoder.decode(Cat.self, from: data) // QQ. [Cat].self라고 해야 하는지?
-        
-        // print(cat)
         
 // *** 지도 작업 할 것 *** //
         // let marker = MKMarkerAnnotationView()
