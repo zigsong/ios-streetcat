@@ -8,31 +8,43 @@
 
 import UIKit
 
-class AddViewController: UIViewController, UITextFieldDelegate {
+class AddViewController: UIViewController {
     
     let picker = UIImagePickerController()
     
-    @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var addImage: UIButton!
     @IBOutlet weak var imageView: UIImageView!
-    
+    @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var infoTextView: UITextView!
+    @IBOutlet weak var warningSign: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        nameTextField.delegate = self
         picker.delegate = self
-    }
-    
-    
-    // 이름 입력 후 '입력' 버튼을 누르면 나타날 액션
-    @IBAction func nameButtonPressed(_ sender: UIButton) {
-        nameTextField.endEditing(true)
-        // action
+        nameTextField.delegate = self
+        infoTextView.delegate = self
+        
+        // 사진 추가 버튼의 프레임 설정
+        self.addImage.layer.borderWidth = 0.5
+        self.addImage.layer.borderColor = UIColor.lightGray.cgColor
+
+        // 상세 정보 칸의 프레임 설정
+        self.infoTextView.layer.borderColor = UIColor.lightGray.cgColor
+        self.infoTextView.layer.borderWidth = 1
+        self.infoTextView.layer.cornerRadius = 10
+        
+        // textview의 placeholder 역할
+        self.infoTextView.text = "내용을 입력하세요."
+        self.infoTextView.textColor = UIColor.lightGray
+        
+        self.warningSign.text = ""
+        self.warningSign.textColor = UIColor.red
     }
     
     
     @IBAction func addImage(_ sender: UIButton) {
-        let alert = UIAlertController(title: "원하는 타이틀", message: "원하는 메시지", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: nil, message: "고양이 사진을 등록합니다.", preferredStyle: .actionSheet)
         let library = UIAlertAction(title: "사진 앨범", style: .default) { (action) in self.openLibrary()
         }
         let camera =  UIAlertAction(title: "카메라", style: .default) { (action) in self.openCamera()
@@ -47,61 +59,44 @@ class AddViewController: UIViewController, UITextFieldDelegate {
         
     }
     
+    // 이름 입력 후 '확인' 버튼을 누르면 나타날 액션
+    @IBAction func nameButtonPressed(_ sender: UIButton) {
+        nameTextField.endEditing(true)
+        // action
+    }
+    
+    @IBAction func infoButtonPressed(_ sender: UIButton) {
+        infoTextView.endEditing(true)
+    }
     
     @IBAction func finalConfirm(_ sender: UIButton) {
+        
+        if nameTextField.text != "" {
+        
+            // 이 경우에 입력된 이름, 장소, 이미지, 상세 정보를 모두 받아서 DB로 넘기고 저장이 필요함.
+            
+            self.dismiss(animated: true, completion: nil)
+        } else {
+            warningSign.text = "입력이 모두 완료되지 않았습니다."
+        }
     }
     
     
     @IBAction func finalCancel(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
-    
-    
-    // 자판의 return or enter 버튼을 눌렀을 경우 나타날 액션
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        nameTextField.endEditing(true)
-        // action
-        return true
-    }
-    
-    // 입력 완료할지 말지 결정하는 것 같아요. 아래는 사용자가 입력을 안하고 넘어가려고 할 경우에 입력이 필요하다고 메시지를 주고, 입력 완료로 넘어가지 못하게 하는 구문입니다. 어느 텍스트창이든 빈 칸으로 넘어가지 못하게 하려면 if 문 안의 nameTextField를 그냥 textField로 바꿔도 됩니다.
-    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        if nameTextField.text != "" {
-            return true
-        } else {
-            nameTextField.placeholder = "입력이 필요합니다."
-            return false
-        }
-    }
-    
-    // 입력이 완료되었을 경우 나타날 액션인데, 텍스트 입력창이 여러 개인 경우에는 어떻게 될 지를 모르겠네요.. 전체 완료 후 나타날 반응인 것 같아요
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        
-        // 일반적으로 search를 하고 나서 그 칸을 clear할 때 씁니다.
-        
-    }
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
 }
 
 
-//MARK: - 고양이 사진을 추가하기 위해서 필요한 extension
+//MARK: - 고양이 사진을 추가하기 위해서 필요한 Image Picker 관련 extension
 
-extension AddViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+extension AddViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func openLibrary(){
-      picker.sourceType = .photoLibrary
-      present(picker, animated: false, completion: nil)
+        picker.sourceType = .photoLibrary
+        present(picker, animated: false, completion: nil)
     }
-
+    
     func openCamera(){
         if (UIImagePickerController .isSourceTypeAvailable(.camera)) {
             picker.sourceType = .camera
@@ -117,5 +112,69 @@ extension AddViewController : UIImagePickerControllerDelegate, UINavigationContr
             print(info)
         }
         dismiss(animated: true, completion: nil)
+    }
+}
+
+//MARK: - 이름 입력을 위해 필요한 Text Field의 프로토콜을 받는 extension
+
+extension AddViewController : UITextFieldDelegate {
+    
+    // 자판의 return or enter 버튼을 눌렀을 경우 나타날 액션
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        nameTextField.endEditing(true)
+        // action
+        return true
+    }
+    
+    // 입력 완료할지 말지 결정하는 것 같아요. 아래는 사용자가 입력을 안하고 넘어가려고 할 경우에 입력이 필요하다고 메시지를 주고, 입력 완료로 넘어가지 못하게 하는 구문입니다.
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        if nameTextField.text != "" {
+            return true
+        } else {
+            nameTextField.attributedPlaceholder = NSAttributedString(string: "입력이 필요합니다.",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.red])
+            return true
+        }
+    }
+    
+    // 입력이 완료되었을 경우 나타날 액션인데, 텍스트 입력창이 여러 개인 경우에는 어떻게 될 지를 모르겠네요..
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        // 입력 다 하고 나서 취해질 액션
+        
+    }
+}
+
+//MARK: - 상세 정보를 입력할 때 필요한 Text View의 extension
+
+extension AddViewController : UITextViewDelegate {
+    
+    // 정보 입력 시작할 경우
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        textViewSetupView()
+    }
+    
+    // 정보 입력 마칠 경우
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if infoTextView.text == "" {
+            textViewSetupView()
+        }
+    }
+    
+    // 정보 입력될 때
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            infoTextView.resignFirstResponder()
+        }
+        return true
+    }
+    
+    func textViewSetupView() {
+        if infoTextView.text == "내용을 입력하세요." {
+            infoTextView.text = ""
+            infoTextView.textColor = UIColor.black
+        } else if infoTextView.text == "" {
+            infoTextView.text = "내용을 입력하세요."
+            infoTextView.textColor = UIColor.lightGray
+        }
     }
 }
