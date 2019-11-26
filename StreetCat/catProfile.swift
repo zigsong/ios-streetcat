@@ -56,8 +56,7 @@ struct Cat: Codable { // codable protocol 채택
 
 struct CatList: Codable {
     var cats: [Cat]// 여러 마리 array로 변환
-
-
+}
 
 
    
