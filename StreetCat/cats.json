@@ -2,42 +2,26 @@
     "cats": [
         {
             "name": "zig",
-            "character": "small, little cat",
+            "color": "orange",
             "spot": {
-                "lat": 126.58,
-                "lon": 37.34
+                "lat": 37.50,
+                "lon": 126.95
             }
         },
         {
             "name": "ahyeon",
-            "character": "business",
+            "color": "white",
             "spot": {
-                "lat": 126.59,
-                "lon": 37.34
+                "lat": 37.52,
+                "lon": 126.97
             }
         },
         {
             "name": "gummy",
-            "character": "literature",
+            "color": "black",
             "spot": {
-                "lat": 126.58,
-                "lon": 37.35
-            }
-        },
-        {
-            "name": "hyem",
-            "character": "engineering",
-            "spot": {
-                "lat": 126.60,
-                "lon": 37.36
-            }
-        },
-        {
-            "name": "yes",
-            "character": "liberal",
-            "spot": {
-                "lat": 126.62,
-                "lon": 37.32
+                "lat": 37.53,
+                "lon": 126.98
             }
         }
     ]
