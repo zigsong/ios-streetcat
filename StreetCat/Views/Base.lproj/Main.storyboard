@@ -38,6 +38,14 @@
                                     <action selector="CheckCatInfo:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ZK3-f2-ybz"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="elV-wL-mXj">
+                                <rect key="frame" x="172" y="724" width="70" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="MockData"/>
+                                <connections>
+                                    <action selector="makeMockData:" destination="BYZ-38-t0r" eventType="touchUpInside" id="oJ8-zC-PRd"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>

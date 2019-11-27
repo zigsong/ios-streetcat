@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		7EDE3C052381270C00777CD1 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDE3C042381270C00777CD1 /* InfoViewController.swift */; };
 		7EDE3C0723812AFD00777CD1 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDE3C0623812AFD00777CD1 /* AddViewController.swift */; };
+		7EDE3C12238E490E00777CD1 /* cats.json in Resources */ = {isa = PBXBuildFile; fileRef = 7EDE3C11238E490E00777CD1 /* cats.json */; };
+		7EDE3C16238E4FE500777CD1 /* CatAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDE3C15238E4FE500777CD1 /* CatAnnotation.swift */; };
 		CE9BF8142376A33600E21B75 /* CatProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9BF8132376A33600E21B75 /* CatProfile.swift */; };
 		CE9BF8172376B91200E21B75 /* infoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE9BF8192376B91200E21B75 /* infoPlist.strings */; };
 		CEC0C6DD23750F09003C4FD1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC0C6DC23750F09003C4FD1 /* AppDelegate.swift */; };
@@ -22,6 +24,8 @@
 /* Begin PBXFileReference section */
 		7EDE3C042381270C00777CD1 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		7EDE3C0623812AFD00777CD1 /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
+		7EDE3C11238E490E00777CD1 /* cats.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = cats.json; sourceTree = "<group>"; };
+		7EDE3C15238E4FE500777CD1 /* CatAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatAnnotation.swift; sourceTree = "<group>"; };
 		CE9BF8132376A33600E21B75 /* CatProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatProfile.swift; sourceTree = "<group>"; };
 		CE9BF8182376B91200E21B75 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/infoPlist.strings; sourceTree = "<group>"; };
 		CEC0C6D923750F09003C4FD1 /* StreetCat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StreetCat.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -49,6 +53,8 @@
 			isa = PBXGroup;
 			children = (
 				CE9BF8132376A33600E21B75 /* CatProfile.swift */,
+				7EDE3C15238E4FE500777CD1 /* CatAnnotation.swift */,
+				7EDE3C11238E490E00777CD1 /* cats.json */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -163,6 +169,7 @@
 			files = (
 				CEC0C6E923750F0B003C4FD1 /* LaunchScreen.storyboard in Resources */,
 				CE9BF8172376B91200E21B75 /* infoPlist.strings in Resources */,
+				7EDE3C12238E490E00777CD1 /* cats.json in Resources */,
 				CEC0C6E623750F0B003C4FD1 /* Assets.xcassets in Resources */,
 				CEC0C6E423750F09003C4FD1 /* Main.storyboard in Resources */,
 			);
@@ -177,6 +184,7 @@
 			files = (
 				CE9BF8142376A33600E21B75 /* CatProfile.swift in Sources */,
 				CEC0C6E123750F09003C4FD1 /* ViewController.swift in Sources */,
+				7EDE3C16238E4FE500777CD1 /* CatAnnotation.swift in Sources */,
 				7EDE3C0723812AFD00777CD1 /* AddViewController.swift in Sources */,
 				CEC0C6DD23750F09003C4FD1 /* AppDelegate.swift in Sources */,
 				CEC0C6DF23750F09003C4FD1 /* SceneDelegate.swift in Sources */,

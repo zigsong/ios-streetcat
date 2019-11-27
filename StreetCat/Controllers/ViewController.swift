@@ -12,6 +12,12 @@ import CoreLocation
 
 class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
+    enum DecodingError: Error {
+        case missingFile
+    }
+    
+    var cats: [CatAnnotation] = []
+    
     var catName = "CAT"
     
     @IBOutlet weak var mapView: MKMapView!
@@ -49,37 +55,58 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         // delta값이 1보다 작을수록 확대됨. 100배 확대
     }
 
-    func setAnnotation(latitudeValue: CLLocationDegrees, longitudeValue: CLLocationDegrees, delta span: Double, title strTitle: String, subtitble strSubtitle:String) {
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = myLocation(latitudeValue: latitudeValue, longitudeValue: longitudeValue, delta: span)
-        annotation.title = strTitle
-        annotation.subtitle = strSubtitle
-        mapView.addAnnotation(annotation)
+    
+    //MARK: - 이하 노준현 전까지 지은 님 코드
+    func loadMockData() throws -> CatList {
+       guard let url = Bundle.main.url(forResource: "cats", withExtension: "json") else {
+           throw DecodingError.missingFile
+        }
+       
+       let decoder = JSONDecoder()
+       let data = try Data(contentsOf: url)
+       return try decoder.decode(CatList.self, from: data)
+        
+    }
+
+    @IBAction func makeMockData(_ sender: UIButton) {
+           do {
+               let catList = try loadMockData()
+                // print(catList)
+               cats = []
+               for cat in catList.cats {
+                   print("\(cat.name)")
+                
+                cats += [CatAnnotation(title: cat.name, color: cat.color, spot: CLLocationCoordinate2D(latitude: cat.spot.coordinate.latitude, longitude: cat.spot.coordinate.longitude), coordinate: CLLocationCoordinate2D(latitude: cat.spot.coordinate.latitude, longitude: cat.spot.coordinate.longitude))]
+               }
+               mapView.addAnnotation(cat1)
+               mapView.addAnnotations(cats)
+           } catch {
+               print(error)
+           }
     }
     
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        if annotation is MKUserLocation { return nil }
+    let cat1 = CatAnnotation(title: "test", color: "yellow", spot: CLLocationCoordinate2D(latitude: 37.51, longitude: 126.96), coordinate: CLLocationCoordinate2D(latitude: 37.51, longitude: 126.96))
+    
+     // marker 클릭 시 info page를 보여주기 위한 코드
+     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
 
-        let reuseIdentifier = "..."
-
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
-
-        if annotationView == nil {
-            annotationView = CustomAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
-        } else {
-            annotationView?.annotation = annotation
-        }
-
-        return annotationView
-    }
-
-    @IBAction func sgChange(_ sender: UISegmentedControl) {
-        if sender.selectedSegmentIndex == 0 {
-            locationManager.startUpdatingLocation()
-        } else if sender.selectedSegmentIndex == 1 {
-            setAnnotation(latitudeValue: 37.4812114, longitudeValue: 126.9527522, delta: 0.01, title: "설입냥", subtitble: "고양이설명텍스트")
-        }
-    }
+       guard let annotation = annotation as? CatAnnotation else { return nil }
+       let identifier = "marker"
+       var view: MKMarkerAnnotationView
+       if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+         as? MKMarkerAnnotationView {
+         dequeuedView.annotation = annotation
+         view = dequeuedView
+       } else {
+         view = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+         view.canShowCallout = true // annotaion이 추가 info를 보여줄 수 있느닞?
+         view.calloutOffset = CGPoint(x: -5, y: 5) // callout의 위치(2차원 좌표)
+         view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure) // callout의 우측에 info 버튼을 추가
+       }
+       return view
+     }
+    
+    
     
     //        self.locationManager.requestWhenInUseAuthorization() // .requestAlwaysAuthorization()
     //        var currentLoc: CLLocation!
@@ -94,6 +121,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     //            print("error")
     //        }
     
+    //MARK: - 이하 노준현 코드
     @IBAction func AddNewCat(_ sender: UIButton) {
         self.performSegue(withIdentifier: "goToAdd", sender: self)
     }
@@ -115,16 +143,16 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         // Pass the selected object to the new view controller.
     }
 }
-
-class CustomAnnotationView: MKPinAnnotationView {  // or nowadays, you might use MKMarkerAnnotationView
-    override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
-        super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
-
-        canShowCallout = true
-        rightCalloutAccessoryView = UIButton(type: .infoLight)
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-}
+//
+//class CustomAnnotationView: MKPinAnnotationView {  // or nowadays, you might use MKMarkerAnnotationView
+//    override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
+//        super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
+//
+//        canShowCallout = true
+//        rightCalloutAccessoryView = UIButton(type: .infoLight)
+//    }
+//
+//    required init?(coder aDecoder: NSCoder) {
+//        super.init(coder: aDecoder)
+//    }
+//}
