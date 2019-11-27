@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "19CF4DD72377EA030043BDB4"
-               BuildableName = "mapview.app"
+               BuildableName = ".app"
                BlueprintName = "mapview"
                ReferencedContainer = "container:mapview.xcodeproj">
             </BuildableReference>
@@ -27,6 +27,15 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "19CF4DD72377EA030043BDB4"
+            BuildableName = ".app"
+            BlueprintName = "mapview"
+            ReferencedContainer = "container:mapview.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <Testables>
          <TestableReference
             skipped = "NO">
@@ -49,17 +58,6 @@
             </BuildableReference>
          </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "19CF4DD72377EA030043BDB4"
-            BuildableName = "mapview.app"
-            BlueprintName = "mapview"
-            ReferencedContainer = "container:mapview.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -76,13 +74,11 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "19CF4DD72377EA030043BDB4"
-            BuildableName = "mapview.app"
+            BuildableName = ".app"
             BlueprintName = "mapview"
             ReferencedContainer = "container:mapview.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <AdditionalOptions>
-      </AdditionalOptions>
       <LocationScenarioReference
          identifier = "com.apple.dt.IDEFoundation.CurrentLocationScenarioIdentifier"
          referenceType = "1">
@@ -99,7 +95,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "19CF4DD72377EA030043BDB4"
-            BuildableName = "mapview.app"
+            BuildableName = ".app"
             BlueprintName = "mapview"
             ReferencedContainer = "container:mapview.xcodeproj">
          </BuildableReference>

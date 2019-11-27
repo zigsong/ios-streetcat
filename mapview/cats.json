@@ -1,0 +1,29 @@
+{
+    "cats": [
+        {
+            "name": "zig",
+            "color": "orange",
+            "spot": {
+                "lat": 37.50,
+                "lon": 126.95
+            }
+        },
+        {
+            "name": "ahyeon",
+            "color": "white",
+            "spot": {
+                "lat": 37.52,
+                "lon": 126.97
+            }
+        },
+        {
+            "name": "gummy",
+            "color": "black",
+            "spot": {
+                "lat": 37.53,
+                "lon": 126.98
+            }
+        }
+    ]
+}
+

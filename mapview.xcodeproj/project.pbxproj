@@ -8,7 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		19BED6C52381445E00CA9FCD /* infoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19BED6C42381445E00CA9FCD /* infoViewController.swift */; };
-		19CB4778238A91810083B0E1 /* Cat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19CB4777238A91810083B0E1 /* Cat.swift */; };
+		19BFA96C238E4DEE00E9D037 /* CatProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19BFA96B238E4DEE00E9D037 /* CatProfile.swift */; };
+		19BFA96E238E4F2400E9D037 /* cats.json in Resources */ = {isa = PBXBuildFile; fileRef = 19BFA96D238E4F2400E9D037 /* cats.json */; };
+		19CB4778238A91810083B0E1 /* CatAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19CB4777238A91810083B0E1 /* CatAnnotation.swift */; };
 		19CB477A238AB0CF0083B0E1 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19CB4779238AB0CF0083B0E1 /* DetailViewController.swift */; };
 		19CF4DDC2377EA030043BDB4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19CF4DDB2377EA030043BDB4 /* AppDelegate.swift */; };
 		19CF4DDE2377EA030043BDB4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19CF4DDD2377EA030043BDB4 /* ViewController.swift */; };
@@ -38,9 +40,11 @@
 
 /* Begin PBXFileReference section */
 		19BED6C42381445E00CA9FCD /* infoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = infoViewController.swift; sourceTree = "<group>"; };
-		19CB4777238A91810083B0E1 /* Cat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cat.swift; sourceTree = "<group>"; };
+		19BFA96B238E4DEE00E9D037 /* CatProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatProfile.swift; sourceTree = "<group>"; };
+		19BFA96D238E4F2400E9D037 /* cats.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = cats.json; sourceTree = "<group>"; };
+		19CB4777238A91810083B0E1 /* CatAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatAnnotation.swift; sourceTree = "<group>"; };
 		19CB4779238AB0CF0083B0E1 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
-		19CF4DD82377EA030043BDB4 /* mapview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mapview.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		19CF4DD82377EA030043BDB4 /* .app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = .app; sourceTree = BUILT_PRODUCTS_DIR; };
 		19CF4DDB2377EA030043BDB4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		19CF4DDD2377EA030043BDB4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		19CF4DE02377EA030043BDB4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -94,7 +98,7 @@
 		19CF4DD92377EA030043BDB4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				19CF4DD82377EA030043BDB4 /* mapview.app */,
+				19CF4DD82377EA030043BDB4 /* .app */,
 				19CF4DEC2377EA070043BDB4 /* mapviewTests.xctest */,
 				19CF4DF72377EA070043BDB4 /* mapviewUITests.xctest */,
 			);
@@ -112,7 +116,9 @@
 				19CF4DE22377EA060043BDB4 /* Assets.xcassets */,
 				19CF4DE42377EA060043BDB4 /* LaunchScreen.storyboard */,
 				19CF4DE72377EA060043BDB4 /* Info.plist */,
-				19CB4777238A91810083B0E1 /* Cat.swift */,
+				19CB4777238A91810083B0E1 /* CatAnnotation.swift */,
+				19BFA96B238E4DEE00E9D037 /* CatProfile.swift */,
+				19BFA96D238E4F2400E9D037 /* cats.json */,
 			);
 			path = mapview;
 			sourceTree = "<group>";
@@ -159,7 +165,7 @@
 			);
 			name = mapview;
 			productName = mapview;
-			productReference = 19CF4DD82377EA030043BDB4 /* mapview.app */;
+			productReference = 19CF4DD82377EA030043BDB4 /* .app */;
 			productType = "com.apple.product-type.application";
 		};
 		19CF4DEB2377EA070043BDB4 /* mapviewTests */ = {
@@ -251,6 +257,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				19BFA96E238E4F2400E9D037 /* cats.json in Resources */,
 				19CF4DE62377EA060043BDB4 /* LaunchScreen.storyboard in Resources */,
 				19CF4DE32377EA060043BDB4 /* Assets.xcassets in Resources */,
 				19CF4DE12377EA030043BDB4 /* Main.storyboard in Resources */,
@@ -278,8 +285,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				19CB4778238A91810083B0E1 /* Cat.swift in Sources */,
+				19CB4778238A91810083B0E1 /* CatAnnotation.swift in Sources */,
 				19BED6C52381445E00CA9FCD /* infoViewController.swift in Sources */,
+				19BFA96C238E4DEE00E9D037 /* CatProfile.swift in Sources */,
 				19CB477A238AB0CF0083B0E1 /* DetailViewController.swift in Sources */,
 				19CF4DDE2377EA030043BDB4 /* ViewController.swift in Sources */,
 				19CF4DDC2377EA030043BDB4 /* AppDelegate.swift in Sources */,
@@ -466,7 +474,6 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "-----.mapview";
-				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -486,7 +493,6 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "-----.mapview";
-				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";

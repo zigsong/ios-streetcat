@@ -8,11 +8,19 @@
 
 import UIKit
 import MapKit
+import CoreLocation
 
 class ViewController: UIViewController, CLLocationManagerDelegate {
+    
+    enum DecodingError: Error {
+        case missingFile
+    }
+    
+    var cats: [CatAnnotation] = []
 
     @IBOutlet weak var myMap: MKMapView!
     let locationManager = CLLocationManager()
+//    let catAnnotations = CatAnnotations()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,11 +33,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         myMap.delegate = self
 //        setAnnotation(latitudeValue: 37.4812114, longitudeValue: 126.9527522, delta: 0.01, title: "설입냥", subtitble: "고양이설명텍스트")
         
-        let cat = Cat(title: "설입냥",
-          locationName: "서울대입구",
-          discipline: "삼색냥이",
-          coordinate: CLLocationCoordinate2D(latitude: 37.4812114, longitude: 126.9527522))
-        myMap.addAnnotation(cat)
+//        let cat = Cat(title: "설입냥",
+//          locationName: "서울대입구",
+//          discipline: "삼색냥이",
+//          coordinate: CLLocationCoordinate2D(latitude: 37.4812114, longitude: 126.9527522))
+//        myMap.addAnnotation(cat)
+//        myMap.addAnnotations(catAnnotations.cats)
     }
     
     
@@ -55,13 +64,64 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         _ = goLocation(latitudeValue: (pLocation?.coordinate.latitude)!, longitudeValue:  (pLocation?.coordinate.longitude)!, delta: 0.01)
     }
     
-}
-        
 
+
+func loadMockData() throws -> CatList {
+      guard let url = Bundle.main.url(forResource: "cats", withExtension: "json") else {
+          throw DecodingError.missingFile
+       }
+      
+      let decoder = JSONDecoder()
+      let data = try Data(contentsOf: url)
+      return try decoder.decode(CatList.self, from: data)
+       
+   }
+
+   @IBAction func makeMockData(_ sender: UIButton) {
+          do {
+              let catList = try loadMockData()
+               // print(catList)
+              cats = []
+              for cat in catList.cats {
+                  print("\(cat.name)")
+               
+               cats += [CatAnnotation(title: cat.name, color: cat.color, spot: CLLocationCoordinate2D(latitude: cat.spot.coordinate.latitude, longitude: cat.spot.coordinate.longitude), coordinate: CLLocationCoordinate2D(latitude: cat.spot.coordinate.latitude, longitude: cat.spot.coordinate.longitude))]
+              }
+              myMap.addAnnotations(cats)
+          } catch {
+            print(error)
+        }
+     
+    }
+    
+    
+}
+    
 extension ViewController: MKMapViewDelegate {
   func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-    guard let annotation = annotation as? Cat else { return nil }
-    let identifier = "marker"
+    guard let annotation = annotation as? CatAnnotation else { return nil }
+    var identifier = "marker"
+    var color = UIColor.red
+//    switch annotation.color {
+//        case "black" :
+//            identifier = "Black"
+//            color = .black
+//        case "white" :
+//            identifier = "White"
+//            color = .white
+//        case "orange" :
+//            identifier = "Orange"
+//            color = .orange
+//        }
+    if annotation.color == "black" { identifier = "Black"
+                   color = .black}
+    else if annotation.color == "white" { identifier = "White"
+        color = .white}
+    else if annotation.color == "orange" { identifier = "Orange"
+        color = .orange}
+    else {identifier = "else"
+        color = .red }
+        
     var view: MKMarkerAnnotationView
     if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
       as? MKMarkerAnnotationView {
@@ -73,27 +133,32 @@ extension ViewController: MKMapViewDelegate {
       view.calloutOffset = CGPoint(x: -5, y: 5)
       view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
     }
+    view.markerTintColor = color
+//                view.glyphImage = UIImage(named: "WhiteCat")
+    //            annotationView.glyphTintColor = .yellow
+                view.clusteringIdentifier = identifier
     return view
   }
     
-    private func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-
-        if control == view.rightCalloutAccessoryView {
-            self.performSegue(withIdentifier: "GoDetail", sender: self)
-        }
-    }
+//    private func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+//
+//        if control == view.rightCalloutAccessoryView {
+//            self.performSegue(withIdentifier: "GoDetail", sender: self)
+//        }
+//    }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    if segue.identifier == "GoDetail" {
-        _ = segue.destination as! DetailViewController
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//    if segue.identifier == "GoDetail" {
+//        _ = segue.destination as! DetailViewController
 //        destinationVC.catName = catName
-    }
+//    }
 //        else if segue.identifier == "goToAdd" {
 //        let destinationVC = segue.destination as! AddViewController
 //    }
-    
-    }
-    
 }
+    
+    
+
+
 
 
