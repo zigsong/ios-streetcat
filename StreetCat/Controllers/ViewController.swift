@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
+class ViewController: UIViewController, CLLocationManagerDelegate {
     
     enum DecodingError: Error {
         case missingFile
@@ -18,11 +18,13 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     
     var cats: [CatAnnotation] = []
     
+    // 정보 페이지에 그냥 연결한 샘플 나중에 지워도 됨.
     var catName = "CAT"
     
     @IBOutlet weak var mapView: MKMapView!
     
     let locationManager = CLLocationManager()
+    //    let catAnnotations = CatAnnotations()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,31 +34,55 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
         mapView.delegate = self
-        mapView.showsUserLocation = true // 현재위치를 마커로 표시 // CL과 함께 사용
+//        mapView.showsUserLocation = true // 현재위치를 마커로 표시 // CL과 함께 사용
+        
+        //        setAnnotation(latitudeValue: 37.4812114, longitudeValue: 126.9527522, delta: 0.01, title: "설입냥", subtitble: "고양이설명텍스트")
+                
+        //        let cat = Cat(title: "설입냥",
+        //          locationName: "서울대입구",
+        //          discipline: "삼색냥이",
+        //          coordinate: CLLocationCoordinate2D(latitude: 37.4812114, longitude: 126.9527522))
+        //        myMap.addAnnotation(cat)
+        //        myMap.addAnnotations(catAnnotations.cats)
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    func myLocation(latitudeValue: CLLocationDegrees, longitudeValue: CLLocationDegrees, delta span: Double) -> CLLocationCoordinate2D {
-        let coordinateLocation = CLLocationCoordinate2DMake(latitudeValue, longitudeValue)
-        let spanValue = MKCoordinateSpan(latitudeDelta: span, longitudeDelta: span)
-        // 기존 함수: MKCoordinateSpanMake(delta, delta)
-        let locationRegion = MKCoordinateRegion(center: coordinateLocation, span: spanValue)
-        // 기존함수: MKCoordinateRegionMake(coordinateLocation, spanValue)
-        mapView.setRegion(locationRegion, animated: true)
-        return coordinateLocation
-    }
+    func goLocation(latitudeValue: CLLocationDegrees, longitudeValue: CLLocationDegrees, delta span: Double) -> CLLocationCoordinate2D {
+            let pLocation = CLLocationCoordinate2DMake(latitudeValue,longitudeValue)
+    //        let spanValue = MKCoordinateSpan(latitudeDelta: span, longitudeDelta: span)
+    //        let pRegion = MKCoordinateRegion(center: pLocation, span: spanValue)
+           // myMap.setRegion(pRegion, animated: true)
+            return pLocation
+        }
+    
+    //    func setAnnotation(latitudeValue: CLLocationDegrees, longitudeValue: CLLocationDegrees, delta span: Double, title strTitle: String, subtitble strSubtitle:String) {
+    //        let annotation = MKPointAnnotation()
+    //        annotation.coordinate = goLocation(latitudeValue: latitudeValue, longitudeValue: longitudeValue, delta: span)
+    //        annotation.title = strTitle
+    //        annotation.subtitle = strSubtitle
+    //        myMap.addAnnotation(annotation)
+    //    }
+
+    // 혜민 님 코드에 없던데 혹시 몰라서 주석 처리했어요.
+//    func myLocation(latitudeValue: CLLocationDegrees, longitudeValue: CLLocationDegrees, delta span: Double) -> CLLocationCoordinate2D {
+//        let coordinateLocation = CLLocationCoordinate2DMake(latitudeValue, longitudeValue)
+//        let spanValue = MKCoordinateSpan(latitudeDelta: span, longitudeDelta: span)
+//        // 기존 함수: MKCoordinateSpanMake(delta, delta)
+//        let locationRegion = MKCoordinateRegion(center: coordinateLocation, span: spanValue)
+//        // 기존함수: MKCoordinateRegionMake(coordinateLocation, spanValue)
+//        mapView.setRegion(locationRegion, animated: true)
+//        return coordinateLocation
+//    }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let lastLocation = locations.last
-        _ = myLocation(latitudeValue: (lastLocation?.coordinate.latitude)!, longitudeValue: (lastLocation?.coordinate.longitude)!, delta: 0.01)
-        // delta값이 1보다 작을수록 확대됨. 100배 확대
+        let pLocation = locations.last
+        _ = goLocation(latitudeValue: (pLocation?.coordinate.latitude)!, longitudeValue:  (pLocation?.coordinate.longitude)!, delta: 0.01)
     }
-
     
-    //MARK: - 이하 노준현 전까지 지은 님 코드
+    //MARK: - 지은 님 코드
     func loadMockData() throws -> CatList {
        guard let url = Bundle.main.url(forResource: "cats", withExtension: "json") else {
            throw DecodingError.missingFile
@@ -67,7 +93,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
        return try decoder.decode(CatList.self, from: data)
         
     }
-
+    
     @IBAction func makeMockData(_ sender: UIButton) {
            do {
                let catList = try loadMockData()
@@ -78,48 +104,14 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 
                 cats += [CatAnnotation(title: cat.name, color: cat.color, spot: CLLocationCoordinate2D(latitude: cat.spot.coordinate.latitude, longitude: cat.spot.coordinate.longitude), coordinate: CLLocationCoordinate2D(latitude: cat.spot.coordinate.latitude, longitude: cat.spot.coordinate.longitude))]
                }
-               mapView.addAnnotation(cat1)
                mapView.addAnnotations(cats)
            } catch {
-               print(error)
-           }
-    }
-    
-    let cat1 = CatAnnotation(title: "test", color: "yellow", spot: CLLocationCoordinate2D(latitude: 37.51, longitude: 126.96), coordinate: CLLocationCoordinate2D(latitude: 37.51, longitude: 126.96))
-    
-     // marker 클릭 시 info page를 보여주기 위한 코드
-     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-
-       guard let annotation = annotation as? CatAnnotation else { return nil }
-       let identifier = "marker"
-       var view: MKMarkerAnnotationView
-       if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
-         as? MKMarkerAnnotationView {
-         dequeuedView.annotation = annotation
-         view = dequeuedView
-       } else {
-         view = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-         view.canShowCallout = true // annotaion이 추가 info를 보여줄 수 있느닞?
-         view.calloutOffset = CGPoint(x: -5, y: 5) // callout의 위치(2차원 좌표)
-         view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure) // callout의 우측에 info 버튼을 추가
-       }
-       return view
+             print(error)
+         }
      }
-    
-    
-    
-    //        self.locationManager.requestWhenInUseAuthorization() // .requestAlwaysAuthorization()
-    //        var currentLoc: CLLocation!
-    //        if(CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
-    //        CLLocationManager.authorizationStatus() == .authorizedAlways) {
-    // 인증 상태가 유효하다면(위치 항상 허용/ 앱을 사용하는 동안)
-    //        if CLLocationManager.locationServicesEnabled() {
-    //            currentLoc = locationManager.location
-    //            print(currentLoc.coordinate.latitude)
-    //            print(currentLoc.coordinate.longitude)
-    //        } else {
-    //            print("error")
-    //        }
+     
+     
+//    let cat1 = CatAnnotation(title: "test", color: "yellow", spot: CLLocationCoordinate2D(latitude: 37.51, longitude: 126.96), coordinate: CLLocationCoordinate2D(latitude: 37.51, longitude: 126.96))
     
     //MARK: - 이하 노준현 코드
     @IBAction func AddNewCat(_ sender: UIButton) {
@@ -156,3 +148,64 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
 //        super.init(coder: aDecoder)
 //    }
 //}
+
+extension ViewController: MKMapViewDelegate {
+  func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+    guard let annotation = annotation as? CatAnnotation else { return nil }
+    var identifier = "marker"
+    var color = UIColor.red
+//    switch annotation.color {
+//        case "black" :
+//            identifier = "Black"
+//            color = .black
+//        case "white" :
+//            identifier = "White"
+//            color = .white
+//        case "orange" :
+//            identifier = "Orange"
+//            color = .orange
+//        }
+    if annotation.color == "black" { identifier = "Black"
+                   color = .black}
+    else if annotation.color == "white" { identifier = "White"
+        color = .white}
+    else if annotation.color == "orange" { identifier = "Orange"
+        color = .orange}
+    else {identifier = "else"
+        color = .red }
+        
+    var view: MKMarkerAnnotationView
+    if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+      as? MKMarkerAnnotationView {
+      dequeuedView.annotation = annotation
+      view = dequeuedView
+    } else {
+      view = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+      view.canShowCallout = true
+      view.calloutOffset = CGPoint(x: -5, y: 5)
+      view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+    }
+    view.markerTintColor = color
+//                view.glyphImage = UIImage(named: "WhiteCat")
+    //            annotationView.glyphTintColor = .yellow
+                view.clusteringIdentifier = identifier
+    return view
+  }
+    
+//    private func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+//
+//        if control == view.rightCalloutAccessoryView {
+//            self.performSegue(withIdentifier: "GoDetail", sender: self)
+//        }
+//    }
+    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//    if segue.identifier == "GoDetail" {
+//        _ = segue.destination as! DetailViewController
+//        destinationVC.catName = catName
+//    }
+//        else if segue.identifier == "goToAdd" {
+//        let destinationVC = segue.destination as! AddViewController
+//    }
+}
+    

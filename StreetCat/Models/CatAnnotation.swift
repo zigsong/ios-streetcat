@@ -1,35 +1,64 @@
+//  cat.swift
+//  mapview
 //
-//  CatAnnotation.swift
-//  StreetCat
+//  Created by ihyemin on 24/11/2019.
+//  Copyright © 2019 ihyemin. All rights reserved.
 //
-//  Created by songji on 26/11/2019.
-//  Copyright © 2019 songji. All rights reserved.
+//import Foundation
+//import MapKit
 //
-
-import Foundation
+//class Cat: NSObject, MKAnnotation {
+//  let title: String?
+//  let locationName: String
+//  let discipline: String
+//  let coordinate: CLLocationCoordinate2D
+//
+//  init(title: String, locationName: String, discipline: String, coordinate: CLLocationCoordinate2D) {
+//    self.title = title
+//    self.locationName = locationName
+//    self.discipline = discipline
+//    self.coordinate = coordinate
+//
+//    super.init()
+//  }
+//
+//  var subtitle: String? {
+//    return locationName
+//  }
+//}
+import UIKit
 import MapKit
-import Contacts // dict-key constants를 보여줌
 
+//enum CatColor {
+//    case white
+//    case black
+//    case orange
+//}
 class CatAnnotation: NSObject, MKAnnotation {
-    // MKAannotation이 NSObjectProtocol에 종속, 따라서 둘 다 채택
     var coordinate: CLLocationCoordinate2D
-    let title: String?
+    var title: String?
+//    var subtitle: String?
     let color: String
     let spot: CLLocationCoordinate2D
-      
-    init(title: String, color: String, spot: CLLocationCoordinate2D, coordinate: CLLocationCoordinate2D) {
+    
+    init(title: String, color: String,spot: CLLocationCoordinate2D, coordinate: CLLocationCoordinate2D){
         self.title = title
         self.color = color
         self.spot = spot
         self.coordinate = coordinate
-        
-    super.init()
-        
-    
-  }
-  
-//  var subtitle: String? {
-//    return name
-//  }
-}
 
+    super.init()
+
+    }
+}
+//
+//class CatAnnotations: NSObject {
+//    var cats: [CatAnnotation]
+//
+//    override init() {
+//       //build an array of cat loactions
+//        cats = [CatAnnotation(37.527658, 126.893518, title: "나루", catColor: .black)]
+//        cats += [CatAnnotation(37.527360, 126.899622, title: "호두", catColor: .white)]
+//        cats += [CatAnnotation(37.522153, 126.899536, title: "땅콩", catColor: .orange)]
+//    }
+//}
