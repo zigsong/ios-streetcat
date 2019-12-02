@@ -1,12 +1,12 @@
 //
 //  infoViewController.swift
-//  mapview
+//  StreetCats
 //
-//  Created by ihyemin on 17/11/2019.
+//  Created by ihyemin on 02/12/2019.
 //  Copyright © 2019 ihyemin. All rights reserved.
-//
+
 
 import UIKit
 
-class infoViewController: UIViewController {}
 
+class infoViewController: UIViewController {}

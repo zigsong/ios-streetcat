@@ -1,10 +1,11 @@
 //
 //  CatProfile.swift
-//  mapview
+//  StreetCats
 //
-//  Created by ihyemin on 27/11/2019.
+//  Created by ihyemin on 02/12/2019.
 //  Copyright © 2019 ihyemin. All rights reserved.
 //
+
 
 import Foundation // Model은 UI와 관련이 없으므로 UIKit이 아닌 Foundation을 import
 import CoreLocation

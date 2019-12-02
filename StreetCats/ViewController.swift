@@ -1,9 +1,9 @@
 //
 //  ViewController.swift
-//  mapview
+//  StreetCats
 //
-//  Created by ihyemin on 2019. 11. 10..
-//  Copyright © 2019년 ihyemin. All rights reserved.
+//  Created by ihyemin on 02/12/2019.
+//  Copyright © 2019 ihyemin. All rights reserved.
 //
 
 import UIKit
@@ -158,7 +158,3 @@ extension ViewController: MKMapViewDelegate {
 }
     
     
-
-
-
-

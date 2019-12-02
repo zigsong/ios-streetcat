@@ -1,33 +1,11 @@
 //
-//  cat.swift
-//  mapview
+//  CatAnnotation.swift
+//  StreetCats
 //
-//  Created by ihyemin on 24/11/2019.
+//  Created by ihyemin on 02/12/2019.
 //  Copyright © 2019 ihyemin. All rights reserved.
 //
 
-//import Foundation
-//import MapKit
-//
-//class Cat: NSObject, MKAnnotation {
-//  let title: String?
-//  let locationName: String
-//  let discipline: String
-//  let coordinate: CLLocationCoordinate2D
-//
-//  init(title: String, locationName: String, discipline: String, coordinate: CLLocationCoordinate2D) {
-//    self.title = title
-//    self.locationName = locationName
-//    self.discipline = discipline
-//    self.coordinate = coordinate
-//
-//    super.init()
-//  }
-//
-//  var subtitle: String? {
-//    return locationName
-//  }
-//}
 
 import UIKit
 import MapKit
@@ -45,7 +23,7 @@ class CatAnnotation: NSObject, MKAnnotation {
     let color: String
     let spot: CLLocationCoordinate2D
     
-    init(title: String, color: String,spot: CLLocationCoordinate2D, coordinate: CLLocationCoordinate2D){
+    init (title: String, color: String, spot: CLLocationCoordinate2D, coordinate: CLLocationCoordinate2D){
         self.title = title
         self.color = color
         self.spot = spot
@@ -55,6 +33,7 @@ class CatAnnotation: NSObject, MKAnnotation {
 
     }
 }
+
 //
 //class CatAnnotations: NSObject {
 //    var cats: [CatAnnotation]
