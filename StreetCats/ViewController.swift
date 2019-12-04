@@ -38,7 +38,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
 //          discipline: "삼색냥이",
 //          coordinate: CLLocationCoordinate2D(latitude: 37.4812114, longitude: 126.9527522))
 //        myMap.addAnnotation(cat)
-//        myMap.addAnnotations(catAnnotations.cats)
+//        myMap.addAnnotations(catAnnotations.cats) ddd
     }
     
     
