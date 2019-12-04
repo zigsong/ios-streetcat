@@ -49,10 +49,10 @@
             </objects>
             <point key="canvasLocation" x="1391" y="-603"/>
         </scene>
-        <!--View Controller-->
+        <!--Info View Controller-->
         <scene sceneID="uM7-vO-l2S">
             <objects>
-                <viewController id="E1h-Y4-Djs" sceneMemberID="viewController">
+                <viewController id="E1h-Y4-Djs" customClass="InfoViewController" customModule="StreetCats" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NAb-KT-tKE">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -64,10 +64,10 @@
             </objects>
             <point key="canvasLocation" x="2364" y="-603"/>
         </scene>
-        <!--View Controller-->
+        <!--Add View Controller-->
         <scene sceneID="MZm-uX-fMe">
             <objects>
-                <viewController id="ep4-rW-mus" sceneMemberID="viewController">
+                <viewController id="ep4-rW-mus" customClass="AddViewController" customModule="StreetCats" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="unk-Bs-qhV">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -82,7 +82,7 @@
         <!--Info-->
         <scene sceneID="rMK-n9-b5X">
             <objects>
-                <viewController id="EcV-WP-8dT" customClass="infoViewController" customModule="StreetCats" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="EcV-WP-8dT" customClass="InfoViewController" customModule="StreetCats" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2c5-VA-aUh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

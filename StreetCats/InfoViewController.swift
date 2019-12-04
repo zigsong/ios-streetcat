@@ -1,5 +1,5 @@
 //
-//  infoViewController.swift
+//  InfoViewController.swift
 //  StreetCats
 //
 //  Created by ihyemin on 02/12/2019.
@@ -8,8 +8,7 @@
 
 import UIKit
 
-
-class infoViewController: UIViewController {
+class InfoViewController: UIViewController {
     var catName: String?
       
       @IBOutlet weak var catNameLabel: UILabel!
