@@ -134,7 +134,7 @@ extension ViewController: MKMapViewDelegate {
       view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
     }
     view.markerTintColor = color
-//                view.glyphImage = UIImage(named: "WhiteCat")
+                view.glyphImage = UIImage(named: "CatFace1")
     //            annotationView.glyphTintColor = .yellow
                 view.clusteringIdentifier = identifier
     return view
