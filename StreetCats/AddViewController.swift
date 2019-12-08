@@ -108,6 +108,8 @@ class AddViewController: UIViewController {
         print(jsonString)
         
         let path = "/path/to/cats.json" // path를 이렇게 설정하는 게 맞나요? Bundle.url.main으로 해야 하나요?
+        // let path = Bundle.main.path(forResource: "cats", ofType: "json")
+        // let path = Bundle.main.url(forResource: "cats", withExtension: "json")
         let URLPath = URL(fileURLWithPath: path)
         do {
             try jsonData!.write(to: URLPath)
