@@ -60,29 +60,66 @@ class AddViewController: UIViewController {
     }
     
     // 이름 입력 후 '확인' 버튼을 누르면 나타날 액션
-    @IBAction func nameButtonPressed(_ sender: UIButton) {
+    @IBAction func nameButtonPressed(_ sender: UIButton) { // 추가하기 -> 이름 -> 확인
         nameTextField.endEditing(true)
-        // action
+        // Q. 확인 버튼이 있어야 하나?
     }
     
-    @IBAction func infoButtonPressed(_ sender: UIButton) {
+    @IBAction func infoButtonPressed(_ sender: UIButton) { // 정보보기
         infoTextView.endEditing(true)
     }
     
-    @IBAction func finalConfirm(_ sender: UIButton) {
+    // CatProfile의 정보
+//    struct CatList: Codable {
+//        var cats: [Cat]// 여러 마리 array로 변환
+//    }
+
+    @IBAction func finalConfirm(_ sender: UIButton) { // 추가하기 -> 추가하기
         
         if nameTextField.text != "" {
         
-            // 이 경우에 입력된 이름, 장소, 이미지, 상세 정보를 모두 받아서 DB로 넘기고 저장이 필요함.
-            
+            // print(nameTextField.text!) // print는 파라미터로 Any(string<Any)를 받으므로 optional unwrapping 필요
+//            let encoder = JSONEncoder()
+//            let jsonData = try? encoder.encode(nameTextField.text)
+//            if let jsonData = jsonData, let jsonString = String(data: jsonData, encoding: .utf8){
+//                print(jsonString) // result: "지은"
+//            }
+
             self.dismiss(animated: true, completion: nil)
         } else {
             warningSign.text = "입력이 모두 완료되지 않았습니다."
         }
+        print(nameTextField.text!)
+        print(infoTextView.text!)
+        
+        // encode 질문입니다.
+        var cat = CatList()
+
+        cat.name = nameTextField.text
+        cat.color = "orange" // color 받아오기 - 임시데이터(원래는 addVC의 color 선택지에서 받아와야 함)
+        cat.spot = ["latitude": 37.51, "longitude": 126.96] // spot 받아오기 - 임시데이터(원래는 addVC의 gestureRecognizer로 CLLocation 받아와야 함)
+        cat.details = infoTextView.text
+        
+        let encoder = JSONEncoder()
+        let jsonData = try! encoder.encode(cat)
+        
+        // jsonString으로 제대로 encode되었는지 테스트 출력
+        let jsonString = String(data: jsonData, encoding: .utf8)!
+        print(jsonString)
+        
+        let path = "/path/to/cats.json" // path를 이렇게 설정하는 게 맞나요? Bundle.url.main으로 해야 하나요?
+        let URLPath = URL(fileURLWithPath: path)
+        do {
+            try jsonData!.write(to: URLPath)
+        }
+        catch {
+            print("Fail to write JSON data")
+        }
+        
     }
     
     
-    @IBAction func finalCancel(_ sender: UIButton) {
+    @IBAction func finalCancel(_ sender: UIButton) { // 추가하기 -> 나가기
         self.dismiss(animated: true, completion: nil)
     }
 }

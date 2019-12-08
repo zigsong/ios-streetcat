@@ -59,6 +59,7 @@
 		1941B5422394DD070066DAEB /* cats.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = cats.json; sourceTree = "<group>"; };
 		1941B5442394DFCC0066DAEB /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		7EDE3C1D239774C500777CD1 /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
+		CEE0930D2397BF1E008E739C /* encodeTest.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = encodeTest.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +122,7 @@
 				1941B5192394DC9B0066DAEB /* LaunchScreen.storyboard */,
 				1941B51C2394DC9B0066DAEB /* Info.plist */,
 				1941B5422394DD070066DAEB /* cats.json */,
+				CEE0930D2397BF1E008E739C /* encodeTest.playground */,
 			);
 			path = StreetCats;
 			sourceTree = "<group>";

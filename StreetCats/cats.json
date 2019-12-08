@@ -7,7 +7,9 @@
             "spot": {
                 "lat": 37.50,
                 "lon": 126.95
-            }
+            },
+            "details": "always sleeping",
+            "isLike": false
         },
         {
             "name": "ahyeon",
@@ -15,7 +17,9 @@
             "spot": {
                 "lat": 37.52,
                 "lon": 126.97
-            }
+            },
+            "details": "young and small",
+            "isLike": false
         },
         {
             "name": "gummy",
@@ -23,7 +27,9 @@
             "spot": {
                 "lat": 37.53,
                 "lon": 126.98
-            }
+            },
+            "details": "with friends",
+            "isLike": false
         }
     ]
 }

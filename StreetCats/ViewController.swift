@@ -32,24 +32,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         myMap.showsUserLocation = true
         myMap.delegate = self
         //        setAnnotation(latitudeValue: 37.4812114, longitudeValue: 126.9527522, delta: 0.01, title: "설입냥", subtitble: "고양이설명텍스트")
-        
-<<<<<<< HEAD
-//        let cat = Cat(title: "설입냥",
-//          locationName: "서울대입구",
-//          discipline: "삼색냥이",
-//          coordinate: CLLocationCoordinate2D(latitude: 37.4812114, longitude: 126.9527522))
-//        myMap.addAnnotation(cat)
-//        myMap.addAnnotations(catAnnotations.cats) ddd
-=======
-        //        let cat = Cat(title: "설입냥",
-        //          locationName: "서울대입구",
-        //          discipline: "삼색냥이",
-        //          coordinate: CLLocationCoordinate2D(latitude: 37.4812114, longitude: 126.9527522))
-        //        myMap.addAnnotation(cat)
-        //        myMap.addAnnotations(catAnnotations.cats)
->>>>>>> c72b6df54e7ceebb204b7fd4b2807d0b86748fde
     }
-    
     
     func goLocation(latitudeValue: CLLocationDegrees, longitudeValue: CLLocationDegrees, delta span: Double) -> CLLocationCoordinate2D {
         let pLocation = CLLocationCoordinate2DMake(latitudeValue,longitudeValue)
@@ -59,21 +42,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         return pLocation
     }
     
-    //    func setAnnotation(latitudeValue: CLLocationDegrees, longitudeValue: CLLocationDegrees, delta span: Double, title strTitle: String, subtitble strSubtitle:String) {
-    //        let annotation = MKPointAnnotation()
-    //        annotation.coordinate = goLocation(latitudeValue: latitudeValue, longitudeValue: longitudeValue, delta: span)
-    //        annotation.title = strTitle
-    //        annotation.subtitle = strSubtitle
-    //        myMap.addAnnotation(annotation)
-    //    }
-    
-    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let pLocation = locations.last
         _ = goLocation(latitudeValue: (pLocation?.coordinate.latitude)!, longitudeValue:  (pLocation?.coordinate.longitude)!, delta: 0.01)
     }
-    
-    
     
     func loadMockData() throws -> CatList {
         guard let url = Bundle.main.url(forResource: "cats", withExtension: "json") else {
@@ -86,15 +58,22 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         
     }
     
+//    func getInputData() throws -> CatList {
+//
+//        let cat = Cat(name: nameTextField.text, color: "orange", isLike: false)
+//        let encoder = JSONEncoder()
+//        let jsonData = try? encoder.encode()
+//    }
+    
     @IBAction func makeMockData(_ sender: UIButton) {
         do {
             let catList = try loadMockData()
             // print(catList)
             cats = []
-            for cat in catList.cats {
+            for cat in catList.cats { // Catprofile의 CatList 수정 후 optional unwrapping 생김
                 print("\(cat.name)")
                 
-                cats += [CatAnnotation(title: cat.name, color: cat.color, spot: CLLocationCoordinate2D(latitude: cat.spot.coordinate.latitude, longitude: cat.spot.coordinate.longitude), coordinate: CLLocationCoordinate2D(latitude: cat.spot.coordinate.latitude, longitude: cat.spot.coordinate.longitude))]
+                cats += [CatAnnotation(title: cat.name, color: cat.color, spot: CLLocationCoordinate2D(latitude: cat.spot.coordinate.latitude, longitude: cat.spot.coordinate.longitude), coordinate: CLLocationCoordinate2D(latitude: cat.spot.coordinate.latitude, longitude: cat.spot.coordinate.longitude), details: cat.details, isLike: cat.isLike)]
             }
             myMap.addAnnotations(cats)
         } catch {
@@ -122,8 +101,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
     }
-    
-    
 }
 
 extension ViewController: MKMapViewDelegate {
@@ -142,7 +119,7 @@ extension ViewController: MKMapViewDelegate {
         //            identifier = "Orange"
         //            color = .orange
         //        }
-        if annotation.color == "black" { identifier = "Black"
+        if annotation.color == "black" { identifier = "Black" // json color string의 값이 black이면,
             color = .black}
         else if annotation.color == "white" { identifier = "White"
             color = .white}
