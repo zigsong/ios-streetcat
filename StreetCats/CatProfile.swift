@@ -26,6 +26,14 @@ struct Cat: Codable { // codable protocol 채택
         var lon: Double
     }
     
+    init(name: String, color: String, spot: CLLocation, details: String, isLike: Bool) {
+        self.name = name
+        self.color = color
+        self.spot = spot
+        self.details = details
+        self.isLike = isLike
+    }
+    
     enum CodingKeys: String, CodingKey { // JSON에서 key는 항상 String이므로
         // key 이름 customizing. json에서 사용하는 key값이 다른 경우, case에 json key값을 부여할 수 있다.
         case name
@@ -74,6 +82,9 @@ struct Cat: Codable { // codable protocol 채택
 struct CatList: Codable {
     var cats: [Cat]
     
+    mutating func addCat(_cat: Cat) {
+        // cats에 새로운 길냥이 추가
+    }
 //    init() {
 //        cats = nil
 //        print("test")

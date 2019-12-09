@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit // CLLocation에 값을 넣기 위해 필요
 
 class AddViewController: UIViewController {
     
@@ -89,16 +90,15 @@ class AddViewController: UIViewController {
         } else {
             warningSign.text = "입력이 모두 완료되지 않았습니다."
         }
-        print(nameTextField.text!)
-        print(infoTextView.text!)
+//        print(nameTextField.text!)
+//        print(infoTextView.text!)
         
-        // encode 질문입니다.
-        var cat = CatList()
+        var cat = Cat(name: nameTextField.text!, color: "orange",
+                      spot: CLLocation(latitude: 37.51, longitude: 126.96), details: infoTextView.text, isLike: false)
 
-        cat.name = nameTextField.text
-        cat.color = "orange" // color 받아오기 - 임시데이터(원래는 addVC의 color 선택지에서 받아와야 함)
-        cat.spot = ["latitude": 37.51, "longitude": 126.96] // spot 받아오기 - 임시데이터(원래는 addVC의 gestureRecognizer로 CLLocation 받아와야 함)
-        cat.details = infoTextView.text
+        print(cat.name) // 작동
+        print(cat.color) // 작동
+        print(cat.details) // 작동
         
         let encoder = JSONEncoder()
         let jsonData = try! encoder.encode(cat)
@@ -107,15 +107,15 @@ class AddViewController: UIViewController {
         let jsonString = String(data: jsonData, encoding: .utf8)!
         print(jsonString)
         
-        let path = "/path/to/cats.json" // path를 이렇게 설정하는 게 맞나요? Bundle.url.main으로 해야 하나요?
+        let path = "/path/to/cats.json"
         // let path = Bundle.main.path(forResource: "cats", ofType: "json")
         // let path = Bundle.main.url(forResource: "cats", withExtension: "json")
         let URLPath = URL(fileURLWithPath: path)
         do {
-            try jsonData!.write(to: URLPath)
+            try jsonData.write(to: URLPath)
         }
         catch {
-            print("Fail to write JSON data")
+            print("Fail to write JSON data") // 왜 fail 했을까
         }
         
     }
