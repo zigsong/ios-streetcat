@@ -31,7 +31,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         locationManager.startUpdatingLocation()
         myMap.showsUserLocation = true
         myMap.delegate = self
-        //        setAnnotation(latitudeValue: 37.4812114, longitudeValue: 126.9527522, delta: 0.01, title: "설입냥", subtitble: "고양이설명텍스트")
+//        setAnnotation(latitudeValue: 37.4812114, longitudeValue: 126.9527522, delta: 0.01, title: "설입냥", subtitble: "고양이설명텍스트")
+//        DataManager.shared.mainVC = self // singleton 추가 (data input 이후 reload 용도)
+//        makeMockData()
     }
     
     func goLocation(latitudeValue: CLLocationDegrees, longitudeValue: CLLocationDegrees, delta span: Double) -> CLLocationCoordinate2D {
@@ -55,30 +57,27 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         let decoder = JSONDecoder()
         let data = try Data(contentsOf: url)
         return try decoder.decode(CatList.self, from: data)
-        
     }
     
-//    func getInputData() throws -> CatList {
-//
-//        let cat = Cat(name: nameTextField.text, color: "orange", isLike: false)
-//        let encoder = JSONEncoder()
-//        let jsonData = try? encoder.encode()
-//    }
-    
-    @IBAction func makeMockData(_ sender: UIButton) {
-        do {
-            let catList = try loadMockData()
-            // print(catList)
-            cats = []
-            for cat in catList.cats { // Catprofile의 CatList 수정 후 optional unwrapping 생김
-                print("\(cat.name)")
-                
-                cats += [CatAnnotation(title: cat.name, color: cat.color, spot: CLLocationCoordinate2D(latitude: cat.spot.coordinate.latitude, longitude: cat.spot.coordinate.longitude), coordinate: CLLocationCoordinate2D(latitude: cat.spot.coordinate.latitude, longitude: cat.spot.coordinate.longitude), details: cat.details, isLike: cat.isLike)]
+    func makeMockData() {
+//        if ( "savedCats.json" 이 있다면) {
+//            "savedCats.json"을 디코딩한 목록을 보여주고
+//        }
+//        else {
+            do {
+                let catList = try loadMockData()
+                // print(catList)
+                cats = []
+                for cat in catList.cats { // Catprofile의 CatList 수정 후 optional unwrapping 생김
+                    print("\(cat.name)")
+                    
+                    cats += [CatAnnotation(title: cat.name, color: cat.color, spot: CLLocationCoordinate2D(latitude: cat.spot.coordinate.latitude, longitude: cat.spot.coordinate.longitude), coordinate: CLLocationCoordinate2D(latitude: cat.spot.coordinate.latitude, longitude: cat.spot.coordinate.longitude), details: cat.details, isLike: cat.isLike)]
+                }
+                myMap.addAnnotations(cats)
+            } catch {
+                print(error)
             }
-            myMap.addAnnotations(cats)
-        } catch {
-            print(error)
-        }
+//        }
     }
     
     @IBAction func AddNewCat(_ sender: UIButton) {
@@ -108,17 +107,7 @@ extension ViewController: MKMapViewDelegate {
         guard let annotation = annotation as? CatAnnotation else { return nil }
         var identifier = "marker"
         var color = UIColor.red
-        //    switch annotation.color {
-        //        case "black" :
-        //            identifier = "Black"
-        //            color = .black
-        //        case "white" :
-        //            identifier = "White"
-        //            color = .white
-        //        case "orange" :
-        //            identifier = "Orange"
-        //            color = .orange
-        //        }
+
         if annotation.color == "black" { identifier = "Black" // json color string의 값이 black이면,
             color = .black}
         else if annotation.color == "white" { identifier = "White"
@@ -146,21 +135,38 @@ extension ViewController: MKMapViewDelegate {
         return view
     }
     
-    //    private func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-    //
-    //        if control == view.rightCalloutAccessoryView {
-    //            self.performSegue(withIdentifier: "GoDetail", sender: self)
-    //        }
-    //    }
+    // AddVC로 갔다가 되돌아왔을 떄 실행 (AddVC가 dismiss되면 자동으로 viewWillAppear가 실행됨)
+    override func viewWillAppear(_ animated: Bool){
+//        super.viewWillAppear(animated) // QQ. 꼭 있어야 하는지? 없어도 되는듯?
+//        super.viewDidLoad()
+        
+//        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+//
+//            let file = "savedCats.json"
+//            let fileURL = dir.appendingPathComponent(file)
+//
+//            //reading
+//            do {
+//                let jsonRawData = try String(contentsOf: fileURL, encoding: .utf8)
+//                print(jsonRawData)
+//            }
+//            catch {
+//                print("error")
+//            }
+//        }
+//
+        print("viewWillAppear")
+    }
     
-    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    //    if segue.identifier == "GoDetail" {
-    //        _ = segue.destination as! DetailViewController
-    //        destinationVC.catName = catName
-    //    }
-    //        else if segue.identifier == "goToAdd" {
-    //        let destinationVC = segue.destination as! AddViewController
-    //    }
+    func showCatMarks() {
+        print("help me")
+    }
 }
+
+//AddVC가 dismiss된 후 data reload 위해 싱글톤 객체 생성
+//class DataManager {
+//    static let shared = DataManager()
+//    var mainVC = ViewController()
+//}
 
 

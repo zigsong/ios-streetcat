@@ -24,9 +24,6 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pv0-nN-WWx">
                                 <rect key="frame" x="152.5" y="569" width="70" height="30"/>
                                 <state key="normal" title="MockData"/>
-                                <connections>
-                                    <action selector="makeMockData:" destination="BYZ-38-t0r" eventType="touchUpInside" id="o6p-rK-emk"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ILs-pC-jht">
                                 <rect key="frame" x="69" y="517" width="52" height="30"/>

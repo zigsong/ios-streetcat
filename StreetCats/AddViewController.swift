@@ -69,24 +69,15 @@ class AddViewController: UIViewController {
     @IBAction func infoButtonPressed(_ sender: UIButton) { // 정보보기
         infoTextView.endEditing(true)
     }
-    
-    // CatProfile의 정보
-//    struct CatList: Codable {
-//        var cats: [Cat]// 여러 마리 array로 변환
-//    }
 
     @IBAction func finalConfirm(_ sender: UIButton) { // 추가하기 -> 추가하기
         
         if nameTextField.text != "" {
-        
-            // print(nameTextField.text!) // print는 파라미터로 Any(string<Any)를 받으므로 optional unwrapping 필요
-//            let encoder = JSONEncoder()
-//            let jsonData = try? encoder.encode(nameTextField.text)
-//            if let jsonData = jsonData, let jsonString = String(data: jsonData, encoding: .utf8){
-//                print(jsonString) // result: "지은"
-//            }
-
-            self.dismiss(animated: true, completion: nil)
+            
+//            self.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: true, completion: {
+//                ViewController.showCatMark()
+            })
         } else {
             warningSign.text = "입력이 모두 완료되지 않았습니다."
         }
@@ -96,34 +87,68 @@ class AddViewController: UIViewController {
         var cat = Cat(name: nameTextField.text!, color: "orange",
                       spot: CLLocation(latitude: 37.51, longitude: 126.96), details: infoTextView.text, isLike: false)
 
-        print(cat.name) // 작동
-        print(cat.color) // 작동
-        print(cat.details) // 작동
+//        print(cat.name) // 작동
+//        print(cat.color) // 작동
+//        print(cat.details) // 작동
         
         let encoder = JSONEncoder()
-        let jsonData = try! encoder.encode(cat)
+        encoder.outputFormatting = .prettyPrinted
         
+        let jsonData = try! encoder.encode(cat)
         // jsonString으로 제대로 encode되었는지 테스트 출력
         let jsonString = String(data: jsonData, encoding: .utf8)!
         print(jsonString)
         
-        let path = "/path/to/cats.json"
-        // let path = Bundle.main.path(forResource: "cats", ofType: "json")
-        // let path = Bundle.main.url(forResource: "cats", withExtension: "json")
-        let URLPath = URL(fileURLWithPath: path)
+        // 아래 코드의 간결화
+//        let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("savedCats.json")
+        
+        let fileManager = FileManager.default // filemanager 인스턴스 생성
+        let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0] // path 작성
+        let fileURL = documentsURL.appendingPathComponent("savedCats.json")
+//        // let urlString = (fileURL.absoluteString)!
+        
         do {
-            try jsonData.write(to: URLPath)
-        }
-        catch {
-            print("Fail to write JSON data") // 왜 fail 했을까
+            try jsonData.write(to: fileURL)
+            print("success") // 정상 작동
+        } catch {
+            print("error")
         }
         
+        // only for test //
+//        print(getDirectoryPath())
+//        let toknow = fileManager.fileExists(atPath: getDirectoryPath())
+//        print("fileExists?: \(toknow)") // always return true
+        
+//        do {
+//            try jsonData.write(to: path) // URLPath
+//        }
+//        catch {
+//            print("Fail to write JSON data")
+//        }
+        
+//        self.dismiss(animated: true, completion: nil) // 지은 추가 // 조금 위에(if문 안에) 있음
     }
     
+    // only for test //
+//    func getDirectoryPath() -> String {
+//        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+//        let documentsDirectory = paths[0]
+//        return documentsDirectory
+//    }
     
     @IBAction func finalCancel(_ sender: UIButton) { // 추가하기 -> 나가기
         self.dismiss(animated: true, completion: nil)
     }
+    
+//    override func prepare(for segue: UIViewController, sender: Any?) {
+//        if let name = nameTextField.text,
+//            let color = "orange",
+//            let spot = CLLocation(latitude: 37.51, longitude: 126.96),
+//            let details = infoTextView.text,
+//            let isLike = false {
+//            contact = Contact.init(photo: photo, name: name, position: position, email: email, phone: phone)
+//        }
+//    }
 }
 
 
