@@ -15,8 +15,16 @@ class AddViewController: UIViewController {
     @IBOutlet weak var addImage: UIButton!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var nameTextField: UITextField!
-    @IBOutlet weak var infoTextView: UITextView!
+//    @IBOutlet weak var infoTextView: UITextView!
+    @IBOutlet weak var infoTextView: UITextField!
     @IBOutlet weak var warningSign: UILabel!
+    
+    @IBOutlet weak var likeButton: UIButton!
+    @IBOutlet weak var whiteButton: UIButton!
+    @IBOutlet weak var brownButton: UIButton!
+    @IBOutlet weak var orangeButton: UIButton!
+    @IBOutlet weak var greyButton: UIButton!
+    @IBOutlet weak var blackButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,22 +37,60 @@ class AddViewController: UIViewController {
         self.addImage.layer.borderWidth = 0.5
         self.addImage.layer.borderColor = UIColor.lightGray.cgColor
 
-        // 상세 정보 칸의 프레임 설정
-        self.infoTextView.layer.borderColor = UIColor.lightGray.cgColor
-        self.infoTextView.layer.borderWidth = 1
-        self.infoTextView.layer.cornerRadius = 10
-        
-        // textview의 placeholder 역할
-        self.infoTextView.text = "내용을 입력하세요."
-        self.infoTextView.textColor = UIColor.lightGray
-        
-        self.warningSign.text = ""
-        self.warningSign.textColor = UIColor.red
+//        // 상세 정보 칸의 프레임 설정
+//        self.infoTextView.layer.borderColor = UIColor.lightGray.cgColor
+//        self.infoTextView.layer.borderWidth = 1
+//        self.infoTextView.layer.cornerRadius = 10
+//
+//        // textview의 placeholder 역할
+//        self.infoTextView.text = "내용을 입력하세요"
+//        self.infoTextView.textColor = UIColor.lightGray
+//
+//        self.warningSign.text = ""
+//        self.warningSign.textColor = UIColor.red
     }
     
     
+    @IBAction func likeButtonTapped() {
+        if likeButton.isSelected == true {
+           likeButton.isSelected = false
+            //isLiked = false
+         } else {
+           likeButton.isSelected = true
+            //isLiked = true
+         }
+    }
+    
+    // 아래는 고양이 컬러 선택 버튼들
+    // 다섯 가지 색상 중 하나만 선택하도록 해야 하기 때문에 color 값에 어떤 값이 들어있을 경우 나머지 버튼 전부를 .isSelected = false 해버리고 선택된 버튼만 .isSelected = true 하는 것이 빠를 것 같아 내용은 일단 비워둠
+    @IBAction func whiteButtonTapped() {
+        if whiteButton.isSelected == true {
+           whiteButton.isSelected = false
+           //color = ""
+           //제이슨에 컬러값이 스트링으로 들어가나요?
+        } else {
+            whiteButton.isSelected = true
+            //color = "white"
+        }
+    }
+    
+    @IBAction func brownButtonTapped() {
+    }
+    
+    @IBAction func orangeButtonTapped() {
+    }
+    
+    @IBAction func greyButtonTapped() {
+    }
+    
+    @IBAction func blackButtonTapped() {
+    }
+    
+    
+    
+    
     @IBAction func addImage(_ sender: UIButton) {
-        let alert = UIAlertController(title: nil, message: "고양이 사진을 등록합니다.", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: nil, message: "고양이 사진을 등록합니다", preferredStyle: .actionSheet)
         let library = UIAlertAction(title: "사진 앨범", style: .default) { (action) in self.openLibrary()
         }
         let camera =  UIAlertAction(title: "카메라", style: .default) { (action) in self.openCamera()
@@ -70,6 +116,7 @@ class AddViewController: UIViewController {
     }
     
     @IBAction func finalConfirm(_ sender: UIButton) {
+
         
         if nameTextField.text != "" {
         
@@ -77,7 +124,7 @@ class AddViewController: UIViewController {
             
             self.dismiss(animated: true, completion: nil)
         } else {
-            warningSign.text = "입력이 모두 완료되지 않았습니다."
+            warningSign.text = "입력이 모두 완료되지 않았습니다"
         }
     }
     
@@ -122,6 +169,7 @@ extension AddViewController : UITextFieldDelegate {
     // 자판의 return or enter 버튼을 눌렀을 경우 나타날 액션
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         nameTextField.endEditing(true)
+        infoTextView.endEditing(true)
         // action
         return true
     }
@@ -131,8 +179,8 @@ extension AddViewController : UITextFieldDelegate {
         if nameTextField.text != "" {
             return true
         } else {
-            nameTextField.attributedPlaceholder = NSAttributedString(string: "입력이 필요합니다.",
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.red])
+            nameTextField.attributedPlaceholder = NSAttributedString(string: "입력이 필요합니다")
+//            attributes: [NSAttributedString.Key.foregroundColor: UIColor.red])
             return true
         }
     }

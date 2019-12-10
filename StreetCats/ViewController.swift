@@ -105,10 +105,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToInfo" {
-            let destinationVC = segue.destination as! DetailViewController
+            _ = segue.destination as! DetailViewController
         
         } else if segue.identifier == "goToAdd" {
-            let destinationVC = segue.destination as! AddViewController
+            _ = segue.destination as! AddViewController
         }
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
