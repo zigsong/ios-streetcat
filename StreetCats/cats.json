@@ -1,4 +1,3 @@
-
 {
     "cats": [
         {
@@ -7,8 +6,9 @@
             "spot": {
                 "lat": 37.50,
                 "lon": 126.95
-            }
-            "isLiked" : true
+            },
+            "details": "always sleeping",
+            "isLiked": true
         },
         {
             "name": "ahyeon",
@@ -16,8 +16,9 @@
             "spot": {
                 "lat": 37.52,
                 "lon": 126.97
-            }
-            "isLiked" : false
+            },
+            "details": "young and small",
+            "isLiked": false
         },
         {
             "name": "gummy",
@@ -25,10 +26,9 @@
             "spot": {
                 "lat": 37.53,
                 "lon": 126.98
-            }
-            "isLiked" : true
+            },
+            "details": "with friends",
+            "isLiked": true
         }
     ]
 }
-
-

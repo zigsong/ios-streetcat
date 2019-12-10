@@ -78,24 +78,26 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
               for cat in catList.cats {
                   print("\(cat.name)")
                
-                cats += [CatAnnotation(title: cat.name, color: cat.color, spot: CLLocationCoordinate2D(latitude: cat.spot.coordinate.latitude, longitude: cat.spot.coordinate.longitude), coordinate: CLLocationCoordinate2D(latitude: cat.spot.coordinate.latitude, longitude: cat.spot.coordinate.longitude), isLiked: cat.isLiked)]
+                cats += [CatAnnotation(title: cat.name, color: cat.color, spot: CLLocationCoordinate2D(latitude: cat.spot.coordinate.latitude, longitude: cat.spot.coordinate.longitude), coordinate: CLLocationCoordinate2D(latitude: cat.spot.coordinate.latitude, longitude: cat.spot.coordinate.longitude), details: cat.details, isLiked: cat.isLiked)]
                 
             }
-//            if identifier == "likeFilter" {
-//
-//            }
-//            else {
                 myMap.addAnnotations(cats)
-//            }
           } catch {
             print(error)
         }
     }
     
-//    @IBAction func makeMockData (_ sender: UIButton) {
-//        var identifier = "likeFilter"
-//    }
-//
+    @IBAction func likeFilter(_ sender: UIButton) {
+        for CatAnnotation in self.myMap.annotations {
+            let annotation = CatAnnotation
+            if (annotation as? CatAnnotation)?.isLiked == false {
+                self.myMap.removeAnnotation(CatAnnotation)
+               }
+           }
+    }
+    
+//    @IBAction func dequeueReusableAnnotationView (_ sender: UIButton) {}
+
     
     
     

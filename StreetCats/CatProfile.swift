@@ -18,6 +18,7 @@ struct Cat: Codable { // codable protocol 채택
     var color: String
     // var photo: String?
     var spot: CLLocation
+    var details: String
     var isLiked: Bool
 
     struct LatLon: Codable {
@@ -29,6 +30,7 @@ struct Cat: Codable { // codable protocol 채택
         self.name = name
         self.color = color
         self.spot = spot
+        self.details = details
         self.isLiked = isLiked
     }
     
@@ -38,6 +40,7 @@ struct Cat: Codable { // codable protocol 채택
         case color
         // case photo
         case spot
+        case details
         case isLiked
     }
 
@@ -50,6 +53,7 @@ struct Cat: Codable { // codable protocol 채택
         // photo = try container.decode(String.self, forKey: .photo)
         let latLon = try container.decode(LatLon.self, forKey: .spot)
         spot = CLLocation(latitude: latLon.lat, longitude: latLon.lon)
+        details = try container.decode(String.self, forKey: .details)
         isLiked = try container.decode(Bool.self, forKey: .isLiked)
         
     }
@@ -62,6 +66,7 @@ struct Cat: Codable { // codable protocol 채택
         // try container.encode(photo, forKey: .photo)
         let latLon = LatLon(lat: spot.coordinate.latitude, lon: spot.coordinate.longitude)
         try container.encode(latLon, forKey: .spot)
+        try container.encode(details, forKey: .details)
         try container.encode(isLiked, forKey: .isLiked)
     }
 }
