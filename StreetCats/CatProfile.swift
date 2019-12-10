@@ -19,19 +19,19 @@ struct Cat: Codable { // codable protocol 채택
     // var photo: String?
     var spot: CLLocation
     var details: String
-    var isLike: Bool
+    var isLiked: Bool
 
     struct LatLon: Codable {
         var lat: Double
         var lon: Double
     }
     
-    init(name: String, color: String, spot: CLLocation, details: String, isLike: Bool) {
+    init(name: String, color: String, spot: CLLocation, details: String, isLiked: Bool) {
         self.name = name
         self.color = color
         self.spot = spot
         self.details = details
-        self.isLike = isLike
+        self.isLiked = isLiked
     }
     
     enum CodingKeys: String, CodingKey { // JSON에서 key는 항상 String이므로
@@ -41,7 +41,7 @@ struct Cat: Codable { // codable protocol 채택
         // case photo
         case spot
         case details
-        case isLike
+        case isLiked
     }
 
     init(from decoder: Decoder) throws { // decodable protocol에 필요. JSON을 직접 decoding하는 것
@@ -54,7 +54,7 @@ struct Cat: Codable { // codable protocol 채택
         let latLon = try container.decode(LatLon.self, forKey: .spot)
         spot = CLLocation(latitude: latLon.lat, longitude: latLon.lon)
         details = try container.decode(String.self, forKey: .details)
-        isLike = try container.decode(Bool.self, forKey: .isLike)
+        isLiked = try container.decode(Bool.self, forKey: .isLiked)
         
     }
     
@@ -67,7 +67,7 @@ struct Cat: Codable { // codable protocol 채택
         let latLon = LatLon(lat: spot.coordinate.latitude, lon: spot.coordinate.longitude)
         try container.encode(latLon, forKey: .spot)
         try container.encode(details, forKey: .details)
-        try container.encode(isLike, forKey: .isLike)
+        try container.encode(isLiked, forKey: .isLiked)
     }
     
 //    func save(directory: FileManager.SearchPathDirectory) throws {

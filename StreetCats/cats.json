@@ -9,7 +9,7 @@
                 "lon": 126.95
             },
             "details": "always sleeping",
-            "isLike": false
+            "isLiked": false
         },
         {
             "name": "ahyeon",
@@ -19,7 +19,7 @@
                 "lon": 126.97
             },
             "details": "young and small",
-            "isLike": false
+            "isLiked": false
         },
         {
             "name": "gummy",
@@ -29,7 +29,7 @@
                 "lon": 126.98
             },
             "details": "with friends",
-            "isLike": false
+            "isLiked": false
         }
     ]
 }

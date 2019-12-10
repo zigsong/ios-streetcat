@@ -23,15 +23,15 @@ class CatAnnotation: NSObject, MKAnnotation {
     let color: String
     let spot: CLLocationCoordinate2D
     let details: String?
-    let isLike: Bool
+    let isLiked: Bool
     
-    init (title: String, color: String, spot: CLLocationCoordinate2D, coordinate: CLLocationCoordinate2D, details: String, isLike: Bool) {
+    init (title: String, color: String, spot: CLLocationCoordinate2D, coordinate: CLLocationCoordinate2D, details: String, isLiked: Bool) {
         self.title = title
         self.color = color
         self.spot = spot
         self.coordinate = coordinate
         self.details = details
-        self.isLike = isLike
+        self.isLiked = isLiked
 
     super.init()
         

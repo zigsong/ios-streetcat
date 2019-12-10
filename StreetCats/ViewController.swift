@@ -33,7 +33,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         myMap.delegate = self
 //        setAnnotation(latitudeValue: 37.4812114, longitudeValue: 126.9527522, delta: 0.01, title: "설입냥", subtitble: "고양이설명텍스트")
 //        DataManager.shared.mainVC = self // singleton 추가 (data input 이후 reload 용도)
-//        makeMockData()
+        makeMockData()
     }
     
     func goLocation(latitudeValue: CLLocationDegrees, longitudeValue: CLLocationDegrees, delta span: Double) -> CLLocationCoordinate2D {
@@ -69,9 +69,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 // print(catList)
                 cats = []
                 for cat in catList.cats { // Catprofile의 CatList 수정 후 optional unwrapping 생김
-                    print("\(cat.name)")
+                    // print("\(cat.name)")
                     
-                    cats += [CatAnnotation(title: cat.name, color: cat.color, spot: CLLocationCoordinate2D(latitude: cat.spot.coordinate.latitude, longitude: cat.spot.coordinate.longitude), coordinate: CLLocationCoordinate2D(latitude: cat.spot.coordinate.latitude, longitude: cat.spot.coordinate.longitude), details: cat.details, isLike: cat.isLike)]
+                    cats += [CatAnnotation(title: cat.name, color: cat.color, spot: CLLocationCoordinate2D(latitude: cat.spot.coordinate.latitude, longitude: cat.spot.coordinate.longitude), coordinate: CLLocationCoordinate2D(latitude: cat.spot.coordinate.latitude, longitude: cat.spot.coordinate.longitude), details: cat.details, isLiked: cat.isLiked)]
                 }
                 myMap.addAnnotations(cats)
             } catch {
@@ -137,30 +137,33 @@ extension ViewController: MKMapViewDelegate {
     
     // AddVC로 갔다가 되돌아왔을 떄 실행 (AddVC가 dismiss되면 자동으로 viewWillAppear가 실행됨)
     override func viewWillAppear(_ animated: Bool){
-//        super.viewWillAppear(animated) // QQ. 꼭 있어야 하는지? 없어도 되는듯?
-//        super.viewDidLoad()
         
-//        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-//
-//            let file = "savedCats.json"
-//            let fileURL = dir.appendingPathComponent(file)
-//
-//            //reading
-//            do {
-//                let jsonRawData = try String(contentsOf: fileURL, encoding: .utf8)
-//                print(jsonRawData)
-//            }
-//            catch {
-//                print("error")
-//            }
-//        }
-//
+        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+
+            let file = "savedCats.json"
+            let fileURL = dir.appendingPathComponent(file)
+
+            // reading & decoding & addAnnotation
+            do {
+                let newCatData = try String(contentsOf: fileURL, encoding: .utf8)
+                // print(newCatData) // 정상작동(json String으로 출력) - AddVC의 추가하기가 내려가면 자동으로 출력됨. 왜 print("viewWillAppear")는 안될까?
+                let decoder = JSONDecoder()
+                let data = Data(newCatData.utf8)
+                let newCat = try decoder.decode(Cat.self, from: data)
+                print(newCat) // test
+
+                let newCatMark = CatAnnotation(title: newCat.name, color: newCat.color, spot: CLLocationCoordinate2D(latitude: newCat.spot.coordinate.latitude, longitude: newCat.spot.coordinate.longitude), coordinate: CLLocationCoordinate2D(latitude: newCat.spot.coordinate.latitude, longitude: newCat.spot.coordinate.longitude), details: newCat.details, isLiked: false)
+                
+                myMap.addAnnotation(newCatMark)
+            }
+            catch {
+                print("error: \(error)") // keyNotFound error 발생
+            }
+        }
+        
         print("viewWillAppear")
     }
-    
-    func showCatMarks() {
-        print("help me")
-    }
+
 }
 
 //AddVC가 dismiss된 후 data reload 위해 싱글톤 객체 생성

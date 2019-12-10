@@ -19,6 +19,15 @@ class AddViewController: UIViewController {
     @IBOutlet weak var infoTextView: UITextView!
     @IBOutlet weak var warningSign: UILabel!
     
+    struct classConstants{
+        // 간결한 버전
+        // let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("savedCats.json")
+        // savedCats.json이 한번만 생성되게끔
+        static let fileManager = FileManager.default // filemanager 인스턴스 생성
+        static let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0] // path 작성
+        static let fileURL = documentsURL.appendingPathComponent("savedCats.json") // savedCats.json 파일 추가
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -41,6 +50,7 @@ class AddViewController: UIViewController {
         
         self.warningSign.text = ""
         self.warningSign.textColor = UIColor.red
+        
     }
     
     
@@ -74,18 +84,22 @@ class AddViewController: UIViewController {
         
         if nameTextField.text != "" {
             
-//            self.dismiss(animated: true, completion: nil)
-            self.dismiss(animated: true, completion: {
+            self.dismiss(animated: true, completion: nil)
+//            self.dismiss(animated: true, completion: {
 //                ViewController.showCatMark()
-            })
+//            })
         } else {
             warningSign.text = "입력이 모두 완료되지 않았습니다."
         }
 //        print(nameTextField.text!)
 //        print(infoTextView.text!)
         
+        // 임시데이터
+        let lat = Double.random(in: 37.3 ..< 37.8)
+        let lon = Double.random(in: 126.7 ..< 127.2)
+        
         var cat = Cat(name: nameTextField.text!, color: "orange",
-                      spot: CLLocation(latitude: 37.51, longitude: 126.96), details: infoTextView.text, isLike: false)
+                      spot: CLLocation(latitude: lat, longitude: lon), details: infoTextView.text, isLiked: false)
 
 //        print(cat.name) // 작동
 //        print(cat.color) // 작동
@@ -96,23 +110,25 @@ class AddViewController: UIViewController {
         
         let jsonData = try! encoder.encode(cat)
         // jsonString으로 제대로 encode되었는지 테스트 출력
-        let jsonString = String(data: jsonData, encoding: .utf8)!
-        print(jsonString)
-        
-        // 아래 코드의 간결화
-//        let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("savedCats.json")
-        
-        let fileManager = FileManager.default // filemanager 인스턴스 생성
-        let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0] // path 작성
-        let fileURL = documentsURL.appendingPathComponent("savedCats.json")
-//        // let urlString = (fileURL.absoluteString)!
-        
+//        let jsonString = String(data: jsonData, encoding: .utf8)!
+//        print(jsonString)
+    
         do {
-            try jsonData.write(to: fileURL)
+            try jsonData.write(to: classConstants.fileURL)
             print("success") // 정상 작동
         } catch {
+            
             print("error")
         }
+        
+        // only for test //
+//        do {
+//            let test1 = try fileManager.contentsOfDirectory(atPath: getDirectoryPath())
+//            print(test1) // result: ["cats.json.cats", "cats.json", "savedCats.json"]
+//        }
+//        catch {
+//            print("test1 error")
+//        }
         
         // only for test //
 //        print(getDirectoryPath())
@@ -130,25 +146,16 @@ class AddViewController: UIViewController {
     }
     
     // only for test //
-//    func getDirectoryPath() -> String {
-//        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
-//        let documentsDirectory = paths[0]
-//        return documentsDirectory
-//    }
+    func getDirectoryPath() -> String {
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+        let documentsDirectory = paths[0]
+        return documentsDirectory
+    }
     
     @IBAction func finalCancel(_ sender: UIButton) { // 추가하기 -> 나가기
         self.dismiss(animated: true, completion: nil)
     }
     
-//    override func prepare(for segue: UIViewController, sender: Any?) {
-//        if let name = nameTextField.text,
-//            let color = "orange",
-//            let spot = CLLocation(latitude: 37.51, longitude: 126.96),
-//            let details = infoTextView.text,
-//            let isLike = false {
-//            contact = Contact.init(photo: photo, name: name, position: position, email: email, phone: phone)
-//        }
-//    }
 }
 
 
