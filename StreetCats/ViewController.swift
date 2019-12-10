@@ -87,13 +87,18 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
-    @IBAction func likeFilter(_ sender: UIButton) {
-        for CatAnnotation in self.myMap.annotations {
-            let annotation = CatAnnotation
-            if (annotation as? CatAnnotation)?.isLiked == false {
+    @IBAction func likeFilter(_ sender: UISwitch) {
+        if (sender as AnyObject).isOn{
+            myMap.removeAnnotations(cats)
+            myMap.addAnnotations(cats)
+        } else {
+            for CatAnnotation in self.myMap.annotations {
+             let annotation = CatAnnotation
+             if (annotation as? CatAnnotation)?.isLiked == false {
                 self.myMap.removeAnnotation(CatAnnotation)
-               }
-           }
+                }
+            }
+        }
     }
     
 //    @IBAction func dequeueReusableAnnotationView (_ sender: UIButton) {}

@@ -45,14 +45,20 @@
                                     <action selector="showCurrentLocation:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qOK-c1-oFh"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lUl-4T-w2H">
-                                <rect key="frame" x="293" y="294" width="66" height="30"/>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="4yt-ef-l4i">
+                                <rect key="frame" x="299" y="294" width="51" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Like Filter"/>
                                 <connections>
-                                    <action selector="likeFilter:" destination="BYZ-38-t0r" eventType="touchUpInside" id="c5g-76-B8X"/>
+                                    <action selector="likeFilter:" destination="BYZ-38-t0r" eventType="valueChanged" id="Wdi-m0-SAU"/>
                                 </connections>
-                            </button>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Like Filter" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cml-7l-suN">
+                                <rect key="frame" x="274" y="333" width="74" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
