@@ -18,10 +18,18 @@ struct Cat: Codable { // codable protocol 채택
     var color: String
     // var photo: String?
     var spot: CLLocation
+    var isLiked: Bool
 
     struct LatLon: Codable {
         var lat: Double
         var lon: Double
+    }
+    
+    init(name: String, color: String, spot: CLLocation, details: String, isLiked: Bool) {
+        self.name = name
+        self.color = color
+        self.spot = spot
+        self.isLiked = isLiked
     }
     
     enum CodingKeys: String, CodingKey { // JSON에서 key는 항상 String이므로
@@ -30,6 +38,7 @@ struct Cat: Codable { // codable protocol 채택
         case color
         // case photo
         case spot
+        case isLiked
     }
 
     init(from decoder: Decoder) throws { // decodable protocol에 필요. JSON을 직접 decoding하는 것
@@ -41,6 +50,7 @@ struct Cat: Codable { // codable protocol 채택
         // photo = try container.decode(String.self, forKey: .photo)
         let latLon = try container.decode(LatLon.self, forKey: .spot)
         spot = CLLocation(latitude: latLon.lat, longitude: latLon.lon)
+        isLiked = try container.decode(Bool.self, forKey: .isLiked)
         
     }
     
@@ -52,11 +62,16 @@ struct Cat: Codable { // codable protocol 채택
         // try container.encode(photo, forKey: .photo)
         let latLon = LatLon(lat: spot.coordinate.latitude, lon: spot.coordinate.longitude)
         try container.encode(latLon, forKey: .spot)
+        try container.encode(isLiked, forKey: .isLiked)
     }
 }
 
 struct CatList: Codable {
     var cats: [Cat]// 여러 마리 array로 변환
+    
+    mutating func addCat(_cat: Cat) {
+          // cats에 새로운 길냥이 추가
+      }
 }
 
 

@@ -18,7 +18,7 @@
 		1941B53F2394DCD10066DAEB /* CatAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1941B53E2394DCD10066DAEB /* CatAnnotation.swift */; };
 		1941B5412394DCEB0066DAEB /* CatProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1941B5402394DCEB0066DAEB /* CatProfile.swift */; };
 		1941B5432394DD070066DAEB /* cats.json in Resources */ = {isa = PBXBuildFile; fileRef = 1941B5422394DD070066DAEB /* cats.json */; };
-		1941B5452394DFCC0066DAEB /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1941B5442394DFCC0066DAEB /* InfoViewController.swift */; };
+		1941B5452394DFCC0066DAEB /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1941B5442394DFCC0066DAEB /* DetailViewController.swift */; };
 		7EDE3C1E239774C500777CD1 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDE3C1D239774C500777CD1 /* AddViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -57,7 +57,7 @@
 		1941B53E2394DCD10066DAEB /* CatAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatAnnotation.swift; sourceTree = "<group>"; };
 		1941B5402394DCEB0066DAEB /* CatProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatProfile.swift; sourceTree = "<group>"; };
 		1941B5422394DD070066DAEB /* cats.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = cats.json; sourceTree = "<group>"; };
-		1941B5442394DFCC0066DAEB /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
+		1941B5442394DFCC0066DAEB /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		7EDE3C1D239774C500777CD1 /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -116,7 +116,7 @@
 				1941B5142394DC990066DAEB /* Main.storyboard */,
 				1941B5122394DC990066DAEB /* ViewController.swift */,
 				7EDE3C1D239774C500777CD1 /* AddViewController.swift */,
-				1941B5442394DFCC0066DAEB /* InfoViewController.swift */,
+				1941B5442394DFCC0066DAEB /* DetailViewController.swift */,
 				1941B5172394DC9B0066DAEB /* Assets.xcassets */,
 				1941B5192394DC9B0066DAEB /* LaunchScreen.storyboard */,
 				1941B51C2394DC9B0066DAEB /* Info.plist */,
@@ -275,7 +275,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1941B5452394DFCC0066DAEB /* InfoViewController.swift in Sources */,
+				1941B5452394DFCC0066DAEB /* DetailViewController.swift in Sources */,
 				1941B5132394DC990066DAEB /* ViewController.swift in Sources */,
 				7EDE3C1E239774C500777CD1 /* AddViewController.swift in Sources */,
 				1941B53F2394DCD10066DAEB /* CatAnnotation.swift in Sources */,

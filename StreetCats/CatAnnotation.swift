@@ -22,12 +22,14 @@ class CatAnnotation: NSObject, MKAnnotation {
 //    var subtitle: String?
     let color: String
     let spot: CLLocationCoordinate2D
+    var isLiked: Bool
     
-    init (title: String, color: String, spot: CLLocationCoordinate2D, coordinate: CLLocationCoordinate2D){
+    init (title: String, color: String, spot: CLLocationCoordinate2D, coordinate: CLLocationCoordinate2D, isLiked: Bool){
         self.title = title
         self.color = color
         self.spot = spot
         self.coordinate = coordinate
+        self.isLiked = isLiked
 
     super.init()
 
