@@ -113,33 +113,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
     }
-<<<<<<< HEAD
-    view.markerTintColor = color
-                view.glyphImage = UIImage(named: "CatFace")
-                view.clusteringIdentifier = identifier
-    return view
-  }
-    
-//    private func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-//
-//        if control == view.rightCalloutAccessoryView {
-//            self.performSegue(withIdentifier: "GoDetail", sender: self)
-//        }
-//    }
-    
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//    if segue.identifier == "GoDetail" {
-//        _ = segue.destination as! DetailViewController
-//        destinationVC.catName = catName
-//    }
-//        else if segue.identifier == "goToAdd" {
-//        let destinationVC = segue.destination as! AddViewController
-//    }
-}
-=======
->>>>>>> c72b6df54e7ceebb204b7fd4b2807d0b86748fde
-    
-    
 }
 
 extension ViewController: MKMapViewDelegate {
