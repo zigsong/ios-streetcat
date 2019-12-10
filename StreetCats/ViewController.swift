@@ -31,6 +31,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         locationManager.startUpdatingLocation()
         myMap.showsUserLocation = true
         myMap.delegate = self
+        
+        //longpress 정의
+        
+        let LongPress = UILongPressGestureRecognizer(target: self, action: #selector(MKMapView.addAnnotation(_:)))
+        LongPress.minimumPressDuration = 1.5
+        myMap.addGestureRecognizer(LongPress)
+        
 //        setAnnotation(latitudeValue: 37.4812114, longitudeValue: 126.9527522, delta: 0.01, title: "설입냥", subtitble: "고양이설명텍스트")
         
 //        let cat = Cat(title: "설입냥",
@@ -41,6 +48,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
 //        myMap.addAnnotations(catAnnotations.cats)
     }
     
+    func userPerformedLongPress(gesture: UIGestureRecognizer) {
+        let touchPoint = gesture.location(in: myMap)
+        let Coords: CLLocationCoordinate2D = myMap.convert(touchPoint, toCoordinateFrom: myMap)
+        let annotation = MKPointAnnotation()
+        let Location = CLLocation(latitude: Coords.latitude, longitude: Coords.longitude)
+        annotation.coordinate = Coords
+        annotation.title = "추가"
+        myMap.addAnnotation(annotation)
+    }
     
     func goLocation(latitudeValue: CLLocationDegrees, longitudeValue: CLLocationDegrees, delta span: Double) -> CLLocationCoordinate2D {
         let pLocation = CLLocationCoordinate2DMake(latitudeValue,longitudeValue)
