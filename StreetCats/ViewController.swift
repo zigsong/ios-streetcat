@@ -32,19 +32,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         locationManager.startUpdatingLocation()
         myMap.showsUserLocation = true
         myMap.delegate = self
-<<<<<<< HEAD
-//        setAnnotation(latitudeValue: 37.4812114, longitudeValue: 126.9527522, delta: 0.01, title: "설입냥", subtitble: "고양이설명텍스트")
-//        DataManager.shared.mainVC = self // singleton 추가 (data input 이후 reload 용도)
-        makeMockData()
-    }
-    
-=======
         makeMockData()
         myMap.isScrollEnabled = true
-
     }
-    
-
     
     @IBAction func onTapMapView(gestureRecognizer: UILongPressGestureRecognizer) {
            if gestureRecognizer.state == UIGestureRecognizer.State.began {
@@ -69,7 +59,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
         
 
->>>>>>> 7215d9d60d7015f8b928873cede896a21d407010
     func goLocation(latitudeValue: CLLocationDegrees, longitudeValue: CLLocationDegrees, delta span: Double) -> CLLocationCoordinate2D {
         let pLocation = CLLocationCoordinate2DMake(latitudeValue,longitudeValue)
         let spanValue = MKCoordinateSpan(latitudeDelta: span, longitudeDelta: span)
@@ -78,7 +67,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         return pLocation
     }
     
-<<<<<<< HEAD
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let pLocation = locations.last
         _ = goLocation(latitudeValue: (pLocation?.coordinate.latitude)!, longitudeValue:  (pLocation?.coordinate.longitude)!, delta: 0.01)
@@ -93,28 +81,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         let data = try Data(contentsOf: url)
         return try decoder.decode(CatList.self, from: data)
     }
-    
-    func makeMockData() {
-//        if ( "savedCats.json" 이 있다면) {
-//            "savedCats.json"을 디코딩한 목록을 보여주고
-//        }
-//        else {
-            do {
-                let catList = try loadMockData()
-                // print(catList)
-                cats = []
-                for cat in catList.cats { // Catprofile의 CatList 수정 후 optional unwrapping 생김
-                    // print("\(cat.name)")
-                    
-                    cats += [CatAnnotation(title: cat.name, color: cat.color, spot: CLLocationCoordinate2D(latitude: cat.spot.coordinate.latitude, longitude: cat.spot.coordinate.longitude), coordinate: CLLocationCoordinate2D(latitude: cat.spot.coordinate.latitude, longitude: cat.spot.coordinate.longitude), details: cat.details, isLiked: cat.isLiked)]
-                }
-                myMap.addAnnotations(cats)
-            } catch {
-                print(error)
-            }
-//        }
-=======
-    
+
+        
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let pLocation = locations.last
             _ = goLocation(latitudeValue: (pLocation?.coordinate.latitude)!, longitudeValue:  (pLocation?.coordinate.longitude)!, delta: 0.01)
@@ -140,7 +108,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
               cats = []
               for cat in catList.cats {
                   print("\(cat.name)")
-               
                 cats += [CatAnnotation(title: cat.name, color: cat.color, spot: CLLocationCoordinate2D(latitude: cat.spot.coordinate.latitude, longitude: cat.spot.coordinate.longitude), coordinate: CLLocationCoordinate2D(latitude: cat.spot.coordinate.latitude, longitude: cat.spot.coordinate.longitude), details: cat.details, isLiked: cat.isLiked)]
                 
             }
@@ -148,7 +115,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
           } catch {
             print(error)
         }
->>>>>>> 7215d9d60d7015f8b928873cede896a21d407010
     }
     
 
@@ -166,8 +132,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
-  
-    
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToInfo" {
@@ -178,25 +142,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
     }
-<<<<<<< HEAD
-}
-
-extension ViewController: MKMapViewDelegate {
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        guard let annotation = annotation as? CatAnnotation else { return nil }
-        var identifier = "marker"
-        var color = UIColor.red
-
-        if annotation.color == "black" { identifier = "Black" // json color string의 값이 black이면,
-            color = .black}
-        else if annotation.color == "white" { identifier = "White"
-            color = .white}
-        else if annotation.color == "orange" { identifier = "Orange"
-            color = .orange}
-        else {identifier = "else"
-            color = .red }
-=======
-
 }
 
 extension ViewController: MKMapViewDelegate {
@@ -217,7 +162,6 @@ extension ViewController: MKMapViewDelegate {
     color = .gray}
     else {identifier = "else"
         color = .red }
->>>>>>> 7215d9d60d7015f8b928873cede896a21d407010
         
     var view: MKMarkerAnnotationView
     if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
@@ -244,7 +188,6 @@ extension ViewController: MKMapViewDelegate {
 
     }
     
-<<<<<<< HEAD
     // AddVC로 갔다가 되돌아왔을 떄 실행 (AddVC가 dismiss되면 자동으로 viewWillAppear가 실행됨)
     override func viewWillAppear(_ animated: Bool){
         
@@ -263,27 +206,17 @@ extension ViewController: MKMapViewDelegate {
                 print(newCat) // test
 
                 let newCatMark = CatAnnotation(title: newCat.name, color: newCat.color, spot: CLLocationCoordinate2D(latitude: newCat.spot.coordinate.latitude, longitude: newCat.spot.coordinate.longitude), coordinate: CLLocationCoordinate2D(latitude: newCat.spot.coordinate.latitude, longitude: newCat.spot.coordinate.longitude), details: newCat.details, isLiked: false)
-                
                 myMap.addAnnotation(newCatMark)
             }
             catch {
-                print("error: \(error)") // keyNotFound error 발생
+                print("error: \(error)")
             }
         }
         
-        print("viewWillAppear")
+        print("viewWillAppear") // for test
     }
 
-}
-
-//AddVC가 dismiss된 후 data reload 위해 싱글톤 객체 생성
-//class DataManager {
-//    static let shared = DataManager()
-//    var mainVC = ViewController()
-//}
-
-
-=======
+    }
 }
     
 extension ViewController: UIGestureRecognizerDelegate {
@@ -291,4 +224,3 @@ extension ViewController: UIGestureRecognizerDelegate {
         return false
     }
 }
->>>>>>> 7215d9d60d7015f8b928873cede896a21d407010
