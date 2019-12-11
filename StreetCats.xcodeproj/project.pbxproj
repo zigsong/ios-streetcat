@@ -456,13 +456,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-<<<<<<< HEAD
-				PRODUCT_BUNDLE_IDENTIFIER = com.songji.StreetCat;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-=======
-				PRODUCT_BUNDLE_IDENTIFIER = StreetCat.com;
+				PRODUCT_BUNDLE_IDENTIFIER = "Street-Cat.com";
 				PRODUCT_NAME = StreetCats_zig;
->>>>>>> 95fdc6adf9f6a4647d284b064c6eaa0e0e817ce4
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -481,13 +476,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-<<<<<<< HEAD
-				PRODUCT_BUNDLE_IDENTIFIER = com.songji.StreetCat;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-=======
-				PRODUCT_BUNDLE_IDENTIFIER = StreetCat.com;
+				PRODUCT_BUNDLE_IDENTIFIER = "Street-Cat.com";
 				PRODUCT_NAME = StreetCats_zig;
->>>>>>> 95fdc6adf9f6a4647d284b064c6eaa0e0e817ce4
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

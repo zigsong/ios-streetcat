@@ -120,10 +120,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToInfo" {
             _ = segue.destination as! DetailViewController
-<<<<<<< HEAD
-        
-=======
->>>>>>> 95fdc6adf9f6a4647d284b064c6eaa0e0e817ce4
         } else if segue.identifier == "goToAdd" {
             _ = segue.destination as! AddViewController
         }
@@ -151,24 +147,6 @@ extension ViewController: MKMapViewDelegate {
     else {identifier = "else"
         color = .red }
         
-<<<<<<< HEAD
-        var view: MKMarkerAnnotationView
-        if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
-            as? MKMarkerAnnotationView {
-            dequeuedView.annotation = annotation
-            view = dequeuedView
-        } else {
-            view = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-            view.canShowCallout = true
-            view.calloutOffset = CGPoint(x: -5, y: 5)
-            view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
-        }
-        view.markerTintColor = color
-        view.glyphImage = UIImage(named: "CatFace")
-        //            annotationView.glyphTintColor = .yellow
-        view.clusteringIdentifier = identifier
-        return view
-=======
     var view: MKMarkerAnnotationView
     if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
       as? MKMarkerAnnotationView {
@@ -192,7 +170,6 @@ extension ViewController: MKMapViewDelegate {
 
         performSegue(withIdentifier: "goToInfo", sender: self)
 
->>>>>>> 95fdc6adf9f6a4647d284b064c6eaa0e0e817ce4
     }
     
     // AddVC로 갔다가 되돌아왔을 떄 실행 (AddVC가 dismiss되면 자동으로 viewWillAppear가 실행됨)

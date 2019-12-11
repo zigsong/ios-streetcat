@@ -14,11 +14,7 @@ class DetailViewController: UIViewController {
       
     @IBOutlet weak var catNameLabel: UILabel!
     @IBOutlet weak var catImage: UIImageView!
-<<<<<<< HEAD
     @IBOutlet weak var likeButton: UIButton!
-=======
->>>>>>> 95fdc6adf9f6a4647d284b064c6eaa0e0e817ce4
-      
       
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +32,6 @@ class DetailViewController: UIViewController {
           self.dismiss(animated: true, completion: nil)
       }
 
-<<<<<<< HEAD
     @IBAction func likeButtonTapped(_ sender: UIButton) {
         if likeButton.isSelected == true {
           likeButton.isSelected = false
@@ -46,16 +41,5 @@ class DetailViewController: UIViewController {
            //isLiked = true
         }
     }
-    
-=======
-
-
-    @IBAction func likeButton(_ sender: UIButton) {
-        // 하트 이미지를 채워진 걸로 변화.
-        // 및 즐겨찾기에 추가.
-    }
-    
-
->>>>>>> 95fdc6adf9f6a4647d284b064c6eaa0e0e817ce4
 }
 

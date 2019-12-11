@@ -19,7 +19,6 @@ class AddViewController: UIViewController {
     @IBOutlet weak var infoTextView: UITextView!
     @IBOutlet weak var warningSign: UILabel!
     
-<<<<<<< HEAD
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var whiteButton: UIButton!
     @IBOutlet weak var brownButton: UIButton!
@@ -29,7 +28,6 @@ class AddViewController: UIViewController {
     
     var color: String = ""
     
-=======
     struct classConstants{
         // 간결한 버전
         // let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("savedCats.json")
@@ -39,8 +37,7 @@ class AddViewController: UIViewController {
         static let fileURL = documentsURL.appendingPathComponent("savedCats.json") // savedCats.json 파일 추가
     }
     
-        
->>>>>>> 95fdc6adf9f6a4647d284b064c6eaa0e0e817ce4
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -62,12 +59,7 @@ class AddViewController: UIViewController {
         self.infoTextView.textColor = UIColor.lightGray
 
         self.warningSign.text = ""
-<<<<<<< HEAD
         self.warningSign.textColor = UIColor.lightGray
-=======
-        self.warningSign.textColor = UIColor.red
-        
->>>>>>> 95fdc6adf9f6a4647d284b064c6eaa0e0e817ce4
     }
     
     //좋아요 버튼 관리
@@ -205,12 +197,7 @@ class AddViewController: UIViewController {
 
     // 최종 확인을 누르면
     @IBAction func finalConfirm(_ sender: UIButton) {
-<<<<<<< HEAD
-
-        
-=======
         // 이름 입력하는 텍스트 필드, 이미지가 필수적으로 채워져야만 함.
->>>>>>> 95fdc6adf9f6a4647d284b064c6eaa0e0e817ce4
         if nameTextField.text != "" {
             if infoTextView.text == "" {
                 infoTextView.text = "상세 정보 없음"
@@ -219,12 +206,8 @@ class AddViewController: UIViewController {
             self.dismiss(animated: true, completion: nil)
 
         } else {
-<<<<<<< HEAD
-            warningSign.text = "입력이 모두 완료되지 않았습니다"
-=======
             // 이름이나 이미지 중 비어있는 것이 있을 경우 경고 메시지.
             warningSign.text = "입력이 모두 완료되지 않았습니다."
->>>>>>> 95fdc6adf9f6a4647d284b064c6eaa0e0e817ce4
         }
 
         // 임시데이터
@@ -325,11 +308,7 @@ extension AddViewController : UITextFieldDelegate {
         // catName = nameTextField.text ?? ""
         // 자판 사라짐.
         nameTextField.endEditing(true)
-<<<<<<< HEAD
-        infoTextView.endEditing(true)
         // action
-=======
->>>>>>> 95fdc6adf9f6a4647d284b064c6eaa0e0e817ce4
         return true
     }
     
