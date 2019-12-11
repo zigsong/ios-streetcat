@@ -34,8 +34,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         myMap.delegate = self
         makeMockData()
         myMap.isScrollEnabled = true
-        
-<<<<<<< HEAD
+
     }
     
 
@@ -57,26 +56,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
            }
        }
 
-    
-    
-    
     @IBAction func showCurrentLocation (_ sender: UIButton) {
         locationManager.startUpdatingLocation()
         myMap.isScrollEnabled = true
     }
-
-=======
-        //        let cat = Cat(title: "설입냥",
-        //          locationName: "서울대입구",
-        //          discipline: "삼색냥이",
-        //          coordinate: CLLocationCoordinate2D(latitude: 37.4812114, longitude: 126.9527522))
-        //        myMap.addAnnotation(cat)
-        //        myMap.addAnnotations(catAnnotations.cats)
         
-    }
-    
 
->>>>>>> e1579942aa8e53fcd5069797bf1d5c345075caf6
     func goLocation(latitudeValue: CLLocationDegrees, longitudeValue: CLLocationDegrees, delta span: Double) -> CLLocationCoordinate2D {
         let pLocation = CLLocationCoordinate2DMake(latitudeValue,longitudeValue)
         let spanValue = MKCoordinateSpan(latitudeDelta: span, longitudeDelta: span)
@@ -92,11 +77,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         manager.stopUpdatingLocation()
         }
     
-<<<<<<< HEAD
-    
 
-=======
->>>>>>> e1579942aa8e53fcd5069797bf1d5c345075caf6
     func loadMockData() throws -> CatList {
       guard let url = Bundle.main.url(forResource: "cats", withExtension: "json") else {
           throw DecodingError.missingFile
@@ -125,7 +106,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
-<<<<<<< HEAD
+
     @IBAction func likeFilter(_ sender: UISwitch) {
         if (sender as AnyObject).isOn{
             myMap.removeAnnotations(cats)
@@ -142,34 +123,19 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
   
     
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToInfo" {
             _ = segue.destination as! DetailViewController
-=======
-    
-    // 추가하기 버튼 누르면 추가 페이지로 이동.
-    @IBAction func AddNewCat(_ sender: UIButton) {
-        self.performSegue(withIdentifier: "goToAdd", sender: self)
-    }
-    
-    // 각각 추가, 정보 확인 페이지와 연결.
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "goToInfo" {
-            _ = segue.destination as! DetailViewController
-        
->>>>>>> e1579942aa8e53fcd5069797bf1d5c345075caf6
         } else if segue.identifier == "goToAdd" {
             _ = segue.destination as! AddViewController
         }
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
     }
-<<<<<<< HEAD
-    
-=======
->>>>>>> e1579942aa8e53fcd5069797bf1d5c345075caf6
+
 }
-    
+
 extension ViewController: MKMapViewDelegate {
   func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
     guard let annotation = annotation as? CatAnnotation else { return nil }
@@ -206,37 +172,15 @@ extension ViewController: MKMapViewDelegate {
                 view.clusteringIdentifier = identifier
     return view
   }
-    
-<<<<<<< HEAD
-=======
     // 핀의 팝업 혹은 그 안의 i 버튼 클릭하면 디테일 페이지로 넘어감.
     // 여기서 각 핀에 알맞은 데이터를 불러와야 할 듯.
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
 
         performSegue(withIdentifier: "goToInfo", sender: self)
 
-
     }
-    //    private func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-    //
-    //        if control == view.rightCalloutAccessoryView {
-    //            self.performSegue(withIdentifier: "GoDetail", sender: self)
-    //        }
-    //    }
     
-    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    //    if segue.identifier == "GoDetail" {
-    //        _ = segue.destination as! DetailViewController
-    //        destinationVC.catName = catName
-    //    }
-    //        else if segue.identifier == "goToAdd" {
-    //        let destinationVC = segue.destination as! AddViewController
-    //    }
-    
-
->>>>>>> e1579942aa8e53fcd5069797bf1d5c345075caf6
 }
-    
     
 extension ViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
