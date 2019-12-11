@@ -191,7 +191,7 @@ extension AddViewController : UITextFieldDelegate {
     // 자판의 return or enter 버튼을 눌렀을 경우 나타날 액션
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         // 고양이 이름 변수에 사용자가 입력한 이름값을 받음.
-        catName = nameTextField.text ?? ""
+        // catName = nameTextField.text ?? ""
         // 자판 사라짐.
         nameTextField.endEditing(true)
         return true

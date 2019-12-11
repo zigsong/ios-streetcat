@@ -66,22 +66,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             myMap.setRegion(pRegion, animated: true)
         return pLocation
     }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let pLocation = locations.last
-        _ = goLocation(latitudeValue: (pLocation?.coordinate.latitude)!, longitudeValue:  (pLocation?.coordinate.longitude)!, delta: 0.01)
-    }
-    
-    func loadMockData() throws -> CatList {
-        guard let url = Bundle.main.url(forResource: "cats", withExtension: "json") else {
-            throw DecodingError.missingFile
-        }
-        
-        let decoder = JSONDecoder()
-        let data = try Data(contentsOf: url)
-        return try decoder.decode(CatList.self, from: data)
-    }
-
         
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let pLocation = locations.last
@@ -207,17 +191,16 @@ extension ViewController: MKMapViewDelegate {
 
                 let newCatMark = CatAnnotation(title: newCat.name, color: newCat.color, spot: CLLocationCoordinate2D(latitude: newCat.spot.coordinate.latitude, longitude: newCat.spot.coordinate.longitude), coordinate: CLLocationCoordinate2D(latitude: newCat.spot.coordinate.latitude, longitude: newCat.spot.coordinate.longitude), details: newCat.details, isLiked: false)
                 myMap.addAnnotation(newCatMark)
+                print("add cat success")
             }
             catch {
                 print("error: \(error)")
             }
         }
-        
         print("viewWillAppear") // for test
     }
-
-    }
 }
+
     
 extension ViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
