@@ -39,9 +39,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         //          coordinate: CLLocationCoordinate2D(latitude: 37.4812114, longitude: 126.9527522))
         //        myMap.addAnnotation(cat)
         //        myMap.addAnnotations(catAnnotations.cats)
+        
     }
     
-    
+
     func goLocation(latitudeValue: CLLocationDegrees, longitudeValue: CLLocationDegrees, delta span: Double) -> CLLocationCoordinate2D {
         let pLocation = CLLocationCoordinate2DMake(latitudeValue,longitudeValue)
         //        let spanValue = MKCoordinateSpan(latitudeDelta: span, longitudeDelta: span)
@@ -177,6 +178,8 @@ extension ViewController: MKMapViewDelegate {
     //        else if segue.identifier == "goToAdd" {
     //        let destinationVC = segue.destination as! AddViewController
     //    }
+    
+
 }
 
 
