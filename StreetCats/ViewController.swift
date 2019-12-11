@@ -65,7 +65,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     
-    
     func loadMockData() throws -> CatList {
         guard let url = Bundle.main.url(forResource: "cats", withExtension: "json") else {
             throw DecodingError.missingFile
@@ -93,28 +92,23 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
+    
+    // 추가하기 버튼 누르면 추가 페이지로 이동.
     @IBAction func AddNewCat(_ sender: UIButton) {
         self.performSegue(withIdentifier: "goToAdd", sender: self)
     }
     
-    @IBAction func CheckCatInfo(_ sender: UIButton) {
-        // 핀의 label에 있는 고양이의 이름을 받아서 넘기는 코드 필요.
-        
-        self.performSegue(withIdentifier: "goToInfo", sender: self)
-    }
-    
+    // 각각 추가, 정보 확인 페이지와 연결.
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToInfo" {
-            let destinationVC = segue.destination as! DetailViewController
+            _ = segue.destination as! DetailViewController
         
         } else if segue.identifier == "goToAdd" {
-            let destinationVC = segue.destination as! AddViewController
+            _ = segue.destination as! AddViewController
         }
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
     }
-    
-    
 }
 
 extension ViewController: MKMapViewDelegate {
@@ -160,6 +154,14 @@ extension ViewController: MKMapViewDelegate {
         return view
     }
     
+    // 핀의 팝업 혹은 그 안의 i 버튼 클릭하면 디테일 페이지로 넘어감.
+    // 여기서 각 핀에 알맞은 데이터를 불러와야 할 듯.
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+
+        performSegue(withIdentifier: "goToInfo", sender: self)
+
+
+    }
     //    private func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
     //
     //        if control == view.rightCalloutAccessoryView {

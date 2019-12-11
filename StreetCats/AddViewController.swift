@@ -18,6 +18,14 @@ class AddViewController: UIViewController {
     @IBOutlet weak var infoTextView: UITextView!
     @IBOutlet weak var warningSign: UILabel!
     
+    // 고양이 이름을 받기 위한 변수
+    var catName = ""
+    // 고양이 사진을 받기 위한 것 필요.
+    //
+    
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -61,30 +69,47 @@ class AddViewController: UIViewController {
     
     // 이름 입력 후 '확인' 버튼을 누르면 나타날 액션
     @IBAction func nameButtonPressed(_ sender: UIButton) {
+        // 고양이 이름 변수에 사용자가 입력한 이름값을 받음.
+        catName = nameTextField.text ?? ""
+        // 버튼을 누를 경우에도 자판 사라짐.
         nameTextField.endEditing(true)
-        // action
     }
     
+    // 상세 정보 입력 완료 버튼을 누르면 나타날 액션
     @IBAction func infoButtonPressed(_ sender: UIButton) {
+        
         infoTextView.endEditing(true)
     }
     
+    // 최종 확인을 누르면
     @IBAction func finalConfirm(_ sender: UIButton) {
-        
+        // 이름 입력하는 텍스트 필드, 이미지가 필수적으로 채워져야만 함.
         if nameTextField.text != "" {
-        
-            // 이 경우에 입력된 이름, 장소, 이미지, 상세 정보를 모두 받아서 DB로 넘기고 저장이 필요함.
+            if infoTextView.text == "" {
+                infoTextView.text = "상세 정보 없음"
+            }
+            
+            // 이 경우에 입력된 이름, 장소, 이미지, 상세 정보를 모두 받아서 json으로 encoding 필요함.
+            
+            let encoder = JSONEncoder()
+            
+            
+            
+            // 그리고 json으로 모두 넘긴 후에는 다시 초기의 비어있는 페이지 상태로 돌아감.
             
             self.dismiss(animated: true, completion: nil)
         } else {
+            // 이름이나 이미지 중 비어있는 것이 있을 경우 경고 메시지.
             warningSign.text = "입력이 모두 완료되지 않았습니다."
         }
     }
     
-    
+    // 입력을 모두 완료하지 않고 취소를 눌러 나갈 때
     @IBAction func finalCancel(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
+        
     }
+    
 }
 
 
@@ -121,8 +146,10 @@ extension AddViewController : UITextFieldDelegate {
     
     // 자판의 return or enter 버튼을 눌렀을 경우 나타날 액션
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        // 고양이 이름 변수에 사용자가 입력한 이름값을 받음.
+        catName = nameTextField.text ?? ""
+        // 자판 사라짐.
         nameTextField.endEditing(true)
-        // action
         return true
     }
     
@@ -137,7 +164,7 @@ extension AddViewController : UITextFieldDelegate {
         }
     }
     
-    // 입력이 완료되었을 경우 나타날 액션인데, 텍스트 입력창이 여러 개인 경우에는 어떻게 될 지를 모르겠네요..
+    // 입력이 완료되었을 경우 나타날 액션?
     func textFieldDidEndEditing(_ textField: UITextField) {
         // 입력 다 하고 나서 취해질 액션
         
@@ -168,6 +195,7 @@ extension AddViewController : UITextViewDelegate {
         return true
     }
     
+    // placeholder 역할 대신함.
     func textViewSetupView() {
         if infoTextView.text == "내용을 입력하세요." {
             infoTextView.text = ""
