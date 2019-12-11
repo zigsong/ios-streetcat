@@ -34,7 +34,29 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         myMap.delegate = self
         makeMockData()
         myMap.isScrollEnabled = true
+        
     }
+    
+
+    
+    @IBAction func onTapMapView(gestureRecognizer: UILongPressGestureRecognizer) {
+           if gestureRecognizer.state == UIGestureRecognizer.State.began {
+               let location = gestureRecognizer.location(in: myMap)
+               let coordinate = myMap.convert(location,toCoordinateFrom: myMap)
+               
+               print("\(coordinate.latitude), \(coordinate.longitude)")
+            
+//               let annotation = MKPointAnnotation()
+//                annotation.coordinate = coordinate
+//                annotation.title = "새로운 길냥이"
+//                myMap.addAnnotation(annotation)
+//               // 좌표에 annotation 추가
+            performSegue(withIdentifier: "goToAdd", sender: self)
+            
+           }
+       }
+
+    
     
     
     @IBAction func showCurrentLocation (_ sender: UIButton) {
@@ -101,20 +123,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
-//    @IBAction func dequeueReusableAnnotationView (_ sender: UIButton) {}
-
-    
-    
-    
-    @IBAction func AddNewCat(_ sender: UIButton) {
-        self.performSegue(withIdentifier: "goToAdd", sender: self)
-    }
-    
-    @IBAction func CheckCatInfo(_ sender: UIButton) {
-        // 핀의 label에 있는 고양이의 이름을 받아서 넘기는 코드 필요.
-        
-        self.performSegue(withIdentifier: "goToInfo", sender: self)
-    }
+  
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToInfo" {
@@ -168,3 +177,8 @@ extension ViewController: MKMapViewDelegate {
 }
     
     
+extension ViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return false
+    }
+}

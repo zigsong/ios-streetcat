@@ -17,26 +17,12 @@
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wB7-JH-Wk5">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                                <gestureRecognizers/>
                                 <connections>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="ivr-Zk-tWn"/>
+                                    <outletCollection property="gestureRecognizers" destination="6bx-n6-62q" appends="YES" id="697-Bc-URA"/>
                                 </connections>
                             </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ILs-pC-jht">
-                                <rect key="frame" x="69" y="517" width="52" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="정보보기"/>
-                                <connections>
-                                    <action selector="CheckCatInfo:" destination="BYZ-38-t0r" eventType="touchUpInside" id="azr-tr-4bm"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X89-xY-G9z">
-                                <rect key="frame" x="252" y="517" width="52" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="추가하기"/>
-                                <connections>
-                                    <action selector="AddNewCat:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cJo-Zn-XTf"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XGF-uC-rNa">
                                 <rect key="frame" x="168" y="573" width="39" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -77,6 +63,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="6bx-n6-62q">
+                    <connections>
+                        <action selector="onTapMapViewWithGestureRecognizer:" destination="BYZ-38-t0r" id="Zpq-kC-BMf"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1390" y="-603"/>
         </scene>
