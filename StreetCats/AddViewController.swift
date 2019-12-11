@@ -15,8 +15,7 @@ class AddViewController: UIViewController {
     @IBOutlet weak var addImage: UIButton!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var nameTextField: UITextField!
-//    @IBOutlet weak var infoTextView: UITextView!
-    @IBOutlet weak var infoTextView: UITextField!
+    @IBOutlet weak var infoTextView: UITextView!
     @IBOutlet weak var warningSign: UILabel!
     
     @IBOutlet weak var likeButton: UIButton!
@@ -25,6 +24,8 @@ class AddViewController: UIViewController {
     @IBOutlet weak var orangeButton: UIButton!
     @IBOutlet weak var greyButton: UIButton!
     @IBOutlet weak var blackButton: UIButton!
+    
+    var color: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,20 +38,20 @@ class AddViewController: UIViewController {
         self.addImage.layer.borderWidth = 0.5
         self.addImage.layer.borderColor = UIColor.lightGray.cgColor
 
-//        // 상세 정보 칸의 프레임 설정
-//        self.infoTextView.layer.borderColor = UIColor.lightGray.cgColor
-//        self.infoTextView.layer.borderWidth = 1
-//        self.infoTextView.layer.cornerRadius = 10
-//
-//        // textview의 placeholder 역할
-//        self.infoTextView.text = "내용을 입력하세요"
-//        self.infoTextView.textColor = UIColor.lightGray
-//
-//        self.warningSign.text = ""
-//        self.warningSign.textColor = UIColor.red
+        // 상세 정보 칸의 프레임 설정
+        self.infoTextView.layer.borderColor = UIColor.lightGray.cgColor
+        self.infoTextView.layer.borderWidth = 1
+        self.infoTextView.layer.cornerRadius = 10
+
+        // textview의 placeholder 역할
+        self.infoTextView.text = "상세 정보"
+        self.infoTextView.textColor = UIColor.lightGray
+
+        self.warningSign.text = ""
+        self.warningSign.textColor = UIColor.lightGray
     }
     
-    
+    //좋아요 버튼 관리
     @IBAction func likeButtonTapped() {
         if likeButton.isSelected == true {
            likeButton.isSelected = false
@@ -61,31 +62,99 @@ class AddViewController: UIViewController {
          }
     }
     
-    // 아래는 고양이 컬러 선택 버튼들
-    // 다섯 가지 색상 중 하나만 선택하도록 해야 하기 때문에 color 값에 어떤 값이 들어있을 경우 나머지 버튼 전부를 .isSelected = false 해버리고 선택된 버튼만 .isSelected = true 하는 것이 빠를 것 같아 내용은 일단 비워둠
+    // 고양이 컬러 선택 버튼들
     @IBAction func whiteButtonTapped() {
-        if whiteButton.isSelected == true {
-           whiteButton.isSelected = false
-           //color = ""
-           //제이슨에 컬러값이 스트링으로 들어가나요?
+        if whiteButton.isSelected == false {
+            if color != "" {
+                color = "white"
+                buttonReset()
+                whiteButton.isSelected = true
+            } else {
+                color = "white"
+                whiteButton.isSelected = true
+            }
         } else {
-            whiteButton.isSelected = true
-            //color = "white"
+            color = ""
+            buttonReset()
         }
+        print(color)
     }
     
     @IBAction func brownButtonTapped() {
+        if brownButton.isSelected == false {
+            if color != "" {
+                color = "brown"
+                buttonReset()
+                brownButton.isSelected = true
+            } else {
+                color = "brown"
+                brownButton.isSelected = true
+            }
+        } else {
+            color = ""
+            buttonReset()
+        }
+        print(color)
     }
     
     @IBAction func orangeButtonTapped() {
+        if orangeButton.isSelected == false {
+            if color != "" {
+                color = "orange"
+                buttonReset()
+                orangeButton.isSelected = true
+            } else {
+                color = "orange"
+                orangeButton.isSelected = true
+            }
+        } else {
+            color = ""
+            buttonReset()
+        }
+        print(color)
     }
     
     @IBAction func greyButtonTapped() {
+        if greyButton.isSelected == false {
+            if color != "" {
+                color = "grey"
+                buttonReset()
+                greyButton.isSelected = true
+            } else {
+                color = "grey"
+                greyButton.isSelected = true
+            }
+        } else {
+            color = ""
+            buttonReset()
+        }
+        print(color)
     }
     
     @IBAction func blackButtonTapped() {
+        if blackButton.isSelected == false {
+            if color != "" {
+                color = "black"
+                buttonReset()
+                blackButton.isSelected = true
+            } else {
+                color = "black"
+                blackButton.isSelected = true
+            }
+        } else {
+            color = ""
+            buttonReset()
+        }
+        print(color)
     }
     
+    func buttonReset() {
+        whiteButton.isSelected = false
+        brownButton.isSelected = false
+        orangeButton.isSelected = false
+        greyButton.isSelected = false
+        blackButton.isSelected = false
+    }
     
     
     
@@ -217,12 +286,12 @@ extension AddViewController : UITextViewDelegate {
     }
     
     func textViewSetupView() {
-        if infoTextView.text == "내용을 입력하세요." {
+        if infoTextView.text == "내용을 입력하세요" {
             infoTextView.text = ""
-            infoTextView.textColor = UIColor.black
+            infoTextView.textColor = UIColor.label
         } else if infoTextView.text == "" {
-            infoTextView.text = "내용을 입력하세요."
-            infoTextView.textColor = UIColor.lightGray
+            infoTextView.text = "내용을 입력하세요"
+            infoTextView.textColor = UIColor.label
         }
     }
 }

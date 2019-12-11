@@ -11,9 +11,9 @@ import UIKit
 class DetailViewController: UIViewController {
     var catName: String?
       
-      @IBOutlet weak var catNameLabel: UILabel!
-      @IBOutlet weak var catImage: UIImageView!
-      
+    @IBOutlet weak var catNameLabel: UILabel!
+    @IBOutlet weak var catImage: UIImageView!
+    @IBOutlet weak var likeButton: UIButton!
       
       override func viewDidLoad() {
           super.viewDidLoad()
@@ -28,4 +28,15 @@ class DetailViewController: UIViewController {
       @IBAction func returnToMap(_ sender: UIButton) {
           self.dismiss(animated: true, completion: nil)
       }
+
+    @IBAction func likeButtonTapped(_ sender: UIButton) {
+        if likeButton.isSelected == true {
+          likeButton.isSelected = false
+           //isLiked = false
+        } else {
+          likeButton.isSelected = true
+           //isLiked = true
+        }
+    }
+    
 }
