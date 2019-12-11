@@ -1,4 +1,3 @@
-
 {
     "cats": [
         {
@@ -9,7 +8,11 @@
                 "lon": 126.95
             },
             "details": "always sleeping",
+<<<<<<< HEAD
             "isLiked": false
+=======
+            "isLiked": true
+>>>>>>> 7215d9d60d7015f8b928873cede896a21d407010
         },
         {
             "name": "ahyeon",
@@ -29,9 +32,11 @@
                 "lon": 126.98
             },
             "details": "with friends",
+<<<<<<< HEAD
             "isLiked": false
+=======
+            "isLiked": true
+>>>>>>> 7215d9d60d7015f8b928873cede896a21d407010
         }
     ]
 }
-
-

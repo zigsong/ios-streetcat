@@ -80,6 +80,7 @@ struct Cat: Codable { // codable protocol 채택
 }
 
 struct CatList: Codable {
+<<<<<<< HEAD
     var cats: [Cat]
     
     mutating func addCat(_cat: Cat) {
@@ -89,6 +90,13 @@ struct CatList: Codable {
 //        cats = nil
 //        print("test")
 //    }
+=======
+    var cats: [Cat]// 여러 마리 array로 변환
+    
+    mutating func addCat(_cat: Cat) {
+          // cats에 새로운 길냥이 추가
+      }
+>>>>>>> 7215d9d60d7015f8b928873cede896a21d407010
 }
 
 
