@@ -40,7 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1941B50B2394DC990066DAEB /* StreetCats.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StreetCats.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1941B50B2394DC990066DAEB /* StreetCats_zig.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StreetCats_zig.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1941B50E2394DC990066DAEB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1941B5102394DC990066DAEB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		1941B5122394DC990066DAEB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -59,6 +59,7 @@
 		1941B5442394DFCC0066DAEB /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		3606934423A0C6CD00029D60 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		7EDE3C1D239774C500777CD1 /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
+		CEE0930D2397BF1E008E739C /* encodeTest.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = encodeTest.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,7 +100,7 @@
 		1941B50C2394DC990066DAEB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1941B50B2394DC990066DAEB /* StreetCats.app */,
+				1941B50B2394DC990066DAEB /* StreetCats_zig.app */,
 				1941B5212394DC9B0066DAEB /* StreetCatsTests.xctest */,
 				1941B52C2394DC9B0066DAEB /* StreetCatsUITests.xctest */,
 			);
@@ -121,6 +122,7 @@
 				1941B5172394DC9B0066DAEB /* Assets.xcassets */,
 				1941B51C2394DC9B0066DAEB /* Info.plist */,
 				1941B5422394DD070066DAEB /* cats.json */,
+				CEE0930D2397BF1E008E739C /* encodeTest.playground */,
 			);
 			path = StreetCats;
 			sourceTree = "<group>";
@@ -160,7 +162,7 @@
 			);
 			name = StreetCats;
 			productName = StreetCats;
-			productReference = 1941B50B2394DC990066DAEB /* StreetCats.app */;
+			productReference = 1941B50B2394DC990066DAEB /* StreetCats_zig.app */;
 			productType = "com.apple.product-type.application";
 		};
 		1941B5202394DC9B0066DAEB /* StreetCatsTests */ = {
@@ -454,8 +456,13 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+<<<<<<< HEAD
 				PRODUCT_BUNDLE_IDENTIFIER = com.songji.StreetCat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+=======
+				PRODUCT_BUNDLE_IDENTIFIER = StreetCat.com;
+				PRODUCT_NAME = StreetCats_zig;
+>>>>>>> 95fdc6adf9f6a4647d284b064c6eaa0e0e817ce4
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -474,8 +481,13 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+<<<<<<< HEAD
 				PRODUCT_BUNDLE_IDENTIFIER = com.songji.StreetCat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+=======
+				PRODUCT_BUNDLE_IDENTIFIER = StreetCat.com;
+				PRODUCT_NAME = StreetCats_zig;
+>>>>>>> 95fdc6adf9f6a4647d284b064c6eaa0e0e817ce4
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
