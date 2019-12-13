@@ -10,18 +10,29 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class ViewController: UIViewController, CLLocationManagerDelegate {
+class ViewController: UIViewController, CLLocationManagerDelegate, ViewToViewDelegate {
     
     enum DecodingError: Error {
         case missingFile
     }
     
     var cats: [CatAnnotation] = []
+    var catSpot: [CLLocationCoordinate2D] = []
+    
+    
+//    var catSelected
+    
     var location = "marker"
+    // AddVC와 롱프레스한 위치를 좌표로 받기 위해 변수 값 설정.
+    var longPressedLocation: CLLocationCoordinate2D?
+    
+    var touchedLocation: CLLocationCoordinate2D?
 
-    @IBOutlet weak var myMap: MKMapView!
     let locationManager = CLLocationManager()
-//    let catAnnotations = CatAnnotations()
+    //    let catAnnotations = CatAnnotations()
+        
+    @IBOutlet weak var myMap: MKMapView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,22 +47,27 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         myMap.isScrollEnabled = true
     }
     
+    
     @IBAction func onTapMapView(gestureRecognizer: UILongPressGestureRecognizer) {
-           if gestureRecognizer.state == UIGestureRecognizer.State.began {
-               let location = gestureRecognizer.location(in: myMap)
-               let coordinate = myMap.convert(location,toCoordinateFrom: myMap)
-               
-               print("\(coordinate.latitude), \(coordinate.longitude)")
+        if gestureRecognizer.state == UIGestureRecognizer.State.began {
+            let location = gestureRecognizer.location(in: myMap)
+            let coordinate = myMap.convert(location,toCoordinateFrom: myMap)
             
-//               let annotation = MKPointAnnotation()
-//                annotation.coordinate = coordinate
-//                annotation.title = "새로운 길냥이"
-//                myMap.addAnnotation(annotation)
-//               // 좌표에 annotation 추가
+            print("\(coordinate.latitude), \(coordinate.longitude)")
+            
+            //               let annotation = MKPointAnnotation()
+            //                annotation.coordinate = coordinate
+            //                annotation.title = "새로운 길냥이"
+            //                myMap.addAnnotation(annotation)
+            //                // 좌표에 annotation 추가
+            
+            // 롱프레스한 곳의 좌표를 AddVC에 넘기기 위한 변수 값에 넘김.
+            longPressedLocation = coordinate
             performSegue(withIdentifier: "goToAdd", sender: self)
             
-           }
-       }
+        }
+        
+    }
 
     @IBAction func showCurrentLocation (_ sender: UIButton) {
         locationManager.startUpdatingLocation()
@@ -91,9 +107,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                // print(catList)
               cats = []
               for cat in catList.cats {
-                  print("\(cat.name)")
+                print("\(cat.spot.coordinate)")
                 cats += [CatAnnotation(title: cat.name, color: cat.color, spot: CLLocationCoordinate2D(latitude: cat.spot.coordinate.latitude, longitude: cat.spot.coordinate.longitude), coordinate: CLLocationCoordinate2D(latitude: cat.spot.coordinate.latitude, longitude: cat.spot.coordinate.longitude), details: cat.details, isLiked: cat.isLiked)]
-                
+                catSpot += [cat.spot.coordinate]
             }
                 myMap.addAnnotations(cats)
           } catch {
@@ -101,7 +117,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
-
+    // remove하면 새로 추가한 핀은 다시 안 생기네요. savedCats의 파일도 별도로 부르는 게 필요함.
     @IBAction func likeFilter(_ sender: UISwitch) {
         if (sender as AnyObject).isOn{
             myMap.removeAnnotations(cats)
@@ -116,17 +132,52 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
+    // AddVC의 페이지가 사라질 때 (viewWillDisappear), 작동할 catAdded 함수.
+    func catAdded() {
+        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "goToInfo" {
-            _ = segue.destination as! DetailViewController
-        } else if segue.identifier == "goToAdd" {
-            _ = segue.destination as! AddViewController
+            let file = "savedCats.json"
+            let fileURL = dir.appendingPathComponent(file)
+
+            // reading & decoding & addAnnotation
+            do {
+                let newCatData = try String(contentsOf: fileURL, encoding: .utf8)
+                // print(newCatData) // 정상작동(json String으로 출력) - AddVC의 추가하기가 내려가면 자동으로 출력됨. 왜 print("viewWillAppear")는 안될까?
+                let decoder = JSONDecoder()
+                let data = Data(newCatData.utf8)
+                let newCat = try decoder.decode(Cat.self, from: data)
+                print(newCat) // test
+
+                let newCatMark = CatAnnotation(title: newCat.name, color: newCat.color, spot: CLLocationCoordinate2D(latitude: newCat.spot.coordinate.latitude, longitude: newCat.spot.coordinate.longitude), coordinate: CLLocationCoordinate2D(latitude: newCat.spot.coordinate.latitude, longitude: newCat.spot.coordinate.longitude), details: newCat.details, isLiked: false)
+                myMap.addAnnotation(newCatMark)
+                print("add cat success")
+            }
+            catch {
+                print("error: \(error)")
+            }
         }
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
     }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToInfo", let dest = segue.destination as? DetailViewController {
+             
+ //
+            dest.delegate = self
+        } else if segue.identifier == "goToAdd", let dest = segue.destination as? AddViewController {
+            // myMap의 롱프레스 변수를 AddVC에서 쓸 수 있게 AddVC의 롱프레스 변수로 넘겨줌.
+            // AddVC의 delegate를 myMap으로 설정.
+            dest.longPressedLocation = longPressedLocation
+            dest.delegate = self
+            
+        }
+    }
+    
 }
+
+
+
+//MARK: - 이하 extension 및 protocol
 
 extension ViewController: MKMapViewDelegate {
   func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -164,46 +215,35 @@ extension ViewController: MKMapViewDelegate {
                 view.clusteringIdentifier = identifier
     return view
   }
+    
+
     // 핀의 팝업 혹은 그 안의 i 버튼 클릭하면 디테일 페이지로 넘어감.
-    // 여기서 각 핀에 알맞은 데이터를 불러와야 할 듯.
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
 
+        // 여기서 각 핀에 알맞은 데이터를 불러와야 할 듯.
+        // 좌표 값을 확인하고 그에 해당하는 좌표를 가진 고양이의 정보를 불러온다.
+        
+        touchedLocation = view.annotation?.coordinate
+        
+        print(touchedLocation)
+        print(catSpot)
+        
         performSegue(withIdentifier: "goToInfo", sender: self)
 
     }
-    
-    // AddVC로 갔다가 되돌아왔을 떄 실행 (AddVC가 dismiss되면 자동으로 viewWillAppear가 실행됨)
-    override func viewWillAppear(_ animated: Bool){
-        
-        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-
-            let file = "savedCats.json"
-            let fileURL = dir.appendingPathComponent(file)
-
-            // reading & decoding & addAnnotation
-            do {
-                let newCatData = try String(contentsOf: fileURL, encoding: .utf8)
-                // print(newCatData) // 정상작동(json String으로 출력) - AddVC의 추가하기가 내려가면 자동으로 출력됨. 왜 print("viewWillAppear")는 안될까?
-                let decoder = JSONDecoder()
-                let data = Data(newCatData.utf8)
-                let newCat = try decoder.decode(Cat.self, from: data)
-                print(newCat) // test
-
-                let newCatMark = CatAnnotation(title: newCat.name, color: newCat.color, spot: CLLocationCoordinate2D(latitude: newCat.spot.coordinate.latitude, longitude: newCat.spot.coordinate.longitude), coordinate: CLLocationCoordinate2D(latitude: newCat.spot.coordinate.latitude, longitude: newCat.spot.coordinate.longitude), details: newCat.details, isLiked: false)
-                myMap.addAnnotation(newCatMark)
-                print("add cat success")
-            }
-            catch {
-                print("error: \(error)")
-            }
-        }
-        print("viewWillAppear") // for test
-    }
 }
 
-    
+
 extension ViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return false
     }
 }
+
+
+// AddVC에서 myMap으로 데이터를 넘겨 받기 위한 delegate 프로토콜
+protocol ViewToViewDelegate {
+    func catAdded()
+}
+ 
+
