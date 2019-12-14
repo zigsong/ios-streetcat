@@ -58,8 +58,8 @@ class AddViewController: UIViewController {
         self.infoTextView.layer.borderWidth = 1
         self.infoTextView.layer.cornerRadius = 10
 
-        // textview의 placeholder 역할
-        self.infoTextView.text = "상세 정보"
+        // textview의 placeholder 역할 -> 아직 미완성
+        self.infoTextView.text = "상세 정보를 입력하세요"
         self.infoTextView.textColor = UIColor.lightGray
 
         self.warningSign.text = ""
@@ -133,11 +133,11 @@ class AddViewController: UIViewController {
     @IBAction func greyButtonTapped() {
         if greyButton.isSelected == false {
             if color != "" {
-                color = "grey"
+                color = "gray"
                 buttonReset()
                 greyButton.isSelected = true
             } else {
-                color = "grey"
+                color = "gray"
                 greyButton.isSelected = true
             }
         } else {
@@ -231,6 +231,9 @@ class AddViewController: UIViewController {
             do {
                 try jsonData.write(to: classConstants.fileURL)
                 print("success") // 정상 작동
+                // myMap의 catAdded 함수를 작동시켜서, 디코딩
+                delegate?.catAdded()
+
             } catch {
                 
                 print("error")
@@ -280,12 +283,6 @@ class AddViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    
-    // AddVC가 사라지면서 delegate인 myMap의 catAdded 함수를 실행시킴. 그래서 myMap으로 돌아가면 핀이 이미 추가되어있음.
-    override func viewWillDisappear(_ animated: Bool) {
-      super.viewWillDisappear(animated)
-      delegate?.catAdded()
-    }
 }
 
 
@@ -322,8 +319,6 @@ extension AddViewController : UITextFieldDelegate {
     
     // 자판의 return or enter 버튼을 눌렀을 경우 나타날 액션
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        // 고양이 이름 변수에 사용자가 입력한 이름값을 받음.
-        // catName = nameTextField.text ?? ""
         // 자판 사라짐.
         nameTextField.endEditing(true)
         // action
@@ -354,6 +349,7 @@ extension AddViewController : UITextViewDelegate {
     
     // 정보 입력 시작할 경우
     func textViewDidBeginEditing(_ textView: UITextView) {
+        
         textViewSetupView()
     }
     

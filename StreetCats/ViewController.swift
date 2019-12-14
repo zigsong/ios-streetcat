@@ -17,15 +17,17 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ViewToViewDel
     }
     
     var cats: [CatAnnotation] = []
+    // 터치한 핀의 좌표값과 비교, 참조하기 위한 좌표들
     var catSpot: [CLLocationCoordinate2D] = []
     
-    
-//    var catSelected
+    var catNames: [String] = []
+    var catDetails: [String] = []
+    var indexOfCat = 0
     
     var location = "marker"
     // AddVC와 롱프레스한 위치를 좌표로 받기 위해 변수 값 설정.
     var longPressedLocation: CLLocationCoordinate2D?
-    
+    // DetailVC로 넘어갈 때 참조할 터치한 핀의 좌표를 받기 위한 변수 설정.
     var touchedLocation: CLLocationCoordinate2D?
 
     let locationManager = CLLocationManager()
@@ -104,12 +106,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ViewToViewDel
    func makeMockData() {
           do {
               let catList = try loadMockData()
-               // print(catList)
+              // print(catList)
               cats = []
               for cat in catList.cats {
                 print("\(cat.spot.coordinate)")
                 cats += [CatAnnotation(title: cat.name, color: cat.color, spot: CLLocationCoordinate2D(latitude: cat.spot.coordinate.latitude, longitude: cat.spot.coordinate.longitude), coordinate: CLLocationCoordinate2D(latitude: cat.spot.coordinate.latitude, longitude: cat.spot.coordinate.longitude), details: cat.details, isLiked: cat.isLiked)]
                 catSpot += [cat.spot.coordinate]
+                catNames += [cat.name]
+                catDetails += [cat.details]
             }
                 myMap.addAnnotations(cats)
           } catch {
@@ -132,7 +136,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ViewToViewDel
         }
     }
     
-    // AddVC의 페이지가 사라질 때 (viewWillDisappear), 작동할 catAdded 함수.
+    // AddVC의 추가가 완료되면 데이터가 인코딩되고 즉시 바로 myMap으로 디코딩할 때, 작동할 catAdded 함수.
+    
+    // 맵에서 핀이 찍히지는 않아도 제이슨 파일에는 추가가 되는 듯?
     func catAdded() {
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
 
@@ -161,8 +167,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ViewToViewDel
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToInfo", let dest = segue.destination as? DetailViewController {
-             
- //
+
+            dest.catNames = catNames
+            dest.catDetails = catDetails
+            dest.indexOfCat = indexOfCat
             dest.delegate = self
         } else if segue.identifier == "goToAdd", let dest = segue.destination as? AddViewController {
             // myMap의 롱프레스 변수를 AddVC에서 쓸 수 있게 AddVC의 롱프레스 변수로 넘겨줌.
@@ -223,13 +231,20 @@ extension ViewController: MKMapViewDelegate {
         // 여기서 각 핀에 알맞은 데이터를 불러와야 할 듯.
         // 좌표 값을 확인하고 그에 해당하는 좌표를 가진 고양이의 정보를 불러온다.
         
+        // 사용자가 탭한 핀의 좌표를 받음.
         touchedLocation = view.annotation?.coordinate
-        
-        print(touchedLocation)
-        print(catSpot)
+        // catSpot에서 탭한 좌표와 일치하는 값을 찾으면 그에 해당하는 ..
+        for i in catSpot {
+            if i.latitude == touchedLocation!.latitude && i.longitude == touchedLocation!.longitude {
+                indexOfCat = catSpot.firstIndex(where: {$0.latitude == touchedLocation!.latitude && $0.longitude == touchedLocation!.longitude}) ?? 0
+            }
+        }
+//        print(touchedLocation)
+//        print(catSpot[0])
+//        print(catNames)
+//        print(indexOfCat)
         
         performSegue(withIdentifier: "goToInfo", sender: self)
-
     }
 }
 
@@ -241,7 +256,7 @@ extension ViewController: UIGestureRecognizerDelegate {
 }
 
 
-// AddVC에서 myMap으로 데이터를 넘겨 받기 위한 delegate 프로토콜
+// 다른 뷰 간에 데이터를 넘겨 받기 위한 delegate 프로토콜
 protocol ViewToViewDelegate {
     func catAdded()
 }
