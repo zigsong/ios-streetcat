@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit // CLLocation에 값을 넣기 위해 필요
 
 class AddViewController: UIViewController {
     
@@ -18,6 +19,25 @@ class AddViewController: UIViewController {
     @IBOutlet weak var infoTextView: UITextView!
     @IBOutlet weak var warningSign: UILabel!
     
+    @IBOutlet weak var likeButton: UIButton!
+    @IBOutlet weak var whiteButton: UIButton!
+    @IBOutlet weak var brownButton: UIButton!
+    @IBOutlet weak var orangeButton: UIButton!
+    @IBOutlet weak var greyButton: UIButton!
+    @IBOutlet weak var blackButton: UIButton!
+    
+    var color: String = ""
+    
+    struct classConstants{
+        // 간결한 버전
+        // let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("savedCats.json")
+        // savedCats.json이 한번만 생성되게끔
+        static let fileManager = FileManager.default // filemanager 인스턴스 생성
+        static let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0] // path 작성
+        static let fileURL = documentsURL.appendingPathComponent("savedCats.json") // savedCats.json 파일 추가
+    }
+    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,18 +53,124 @@ class AddViewController: UIViewController {
         self.infoTextView.layer.borderColor = UIColor.lightGray.cgColor
         self.infoTextView.layer.borderWidth = 1
         self.infoTextView.layer.cornerRadius = 10
-        
+
         // textview의 placeholder 역할
-        self.infoTextView.text = "내용을 입력하세요."
+        self.infoTextView.text = "상세 정보"
         self.infoTextView.textColor = UIColor.lightGray
-        
+
         self.warningSign.text = ""
-        self.warningSign.textColor = UIColor.red
+        self.warningSign.textColor = UIColor.lightGray
+    }
+    
+    //좋아요 버튼 관리
+    @IBAction func likeButtonTapped() {
+        if likeButton.isSelected == true {
+           likeButton.isSelected = false
+            //isLiked = false
+         } else {
+           likeButton.isSelected = true
+            //isLiked = true
+         }
+    }
+    
+    // 고양이 컬러 선택 버튼들
+    @IBAction func whiteButtonTapped() {
+        if whiteButton.isSelected == false {
+            if color != "" {
+                color = "white"
+                buttonReset()
+                whiteButton.isSelected = true
+            } else {
+                color = "white"
+                whiteButton.isSelected = true
+            }
+        } else {
+            color = ""
+            buttonReset()
+        }
+        print(color)
+    }
+    
+    @IBAction func brownButtonTapped() {
+        if brownButton.isSelected == false {
+            if color != "" {
+                color = "brown"
+                buttonReset()
+                brownButton.isSelected = true
+            } else {
+                color = "brown"
+                brownButton.isSelected = true
+            }
+        } else {
+            color = ""
+            buttonReset()
+        }
+        print(color)
+    }
+    
+    @IBAction func orangeButtonTapped() {
+        if orangeButton.isSelected == false {
+            if color != "" {
+                color = "orange"
+                buttonReset()
+                orangeButton.isSelected = true
+            } else {
+                color = "orange"
+                orangeButton.isSelected = true
+            }
+        } else {
+            color = ""
+            buttonReset()
+        }
+        print(color)
+    }
+    
+    @IBAction func greyButtonTapped() {
+        if greyButton.isSelected == false {
+            if color != "" {
+                color = "grey"
+                buttonReset()
+                greyButton.isSelected = true
+            } else {
+                color = "grey"
+                greyButton.isSelected = true
+            }
+        } else {
+            color = ""
+            buttonReset()
+        }
+        print(color)
+    }
+    
+    @IBAction func blackButtonTapped() {
+        if blackButton.isSelected == false {
+            if color != "" {
+                color = "black"
+                buttonReset()
+                blackButton.isSelected = true
+            } else {
+                color = "black"
+                blackButton.isSelected = true
+            }
+        } else {
+            color = ""
+            buttonReset()
+        }
+        print(color)
+    }
+    
+    func buttonReset() {
+        whiteButton.isSelected = false
+        brownButton.isSelected = false
+        orangeButton.isSelected = false
+        greyButton.isSelected = false
+        blackButton.isSelected = false
     }
     
     
+    
     @IBAction func addImage(_ sender: UIButton) {
-        let alert = UIAlertController(title: nil, message: "고양이 사진을 등록합니다.", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: nil, message: "고양이 사진을 등록합니다", preferredStyle: .actionSheet)
         let library = UIAlertAction(title: "사진 앨범", style: .default) { (action) in self.openLibrary()
         }
         let camera =  UIAlertAction(title: "카메라", style: .default) { (action) in self.openCamera()
@@ -60,28 +186,85 @@ class AddViewController: UIViewController {
     }
     
     // 이름 입력 후 '확인' 버튼을 누르면 나타날 액션
-    @IBAction func nameButtonPressed(_ sender: UIButton) {
+    @IBAction func nameButtonPressed(_ sender: UIButton) { // 추가하기 -> 이름 -> 확인
         nameTextField.endEditing(true)
-        // action
+        // Q. 확인 버튼이 있어야 하나?
     }
     
-    @IBAction func infoButtonPressed(_ sender: UIButton) {
+    @IBAction func infoButtonPressed(_ sender: UIButton) { // 정보보기
         infoTextView.endEditing(true)
     }
-    
+
+    // 최종 확인을 누르면
     @IBAction func finalConfirm(_ sender: UIButton) {
-        
+        // 이름 입력하는 텍스트 필드, 이미지가 필수적으로 채워져야만 함.
         if nameTextField.text != "" {
-        
-            // 이 경우에 입력된 이름, 장소, 이미지, 상세 정보를 모두 받아서 DB로 넘기고 저장이 필요함.
-            
+            if infoTextView.text == "" {
+                infoTextView.text = "상세 정보 없음"
+            }
+
             self.dismiss(animated: true, completion: nil)
+
         } else {
+            // 이름이나 이미지 중 비어있는 것이 있을 경우 경고 메시지.
             warningSign.text = "입력이 모두 완료되지 않았습니다."
         }
+
+        // 임시데이터
+        let lat = Double.random(in: 37.3 ..< 37.8)
+        let lon = Double.random(in: 126.7 ..< 127.2)
+        
+        var cat = Cat(name: nameTextField.text!, color: "orange",
+                      spot: CLLocation(latitude: lat, longitude: lon), details: infoTextView.text, isLiked: false)
+        
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .prettyPrinted
+        
+        let jsonData = try! encoder.encode(cat)
+        // jsonString으로 제대로 encode되었는지 테스트 출력
+//        let jsonString = String(data: jsonData, encoding: .utf8)!
+//        print(jsonString)
+    
+        do {
+            try jsonData.write(to: classConstants.fileURL)
+            print("success") // 정상 작동
+        } catch {
+            
+            print("error")
+        }
+        
+        // only for test //
+//        do {
+//            let test1 = try fileManager.contentsOfDirectory(atPath: getDirectoryPath())
+//            print(test1) // result: ["cats.json.cats", "cats.json", "savedCats.json"]
+//        }
+//        catch {
+//            print("test1 error")
+//        }
+        
+        // only for test //
+//        print(getDirectoryPath())
+//        let toknow = fileManager.fileExists(atPath: getDirectoryPath())
+//        print("fileExists?: \(toknow)") // always return true
+        
+//        do {
+//            try jsonData.write(to: path) // URLPath
+//        }
+//        catch {
+//            print("Fail to write JSON data")
+//        }
+        
+//        self.dismiss(animated: true, completion: nil) // 지은 추가 // 조금 위에(if문 안에) 있음
     }
     
+    // only for test //
+//    func getDirectoryPath() -> String {
+//        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+//        let documentsDirectory = paths[0]
+//        return documentsDirectory
+//    }
     
+
     @IBAction func finalCancel(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -121,6 +304,9 @@ extension AddViewController : UITextFieldDelegate {
     
     // 자판의 return or enter 버튼을 눌렀을 경우 나타날 액션
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        // 고양이 이름 변수에 사용자가 입력한 이름값을 받음.
+        // catName = nameTextField.text ?? ""
+        // 자판 사라짐.
         nameTextField.endEditing(true)
         // action
         return true
@@ -131,13 +317,13 @@ extension AddViewController : UITextFieldDelegate {
         if nameTextField.text != "" {
             return true
         } else {
-            nameTextField.attributedPlaceholder = NSAttributedString(string: "입력이 필요합니다.",
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.red])
+            nameTextField.attributedPlaceholder = NSAttributedString(string: "입력이 필요합니다")
+//            attributes: [NSAttributedString.Key.foregroundColor: UIColor.red])
             return true
         }
     }
     
-    // 입력이 완료되었을 경우 나타날 액션인데, 텍스트 입력창이 여러 개인 경우에는 어떻게 될 지를 모르겠네요..
+    // 입력이 완료되었을 경우 나타날 액션?
     func textFieldDidEndEditing(_ textField: UITextField) {
         // 입력 다 하고 나서 취해질 액션
         
@@ -168,13 +354,14 @@ extension AddViewController : UITextViewDelegate {
         return true
     }
     
+    // placeholder 역할 대신함.
     func textViewSetupView() {
-        if infoTextView.text == "내용을 입력하세요." {
+        if infoTextView.text == "내용을 입력하세요" {
             infoTextView.text = ""
-            infoTextView.textColor = UIColor.black
+            infoTextView.textColor = UIColor.label
         } else if infoTextView.text == "" {
-            infoTextView.text = "내용을 입력하세요."
-            infoTextView.textColor = UIColor.lightGray
+            infoTextView.text = "내용을 입력하세요"
+            infoTextView.textColor = UIColor.label
         }
     }
 }
