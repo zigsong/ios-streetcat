@@ -23,7 +23,7 @@ class AddViewController: UIViewController {
     @IBOutlet weak var whiteButton: UIButton!
     @IBOutlet weak var brownButton: UIButton!
     @IBOutlet weak var orangeButton: UIButton!
-    @IBOutlet weak var greyButton: UIButton!
+    @IBOutlet weak var grayButton: UIButton!
     @IBOutlet weak var blackButton: UIButton!
     
     var color: String = ""
@@ -125,15 +125,15 @@ class AddViewController: UIViewController {
         print(color)
     }
     
-    @IBAction func greyButtonTapped() {
-        if greyButton.isSelected == false {
+    @IBAction func grayButtonTapped() {
+        if grayButton.isSelected == false {
             if color != "" {
-                color = "grey"
+                color = "gray"
                 buttonReset()
-                greyButton.isSelected = true
+                grayButton.isSelected = true
             } else {
-                color = "grey"
-                greyButton.isSelected = true
+                color = "gray"
+                grayButton.isSelected = true
             }
         } else {
             color = ""
@@ -163,7 +163,7 @@ class AddViewController: UIViewController {
         whiteButton.isSelected = false
         brownButton.isSelected = false
         orangeButton.isSelected = false
-        greyButton.isSelected = false
+        grayButton.isSelected = false
         blackButton.isSelected = false
     }
     

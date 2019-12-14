@@ -96,25 +96,34 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 
             }
                 myMap.addAnnotations(cats)
+          
           } catch {
             print(error)
         }
     }
     
+    
+    @IBOutlet weak var likeFilterButton: UIButton!
 
-    @IBAction func likeFilter(_ sender: UISwitch) {
-        if (sender as AnyObject).isOn{
+    @IBAction func likeFilter(_ sender: UIButton) {
+
+   
+        if likeFilterButton.isSelected == true {
             myMap.removeAnnotations(cats)
             myMap.addAnnotations(cats)
+            myMap.addAnnotations(<#T##annotations: [MKAnnotation]##[MKAnnotation]#>)
+            likeFilterButton.isSelected = false
         } else {
             for CatAnnotation in self.myMap.annotations {
-             let annotation = CatAnnotation
-             if (annotation as? CatAnnotation)?.isLiked == false {
-                self.myMap.removeAnnotation(CatAnnotation)
+                  let annotation = CatAnnotation
+                  if (annotation as? CatAnnotation)?.isLiked == false {
+                     self.myMap.removeAnnotation(CatAnnotation)
+            likeFilterButton.isSelected = true
                 }
             }
         }
     }
+         
     
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -172,6 +181,8 @@ extension ViewController: MKMapViewDelegate {
 
     }
     
+    
+    
     // AddVC로 갔다가 되돌아왔을 떄 실행 (AddVC가 dismiss되면 자동으로 viewWillAppear가 실행됨)
     override func viewWillAppear(_ animated: Bool){
         
@@ -190,6 +201,7 @@ extension ViewController: MKMapViewDelegate {
                 print(newCat) // test
 
                 let newCatMark = CatAnnotation(title: newCat.name, color: newCat.color, spot: CLLocationCoordinate2D(latitude: newCat.spot.coordinate.latitude, longitude: newCat.spot.coordinate.longitude), coordinate: CLLocationCoordinate2D(latitude: newCat.spot.coordinate.latitude, longitude: newCat.spot.coordinate.longitude), details: newCat.details, isLiked: false)
+                
                 myMap.addAnnotation(newCatMark)
                 print("add cat success")
             }
@@ -201,9 +213,11 @@ extension ViewController: MKMapViewDelegate {
     }
 }
 
+    func saveNewCats() {
+    }
     
-extension ViewController: UIGestureRecognizerDelegate {
+    extension ViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return false
+        }
     }
-}
