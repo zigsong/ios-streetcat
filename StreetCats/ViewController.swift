@@ -32,39 +32,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         locationManager.startUpdatingLocation()
         myMap.showsUserLocation = true
         myMap.delegate = self
-<<<<<<< HEAD
-<<<<<<< HEAD
-        
-        //longpress 정의
-        
-        let LongPress = UILongPressGestureRecognizer(target: self, action: #selector(MKMapView.addAnnotation(_:)))
-        LongPress.minimumPressDuration = 1.5
-        myMap.addGestureRecognizer(LongPress)
-        
-//        setAnnotation(latitudeValue: 37.4812114, longitudeValue: 126.9527522, delta: 0.01, title: "설입냥", subtitble: "고양이설명텍스트")
-=======
-        //        setAnnotation(latitudeValue: 37.4812114, longitudeValue: 126.9527522, delta: 0.01, title: "설입냥", subtitble: "고양이설명텍스트")
->>>>>>> 6aaac905989429a3d211c15ac513e77eff1067df
-        
-        //        let cat = Cat(title: "설입냥",
-        //          locationName: "서울대입구",
-        //          discipline: "삼색냥이",
-        //          coordinate: CLLocationCoordinate2D(latitude: 37.4812114, longitude: 126.9527522))
-        //        myMap.addAnnotation(cat)
-        //        myMap.addAnnotations(catAnnotations.cats)
-    }
-    
-    func userPerformedLongPress(gesture: UIGestureRecognizer) {
-        let touchPoint = gesture.location(in: myMap)
-        let Coords: CLLocationCoordinate2D = myMap.convert(touchPoint, toCoordinateFrom: myMap)
-        let annotation = MKPointAnnotation()
-        let Location = CLLocation(latitude: Coords.latitude, longitude: Coords.longitude)
-        annotation.coordinate = Coords
-        annotation.title = "추가"
-        myMap.addAnnotation(annotation)
-    }
-    
-=======
         makeMockData()
         myMap.isScrollEnabled = true
     }
@@ -92,7 +59,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
         
 
->>>>>>> d5cce1fc7704140eb0dcf1d9cc2bd41d036c5d86
     func goLocation(latitudeValue: CLLocationDegrees, longitudeValue: CLLocationDegrees, delta span: Double) -> CLLocationCoordinate2D {
         let pLocation = CLLocationCoordinate2DMake(latitudeValue,longitudeValue)
         let spanValue = MKCoordinateSpan(latitudeDelta: span, longitudeDelta: span)
