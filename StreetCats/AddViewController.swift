@@ -17,6 +17,7 @@ class AddViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var infoTextView: UITextView!
+    @IBOutlet weak var 색깔: UILabel!
     @IBOutlet weak var warningSign: UILabel!
     
     @IBOutlet weak var likeButton: UIButton!
@@ -57,9 +58,10 @@ class AddViewController: UIViewController {
         // textview의 placeholder 역할
         self.infoTextView.text = "상세 정보"
         self.infoTextView.textColor = UIColor.lightGray
-
+        
         self.warningSign.text = ""
         self.warningSign.textColor = UIColor.lightGray
+
     }
     
     //좋아요 버튼 관리
