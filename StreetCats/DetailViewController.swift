@@ -28,39 +28,14 @@ class DetailViewController: UIViewController {
         
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        do {
-//            let savedCats = try showData()
-//            print(savedCats)
-            
-//            for cat in savedCats {
-//                print("catInfo: \(catInfo.name), \(catInfo.details)")
-//            }
 
             catNameLabel.text = cats[indexOfCat].title
             catDetailLabel.text = cats[indexOfCat].details
             likeButton.isSelected = cats[indexOfCat].isLiked
+            catImage.image = cats[indexOfCat].photo
 
-//        }
-//        catch {
-//            print(error)
-//        }
     }
 
-//    func showData() throws -> CatList {
-//        let fileManager = FileManager.default // filemanager 인스턴스 생성
-//        let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0] // path 작성
-//        let fileURL = documentsURL.appendingPathComponent("savedCats.json")
-//
-//        let jsonString = try Data(contentsOf: fileURL)
-//        // print("jsonString: \(jsonString)") // -> return 370972 bytes
-//        let decoder = JSONDecoder()
-//        let result = try decoder.decode(CatList.self, from: jsonString)
-//        // print(result)
-//        return result
-//
-//    }
-      
     func convertBase64ToImage(_ str: String) -> UIImage {
         let dataDecoded : Data = Data(base64Encoded: str, options: .ignoreUnknownCharacters)!
         let decodedimage = UIImage(data: dataDecoded)
