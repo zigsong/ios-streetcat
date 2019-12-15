@@ -20,5 +20,98 @@
             landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C94BDB7C-1A9A-4C27-9F9E-5FD219FC01FD"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StreetCats/DetailViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "11"
+            endingLineNumber = "11"
+            landmarkName = "unknown"
+            landmarkType = "0">
+            <Locations>
+               <Location
+                  uuid = "C94BDB7C-1A9A-4C27-9F9E-5FD219FC01FD - b6e2db752b91c699"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "StreetCats_zig.DetailViewController.__allocating_init(nibName: Swift.Optional&lt;Swift.String&gt;, bundle: Swift.Optional&lt;__C.NSBundle&gt;) -&gt; StreetCats_zig.DetailViewController"
+                  moduleName = "StreetCats_zig"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Claire/ios-streetcat/StreetCats/DetailViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  uuid = "C94BDB7C-1A9A-4C27-9F9E-5FD219FC01FD - e2114bf74d20b270"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "StreetCats_zig.DetailViewController.init(nibName: Swift.Optional&lt;Swift.String&gt;, bundle: Swift.Optional&lt;__C.NSBundle&gt;) -&gt; StreetCats_zig.DetailViewController"
+                  moduleName = "StreetCats_zig"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Claire/ios-streetcat/StreetCats/DetailViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "168">
+               </Location>
+               <Location
+                  uuid = "C94BDB7C-1A9A-4C27-9F9E-5FD219FC01FD - ef83578410e14e08"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "StreetCats_zig.DetailViewController.__allocating_init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;StreetCats_zig.DetailViewController&gt;"
+                  moduleName = "StreetCats_zig"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Claire/ios-streetcat/StreetCats/DetailViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "20">
+               </Location>
+               <Location
+                  uuid = "C94BDB7C-1A9A-4C27-9F9E-5FD219FC01FD - 705650802adf4d36"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "StreetCats_zig.DetailViewController.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;StreetCats_zig.DetailViewController&gt;"
+                  moduleName = "StreetCats_zig"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Claire/ios-streetcat/StreetCats/DetailViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "116">
+               </Location>
+               <Location
+                  uuid = "C94BDB7C-1A9A-4C27-9F9E-5FD219FC01FD - 5c2f44a5b41d1de9"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "StreetCats_zig.DetailViewController.__deallocating_deinit"
+                  moduleName = "StreetCats_zig"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Claire/ios-streetcat/StreetCats/DetailViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "44">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

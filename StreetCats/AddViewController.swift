@@ -138,7 +138,11 @@ class AddViewController: UIViewController {
                 grayButton.isSelected = true
             } else {
                 color = "gray"
+<<<<<<< HEAD
                 grayButton.isSelected = true
+=======
+                greyButton.isSelected = true
+>>>>>>> ec5c0309eb72816a07f7d212aa64989c2c244769
             }
         } else {
             color = ""
