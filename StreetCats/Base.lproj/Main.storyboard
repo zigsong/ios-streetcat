@@ -236,58 +236,37 @@
         <scene sceneID="rMK-n9-b5X">
             <objects>
                 <viewController id="EcV-WP-8dT" customClass="DetailViewController" customModule="StreetCats_zig" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="2c5-VA-aUh">
+                    <view key="view" contentMode="scaleToFill" id="2c5-VA-aUh" customClass="InfoViewController">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Streetcat ver 1.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pnj-ms-Kxd">
-                                <rect key="frame" x="122" y="405" width="131.5" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="by Interface Programming group 3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mT4-aV-BUS">
-                                <rect key="frame" x="56" y="435" width="263" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="대표자 : 김아연, 노준현, 배주영, 송지은, 이혜민" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Nb-NK-hnu">
-                                <rect key="frame" x="30" y="480" width="315" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="서울특별시 관악구 관악로1 서울대학교" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="85Q-ZL-4yJ">
-                                <rect key="frame" x="59" y="509" width="257" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="이메일 문의 : lhm0710@naver.com" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LLg-7Q-tYU">
-                                <rect key="frame" x="62" y="557" width="251" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="About this app" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="11F-gE-m5x">
-                                <rect key="frame" x="112" y="354" width="145" height="28"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Info Image" translatesAutoresizingMaskIntoConstraints="NO" id="ZHB-Yf-Nr1">
-                                <rect key="frame" x="64" y="83" width="246" height="244"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Info Content" translatesAutoresizingMaskIntoConstraints="NO" id="zEm-Qk-7Zr">
+                                <rect key="frame" x="0.0" y="229" width="375" height="438"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="zEm-Qk-7Zr" secondAttribute="height" multiplier="125:146" id="1gl-yL-U5c"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Info Image" translatesAutoresizingMaskIntoConstraints="NO" id="ZHB-Yf-Nr1">
+                                <rect key="frame" x="74" y="87" width="226" height="224"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="ZHB-Yf-Nr1" secondAttribute="height" multiplier="113:112" priority="750" id="zHg-gm-wTE"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" name="Default Color"/>
+                        <constraints>
+                            <constraint firstItem="zEm-Qk-7Zr" firstAttribute="trailing" secondItem="QqI-oT-9D4" secondAttribute="trailing" id="0VR-SD-mMU"/>
+                            <constraint firstItem="ZHB-Yf-Nr1" firstAttribute="top" secondItem="QqI-oT-9D4" secondAttribute="top" priority="750" constant="87" id="4Mf-UI-Csj"/>
+                            <constraint firstAttribute="bottom" secondItem="zEm-Qk-7Zr" secondAttribute="bottom" id="JFH-hm-0qO"/>
+                            <constraint firstItem="QqI-oT-9D4" firstAttribute="trailing" secondItem="ZHB-Yf-Nr1" secondAttribute="trailing" constant="75" id="Kd0-Fs-Y5c"/>
+                            <constraint firstItem="zEm-Qk-7Zr" firstAttribute="top" secondItem="QqI-oT-9D4" secondAttribute="top" priority="750" constant="229" id="Lli-PE-yuh"/>
+                            <constraint firstItem="QqI-oT-9D4" firstAttribute="bottom" secondItem="ZHB-Yf-Nr1" secondAttribute="bottom" priority="250" constant="307" id="NQK-33-Wnf"/>
+                            <constraint firstItem="zEm-Qk-7Zr" firstAttribute="leading" secondItem="QqI-oT-9D4" secondAttribute="leading" id="UAd-ZX-YTw"/>
+                            <constraint firstItem="ZHB-Yf-Nr1" firstAttribute="leading" secondItem="QqI-oT-9D4" secondAttribute="leading" constant="74" id="W8c-lL-hSH"/>
+                            <constraint firstItem="zEm-Qk-7Zr" firstAttribute="trailing" secondItem="QqI-oT-9D4" secondAttribute="trailing" id="WZY-df-B5f"/>
+                            <constraint firstAttribute="bottom" secondItem="zEm-Qk-7Zr" secondAttribute="bottom" priority="250" id="b0B-S0-jYP"/>
+                            <constraint firstItem="zEm-Qk-7Zr" firstAttribute="leading" secondItem="QqI-oT-9D4" secondAttribute="leading" id="cTV-L9-POd"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="QqI-oT-9D4"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Info" image="info.circle" catalog="system" landscapeImage="info.circle" largeContentSizeImage="info.circle" selectedImage="info.circle" id="dT5-OK-cc6">
@@ -429,6 +408,7 @@
         <image name="Brown_" width="100" height="100"/>
         <image name="Gery_" width="100" height="100"/>
         <image name="Grey" width="100" height="100"/>
+        <image name="Info Content" width="800" height="800"/>
         <image name="Info Image" width="1024" height="1024"/>
         <image name="Like" width="50" height="50"/>
         <image name="Like Pressed" width="50" height="50"/>

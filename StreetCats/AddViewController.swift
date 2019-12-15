@@ -356,7 +356,10 @@ extension AddViewController : UITextViewDelegate {
     
     // placeholder 역할 대신함.
     func textViewSetupView() {
-        if infoTextView.text == "내용을 입력하세요" {
+        if infoTextView.text == "상세 정보" {
+            infoTextView.text = ""
+            infoTextView.textColor = UIColor.label
+        } else if infoTextView.text == "내용을 입력하세요" {
             infoTextView.text = ""
             infoTextView.textColor = UIColor.label
         } else if infoTextView.text == "" {
