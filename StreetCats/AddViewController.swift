@@ -352,6 +352,9 @@ extension AddViewController : UITextViewDelegate {
         } else if infoTextView.text == "" {
             infoTextView.text = "내용을 입력하세요"
             infoTextView.textColor = UIColor.label
+        } else if infoTextView.text == "" {
+            infoTextView.text = "내용을 입력하세요"
+            infoTextView.textColor = UIColor.label
         }
     }
 }
