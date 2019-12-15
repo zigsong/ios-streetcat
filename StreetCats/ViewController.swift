@@ -19,10 +19,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ViewToViewDel
     var cats: [CatAnnotation] = []
     // 터치한 핀의 좌표값과 비교, 참조하기 위한 좌표들
     var catSpot: [CLLocationCoordinate2D] = []
-    
-    var catNames: [String] = []
-    var catDetails: [String] = []
-    var catIsLiked: [Bool] = []
     var indexOfCat = 0
     
     var location = "marker"
@@ -113,9 +109,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ViewToViewDel
                 print("\(cat.spot.coordinate)")
                 cats += [CatAnnotation(title: cat.name, color: cat.color, spot: CLLocationCoordinate2D(latitude: cat.spot.coordinate.latitude, longitude: cat.spot.coordinate.longitude), coordinate: CLLocationCoordinate2D(latitude: cat.spot.coordinate.latitude, longitude: cat.spot.coordinate.longitude), details: cat.details, isLiked: cat.isLiked)]
                 catSpot += [cat.spot.coordinate]
-                catNames += [cat.name]
-                catDetails += [cat.details]
-                catIsLiked += [cat.isLiked]
             }
                 myMap.addAnnotations(cats)
           } catch {
@@ -124,10 +117,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ViewToViewDel
     }
     
     // remove하면 새로 추가한 핀은 다시 안 생기네요. savedCats의 파일도 별도로 부르는 게 필요함.
-    @IBAction func likeFilter(_ sender: UISwitch) {
-        if (sender as AnyObject).isOn{
+    @IBOutlet weak var likeFilterButton: UIButton!
+
+    @IBAction func likeFilter(_ sender: UIButton) {
+        if likeFilterButton.isSelected == true {
             myMap.removeAnnotations(cats)
             myMap.addAnnotations(cats)
+            //            myMap.addAnnotations(<#T##annotations: [MKAnnotation]##[MKAnnotation]#>)
+            likeFilterButton.isSelected = false
         } else {
             for CatAnnotation in self.myMap.annotations {
                 let annotation = CatAnnotation
@@ -135,6 +132,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ViewToViewDel
                     self.myMap.removeAnnotation(CatAnnotation)
                 }
             }
+            likeFilterButton.isSelected = true
         }
     }
     // AddVC의 추가가 완료되면 데이터가 인코딩되고 즉시 바로 myMap으로 디코딩할 때, 작동할 catAdded 함수.
@@ -165,20 +163,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ViewToViewDel
         }
     }
     
-    // DetailVC에서 수정한 isLiked 데이터를 받아오기 위한 함수
-    func isLikedSent(_ data: [Bool]) {
-        catIsLiked = data
-        
-    }
     
+    func isLikedSent(_ data: [CatAnnotation]) {
+        cats = data
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToInfo", let dest = segue.destination as? DetailViewController {
 
-            dest.catNames = catNames
-            dest.catDetails = catDetails
-            dest.catIsLiked = catIsLiked
             dest.indexOfCat = indexOfCat
+            dest.cats = cats
             dest.delegate = self
         } else if segue.identifier == "goToAdd", let dest = segue.destination as? AddViewController {
             // myMap의 롱프레스 변수를 AddVC에서 쓸 수 있게 AddVC의 롱프레스 변수로 넘겨줌.
@@ -212,7 +206,7 @@ extension ViewController: MKMapViewDelegate {
     else if annotation.color == "gray" { identifier = "Gray"
     color = .gray}
     else {identifier = "else"
-        color = .red }
+        color = .orange }
         
     var view: MKMarkerAnnotationView
     if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
@@ -241,16 +235,11 @@ extension ViewController: MKMapViewDelegate {
         
         // 사용자가 탭한 핀의 좌표를 받음.
         touchedLocation = view.annotation?.coordinate
-        // catSpot에서 탭한 좌표와 일치하는 값을 찾으면 그에 해당하는 ..
         for i in catSpot {
             if i.latitude == touchedLocation!.latitude && i.longitude == touchedLocation!.longitude {
                 indexOfCat = catSpot.firstIndex(where: {$0.latitude == touchedLocation!.latitude && $0.longitude == touchedLocation!.longitude}) ?? 0
             }
         }
-//        print(touchedLocation)
-//        print(catSpot[0])
-//        print(catNames)
-//        print(indexOfCat)
         
         performSegue(withIdentifier: "goToInfo", sender: self)
     }
@@ -267,7 +256,7 @@ extension ViewController: UIGestureRecognizerDelegate {
 // 다른 뷰 간에 데이터를 넘겨 받기 위한 delegate 프로토콜
 protocol ViewToViewDelegate {
     func catAdded()
-    func isLikedSent(_ data: [Bool])
+    func isLikedSent(_ data: [CatAnnotation])
 }
  
 

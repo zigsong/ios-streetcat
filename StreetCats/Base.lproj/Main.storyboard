@@ -32,20 +32,16 @@
                                     <action selector="showCurrentLocation:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QIx-f3-i8y"/>
                                 </connections>
                             </button>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6oE-sb-Q3N">
-                                <rect key="frame" x="310" y="487" width="49" height="31"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rgH-LM-11n">
+                                <rect key="frame" x="293" y="464" width="134" height="80"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button" image="likeFilterDefault"/>
+                                <state key="disabled" image="likeFilterEnabled"/>
+                                <state key="selected" image="likeFilterEnabled"/>
                                 <connections>
-                                    <action selector="likeFilter:" destination="BYZ-38-t0r" eventType="valueChanged" id="a7O-t9-7SU"/>
+                                    <action selector="likeFilter:" destination="BYZ-38-t0r" eventType="touchUpInside" id="D4S-d9-mOE"/>
                                 </connections>
-                            </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="like filter" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kpr-6Z-2pX">
-                                <rect key="frame" x="301" y="526" width="65" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -58,6 +54,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Map" image="map" catalog="system" landscapeImage="map" largeContentSizeImage="map" selectedImage="map" id="scA-nu-sE2"/>
                     <connections>
+                        <outlet property="likeFilterButton" destination="rgH-LM-11n" id="QiX-rS-S3c"/>
                         <outlet property="myMap" destination="wB7-JH-Wk5" id="0Jc-gu-ELd"/>
                         <segue destination="ep4-rW-mus" kind="presentation" identifier="goToAdd" id="sr8-MV-s8r"/>
                         <segue destination="Rf1-Zv-Hgh" kind="presentation" identifier="goToInfo" id="fnn-Um-0qe"/>
@@ -81,7 +78,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OdP-QS-mCW" userLabel="Close Button">
-                                <rect key="frame" x="377" y="25" width="18" height="22"/>
+                                <rect key="frame" x="377" y="23" width="18" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <state key="normal" image="xmark" catalog="system">
@@ -92,13 +89,13 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="이름" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SqS-r3-OhM">
-                                <rect key="frame" x="75" y="22" width="273" height="34"/>
+                                <rect key="frame" x="75" y="20" width="273" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="17"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t8p-AD-Zbb" userLabel="Like Button">
-                                <rect key="frame" x="24" y="26" width="23" height="23"/>
+                                <rect key="frame" x="24" y="24" width="23" height="23"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="Like"/>
                                 <state key="selected" image="Like Pressed"/>
@@ -122,7 +119,7 @@
                                             <action selector="addImage:" destination="ep4-rW-mus" eventType="touchUpInside" id="8AY-5Q-wer"/>
                                         </connections>
                                     </button>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aE8-aR-SYr">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aE8-aR-SYr">
                                         <rect key="frame" x="0.0" y="-2" width="343" height="205"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
@@ -130,7 +127,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DlZ-bc-gFl">
-                                <rect key="frame" x="188" y="433" width="36" height="36"/>
+                                <rect key="frame" x="188" y="431" width="36" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Orange" image="Orange"/>
                                 <state key="selected" image="Orange_"/>
@@ -139,7 +136,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yu0-oz-Cpg">
-                                <rect key="frame" x="107" y="433" width="36" height="36"/>
+                                <rect key="frame" x="107" y="431" width="36" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Brown" image="Brown"/>
                                 <state key="selected" image="Brown_"/>
@@ -148,16 +145,16 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pjk-4Q-FZ8">
-                                <rect key="frame" x="270" y="433" width="36" height="36"/>
+                                <rect key="frame" x="270" y="431" width="36" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Grey" image="Grey"/>
                                 <state key="selected" image="Gery_"/>
                                 <connections>
-                                    <action selector="greyButtonTapped" destination="ep4-rW-mus" eventType="touchUpInside" id="3TB-el-Myv"/>
+                                    <action selector="grayButtonTapped" destination="ep4-rW-mus" eventType="touchUpInside" id="3TB-el-Myv"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="imW-js-it1">
-                                <rect key="frame" x="25" y="433" width="36" height="36"/>
+                                <rect key="frame" x="25" y="431" width="36" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="White" image="White"/>
                                 <state key="selected" image="White_"/>
@@ -166,7 +163,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qsz-A9-snP">
-                                <rect key="frame" x="352" y="433" width="37" height="36"/>
+                                <rect key="frame" x="352" y="431" width="37" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Black" image="Black"/>
                                 <state key="selected" image="Black_"/>
@@ -225,7 +222,7 @@
                         <outlet property="addImage" destination="axK-Ae-6xr" id="19J-Fd-Sna"/>
                         <outlet property="blackButton" destination="qsz-A9-snP" id="gAl-Gr-R0W"/>
                         <outlet property="brownButton" destination="yu0-oz-Cpg" id="p0v-2W-nK8"/>
-                        <outlet property="greyButton" destination="Pjk-4Q-FZ8" id="aOi-Aq-0p3"/>
+                        <outlet property="grayButton" destination="Pjk-4Q-FZ8" id="aOi-Aq-0p3"/>
                         <outlet property="imageView" destination="aE8-aR-SYr" id="J2b-Jg-S1O"/>
                         <outlet property="infoTextView" destination="oEg-Qd-JEY" id="GlH-Um-pa8"/>
                         <outlet property="likeButton" destination="t8p-AD-Zbb" id="ipR-KS-AQC"/>
@@ -242,7 +239,7 @@
         <!--Info-->
         <scene sceneID="rMK-n9-b5X">
             <objects>
-                <viewController id="EcV-WP-8dT" customClass="DetailViewController" customModule="StreetCats_zig" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="EcV-WP-8dT" customClass="InfoViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2c5-VA-aUh">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -419,10 +416,10 @@
                         <viewLayoutGuide key="safeArea" id="eUQ-q3-wII"/>
                     </view>
                     <connections>
-                        <outlet property="catDetailLabel" destination="HFg-Uj-rLQ" id="Yne-Hh-CwG"/>
-                        <outlet property="catImage" destination="0sM-TK-Pbc" id="NDy-by-Bcg"/>
-                        <outlet property="catNameLabel" destination="1PR-8m-cva" id="LSb-jm-J7u"/>
-                        <outlet property="likeButton" destination="8mk-fu-ufL" id="nV5-BQ-Zde"/>
+                        <outlet property="catDetailLabel" destination="HFg-Uj-rLQ" id="HdI-bH-VhB"/>
+                        <outlet property="catImage" destination="0sM-TK-Pbc" id="gJr-X0-S9m"/>
+                        <outlet property="catNameLabel" destination="1PR-8m-cva" id="qTc-FI-iE6"/>
+                        <outlet property="likeButton" destination="8mk-fu-ufL" id="U92-UL-29o"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7EO-33-8jN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -445,6 +442,8 @@
         <image name="White" width="100" height="100"/>
         <image name="White_" width="100" height="100"/>
         <image name="info.circle" catalog="system" width="64" height="60"/>
+        <image name="likeFilterDefault" width="80" height="80"/>
+        <image name="likeFilterEnabled" width="80" height="80"/>
         <image name="map" catalog="system" width="64" height="56"/>
         <image name="xmark" catalog="system" width="64" height="56"/>
         <namedColor name="Default Color">
