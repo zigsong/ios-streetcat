@@ -22,6 +22,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ViewToViewDel
     
     var catNames: [String] = []
     var catDetails: [String] = []
+    var catIsLiked: [Bool] = []
     var indexOfCat = 0
     
     var location = "marker"
@@ -114,6 +115,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ViewToViewDel
                 catSpot += [cat.spot.coordinate]
                 catNames += [cat.name]
                 catDetails += [cat.details]
+                catIsLiked += [cat.isLiked]
             }
                 myMap.addAnnotations(cats)
           } catch {
@@ -128,14 +130,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ViewToViewDel
             myMap.addAnnotations(cats)
         } else {
             for CatAnnotation in self.myMap.annotations {
-             let annotation = CatAnnotation
-             if (annotation as? CatAnnotation)?.isLiked == false {
-                self.myMap.removeAnnotation(CatAnnotation)
+                let annotation = CatAnnotation
+                if (annotation as? CatAnnotation)?.isLiked == false {
+                    self.myMap.removeAnnotation(CatAnnotation)
                 }
             }
         }
     }
-    
     // AddVC의 추가가 완료되면 데이터가 인코딩되고 즉시 바로 myMap으로 디코딩할 때, 작동할 catAdded 함수.
     
     // 맵에서 핀이 찍히지는 않아도 제이슨 파일에는 추가가 되는 듯?
@@ -164,12 +165,19 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ViewToViewDel
         }
     }
     
+    // DetailVC에서 수정한 isLiked 데이터를 받아오기 위한 함수
+    func isLikedSent(_ data: [Bool]) {
+        catIsLiked = data
+        
+    }
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToInfo", let dest = segue.destination as? DetailViewController {
 
             dest.catNames = catNames
             dest.catDetails = catDetails
+            dest.catIsLiked = catIsLiked
             dest.indexOfCat = indexOfCat
             dest.delegate = self
         } else if segue.identifier == "goToAdd", let dest = segue.destination as? AddViewController {
@@ -259,6 +267,7 @@ extension ViewController: UIGestureRecognizerDelegate {
 // 다른 뷰 간에 데이터를 넘겨 받기 위한 delegate 프로토콜
 protocol ViewToViewDelegate {
     func catAdded()
+    func isLikedSent(_ data: [Bool])
 }
  
 
