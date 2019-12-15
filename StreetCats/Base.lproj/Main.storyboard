@@ -24,28 +24,23 @@
                                     <outletCollection property="gestureRecognizers" destination="8OX-fj-JFp" appends="YES" id="H5X-qW-woh"/>
                                 </connections>
                             </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y9E-WB-9Fw">
-                                <rect key="frame" x="168" y="569" width="39" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y9E-WB-9Fw">
+                                <rect key="frame" x="148" y="544" width="80" height="80"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="현위치"/>
+                                <state key="normal" image="currentLocationButton"/>
                                 <connections>
                                     <action selector="showCurrentLocation:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QIx-f3-i8y"/>
                                 </connections>
                             </button>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6oE-sb-Q3N">
-                                <rect key="frame" x="310" y="487" width="49" height="31"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H3l-Vs-uzF">
+                                <rect key="frame" x="167" y="405" width="80" height="80"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="likeFilterDefault"/>
+                                <state key="selected" image="likeFilterEnabled"/>
                                 <connections>
-                                    <action selector="likeFilter:" destination="BYZ-38-t0r" eventType="valueChanged" id="a7O-t9-7SU"/>
+                                    <action selector="likeFilter:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6m9-Ec-kwL"/>
                                 </connections>
-                            </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="like filter" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kpr-6Z-2pX">
-                                <rect key="frame" x="301" y="526" width="65" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -58,6 +53,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Map" image="map" catalog="system" landscapeImage="map" largeContentSizeImage="map" selectedImage="map" id="scA-nu-sE2"/>
                     <connections>
+                        <outlet property="likeFilterButton" destination="H3l-Vs-uzF" id="pNS-rF-ZEw"/>
                         <outlet property="myMap" destination="wB7-JH-Wk5" id="0Jc-gu-ELd"/>
                         <segue destination="ep4-rW-mus" kind="presentation" identifier="goToAdd" id="sr8-MV-s8r"/>
                         <segue destination="Rf1-Zv-Hgh" kind="presentation" identifier="goToInfo" id="fnn-Um-0qe"/>
@@ -444,7 +440,10 @@
         <image name="Orange_" width="100" height="100"/>
         <image name="White" width="100" height="100"/>
         <image name="White_" width="100" height="100"/>
+        <image name="currentLocationButton" width="80" height="80"/>
         <image name="info.circle" catalog="system" width="64" height="60"/>
+        <image name="likeFilterDefault" width="80" height="80"/>
+        <image name="likeFilterEnabled" width="80" height="80"/>
         <image name="map" catalog="system" width="64" height="56"/>
         <image name="xmark" catalog="system" width="64" height="56"/>
         <namedColor name="Default Color">

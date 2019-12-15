@@ -120,10 +120,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ViewToViewDel
    }
     
     // remove하면 새로 추가한 핀은 다시 안 생기네요. savedCats의 파일도 별도로 부르는 게 필요함.
-    @IBAction func likeFilter(_ sender: UISwitch) {
-        if (sender as AnyObject).isOn{
+    @IBOutlet weak var likeFilterButton: UIButton!
+
+    @IBAction func likeFilter(_ sender: UIButton) {
+        if likeFilterButton.isSelected == true {
             myMap.removeAnnotations(cats)
             myMap.addAnnotations(cats)
+            //            myMap.addAnnotations(<#T##annotations: [MKAnnotation]##[MKAnnotation]#>)
+            likeFilterButton.isSelected = false
         } else {
             for CatAnnotation in self.myMap.annotations {
                 let annotation = CatAnnotation
@@ -131,6 +135,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ViewToViewDel
                     self.myMap.removeAnnotation(CatAnnotation)
                 }
             }
+            likeFilterButton.isSelected = true
         }
     }
     // AddVC의 추가가 완료되면 데이터가 인코딩되고 즉시 바로 myMap으로 디코딩할 때, 작동할 catAdded 함수.
