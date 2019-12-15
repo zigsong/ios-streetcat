@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="nor-Yg-MUT">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -11,7 +11,7 @@
         <!--Map-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="StreetCats" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="StreetCats_zig" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -24,13 +24,13 @@
                                     <outletCollection property="gestureRecognizers" destination="8OX-fj-JFp" appends="YES" id="H5X-qW-woh"/>
                                 </connections>
                             </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pQS-l4-smY" customClass="UIToggleButton" customModule="StreetCats_zig" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pQS-l4-smY">
                                 <rect key="frame" x="309" y="471" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="likeFilterDefault"/>
                                 <state key="selected" image="likeFilterEnabled"/>
                                 <connections>
-                                    <action selector="likeFilter:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ebm-hv-aVW"/>
+                                    <action selector="likeFilter:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Zwk-Qo-Ge2"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y9E-WB-9Fw">
@@ -39,7 +39,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" image="currentLocationButton"/>
                                 <connections>
-                                    <action selector="showCurrentLocation:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QIx-f3-i8y"/>
+                                    <action selector="showCurrentLocation:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fSg-50-1Xo"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -54,7 +54,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Map" image="map" catalog="system" landscapeImage="map" largeContentSizeImage="map" selectedImage="map" id="scA-nu-sE2"/>
                     <connections>
-                        <outlet property="likeFilterButton" destination="pQS-l4-smY" id="fwP-lQ-GER"/>
+                        <outlet property="likeFilterButton" destination="pQS-l4-smY" id="vf5-Rh-Rlk"/>
                         <outlet property="myMap" destination="wB7-JH-Wk5" id="0Jc-gu-ELd"/>
                         <segue destination="ep4-rW-mus" kind="presentation" identifier="goToAdd" id="sr8-MV-s8r"/>
                         <segue destination="Rf1-Zv-Hgh" kind="presentation" identifier="goToInfo" id="fnn-Um-0qe"/>
@@ -67,16 +67,12 @@
                     </connections>
                 </pongPressGestureRecognizer>
             </objects>
-<<<<<<< HEAD
-            <point key="canvasLocation" x="1452" y="-686.80659670164926"/>
-=======
-            <point key="canvasLocation" x="-2063" y="-688"/>
->>>>>>> ec5c0309eb72816a07f7d212aa64989c2c244769
+            <point key="canvasLocation" x="-2064" y="-652"/>
         </scene>
         <!--Add View Controller-->
         <scene sceneID="MZm-uX-fMe">
             <objects>
-                <viewController id="ep4-rW-mus" customClass="AddViewController" customModule="StreetCats" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="ep4-rW-mus" customClass="AddViewController" customModule="StreetCats_zig" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="unk-Bs-qhV">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -243,7 +239,7 @@
         <!--Info-->
         <scene sceneID="rMK-n9-b5X">
             <objects>
-                <viewController id="EcV-WP-8dT" customClass="DetailViewController" customModule="StreetCats" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="EcV-WP-8dT" customClass="infoViewController" customModule="StreetCats_zig" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2c5-VA-aUh">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -304,7 +300,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pDj-aW-OW1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2063" y="152"/>
+            <point key="canvasLocation" x="-2063.768115942029" y="151.63043478260872"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="vku-gY-q4D">
@@ -328,7 +324,7 @@
         <!--Detail View Controller-->
         <scene sceneID="ctt-y3-NXd">
             <objects>
-                <viewController id="Rf1-Zv-Hgh" customClass="DetailViewController" customModule="StreetCats" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Rf1-Zv-Hgh" customClass="DetailViewController" customModule="StreetCats_zig" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pLf-oV-eMX">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -420,11 +416,7 @@
                         <viewLayoutGuide key="safeArea" id="eUQ-q3-wII"/>
                     </view>
                     <connections>
-<<<<<<< HEAD
-                        <outlet property="catDetailLabel" destination="HFg-Uj-rLQ" id="4Uc-K7-ZTF"/>
-=======
                         <outlet property="catDetailLabel" destination="HFg-Uj-rLQ" id="Yne-Hh-CwG"/>
->>>>>>> ec5c0309eb72816a07f7d212aa64989c2c244769
                         <outlet property="catImage" destination="0sM-TK-Pbc" id="NDy-by-Bcg"/>
                         <outlet property="catNameLabel" destination="1PR-8m-cva" id="LSb-jm-J7u"/>
                         <outlet property="likeButton" destination="8mk-fu-ufL" id="nV5-BQ-Zde"/>

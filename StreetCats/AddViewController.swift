@@ -138,11 +138,7 @@ class AddViewController: UIViewController {
                 grayButton.isSelected = true
             } else {
                 color = "gray"
-<<<<<<< HEAD
                 grayButton.isSelected = true
-=======
-                greyButton.isSelected = true
->>>>>>> ec5c0309eb72816a07f7d212aa64989c2c244769
             }
         } else {
             color = ""
@@ -195,11 +191,7 @@ class AddViewController: UIViewController {
     }
     
     // 이름 입력 후 '확인' 버튼을 누르면 나타날 액션
-    @IBAction func nameButtonPressed(_ sender: UIButton) { // 추가하기 -> 이름 -> 확인
-        nameTextField.endEditing(true)
-        // Q. 확인 버튼이 있어야 하나?
-        // A. 원래는 리턴만 넣으면 불편할 것 같아서 넣었는데 빼도 될 듯 합니다.
-    }
+   
     
     @IBAction func infoButtonPressed(_ sender: UIButton) { // 정보보기
         infoTextView.endEditing(true)
