@@ -409,6 +409,7 @@
                         <viewLayoutGuide key="safeArea" id="eUQ-q3-wII"/>
                     </view>
                     <connections>
+                        <outlet property="catDetailLabel" destination="HFg-Uj-rLQ" id="4Uc-K7-ZTF"/>
                         <outlet property="catImage" destination="0sM-TK-Pbc" id="NDy-by-Bcg"/>
                         <outlet property="catNameLabel" destination="1PR-8m-cva" id="LSb-jm-J7u"/>
                         <outlet property="likeButton" destination="8mk-fu-ufL" id="nV5-BQ-Zde"/>

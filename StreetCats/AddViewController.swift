@@ -6,10 +6,16 @@
 //  Copyright © 2019 songji. All rights reserved.
 //
 
+
 import UIKit
 import MapKit // CLLocation에 값을 넣기 위해 필요
-
 class AddViewController: UIViewController {
+    
+    // myMap과 데이터를 주고 받기 위한 delegate 설정.
+    var delegate: ViewToViewDelegate?
+    var color: String = ""
+    // myMap에서 값을 받아오기 위한 롱프레스 변수 설정.
+    var longPressedLocation: CLLocationCoordinate2D?
     
     let picker = UIImagePickerController()
     
@@ -25,8 +31,6 @@ class AddViewController: UIViewController {
     @IBOutlet weak var orangeButton: UIButton!
     @IBOutlet weak var grayButton: UIButton!
     @IBOutlet weak var blackButton: UIButton!
-    
-    var color: String = ""
     
     struct classConstants{
         // 간결한 버전
@@ -54,8 +58,8 @@ class AddViewController: UIViewController {
         self.infoTextView.layer.borderWidth = 1
         self.infoTextView.layer.cornerRadius = 10
 
-        // textview의 placeholder 역할
-        self.infoTextView.text = "상세 정보"
+        // textview의 placeholder 역할 -> 아직 미완성
+        self.infoTextView.text = "상세 정보를 입력하세요"
         self.infoTextView.textColor = UIColor.lightGray
 
         self.warningSign.text = ""
@@ -73,7 +77,8 @@ class AddViewController: UIViewController {
          }
     }
     
-    // 고양이 컬러 선택 버튼들
+//MARK: - 고양이 컬러 선택 버튼들
+    
     @IBAction func whiteButtonTapped() {
         if whiteButton.isSelected == false {
             if color != "" {
@@ -167,7 +172,7 @@ class AddViewController: UIViewController {
         blackButton.isSelected = false
     }
     
-    
+//MARK: - 이미지 추가 버튼
     
     @IBAction func addImage(_ sender: UIButton) {
         let alert = UIAlertController(title: nil, message: "고양이 사진을 등록합니다", preferredStyle: .actionSheet)
@@ -189,50 +194,59 @@ class AddViewController: UIViewController {
     @IBAction func nameButtonPressed(_ sender: UIButton) { // 추가하기 -> 이름 -> 확인
         nameTextField.endEditing(true)
         // Q. 확인 버튼이 있어야 하나?
+        // A. 원래는 리턴만 넣으면 불편할 것 같아서 넣었는데 빼도 될 듯 합니다.
     }
     
     @IBAction func infoButtonPressed(_ sender: UIButton) { // 정보보기
         infoTextView.endEditing(true)
     }
 
+    
+//MARK: - 뷰가 사라질 때와 관련된 것들
+    
     // 최종 확인을 누르면
     @IBAction func finalConfirm(_ sender: UIButton) {
         // 이름 입력하는 텍스트 필드, 이미지가 필수적으로 채워져야만 함.
         if nameTextField.text != "" {
+            // 상세 정보는 필수는 아니지만, 없을 경우 기본값으로 "상세 정보 없음" 메시지가 출력됨.
             if infoTextView.text == "" {
                 infoTextView.text = "상세 정보 없음"
             }
+            
+            // 사용자가 myMap에서 롱프레스하던 위치의 위도, 경도 값을 받아옴.
+            let lat = longPressedLocation?.latitude
+            let lon = longPressedLocation?.longitude
+            
+            var cat = Cat(name: nameTextField.text!, color: color,
+                          spot: CLLocation(latitude: lat!, longitude: lon!), details: infoTextView.text, isLiked: false)
+            
+            let encoder = JSONEncoder()
+            encoder.outputFormatting = .prettyPrinted
+            
+            let jsonData = try! encoder.encode(cat)
+            // jsonString으로 제대로 encode되었는지 테스트 출력
+            //        let jsonString = String(data: jsonData, encoding: .utf8)!
+            //        print(jsonString)
+            
+            do {
+                try jsonData.write(to: classConstants.fileURL)
+                print("success") // 정상 작동
+                // myMap의 catAdded 함수를 작동시켜서, 디코딩
+                delegate?.catAdded()
 
+            } catch {
+                
+                print("error")
+            }
+            
             self.dismiss(animated: true, completion: nil)
 
         } else {
             // 이름이나 이미지 중 비어있는 것이 있을 경우 경고 메시지.
+            warningSign.textColor = UIColor.red
             warningSign.text = "입력이 모두 완료되지 않았습니다."
         }
-
-        // 임시데이터
-        let lat = Double.random(in: 37.3 ..< 37.8)
-        let lon = Double.random(in: 126.7 ..< 127.2)
-        
-        var cat = Cat(name: nameTextField.text!, color: "orange",
-                      spot: CLLocation(latitude: lat, longitude: lon), details: infoTextView.text, isLiked: false)
-        
-        let encoder = JSONEncoder()
-        encoder.outputFormatting = .prettyPrinted
-        
-        let jsonData = try! encoder.encode(cat)
-        // jsonString으로 제대로 encode되었는지 테스트 출력
-//        let jsonString = String(data: jsonData, encoding: .utf8)!
-//        print(jsonString)
-    
-        do {
-            try jsonData.write(to: classConstants.fileURL)
-            print("success") // 정상 작동
-        } catch {
-            
-            print("error")
-        }
-        
+                
         // only for test //
 //        do {
 //            let test1 = try fileManager.contentsOfDirectory(atPath: getDirectoryPath())
@@ -268,11 +282,11 @@ class AddViewController: UIViewController {
     @IBAction func finalCancel(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
+    
 }
 
 
 //MARK: - 고양이 사진을 추가하기 위해서 필요한 Image Picker 관련 extension
-
 extension AddViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func openLibrary(){
@@ -299,13 +313,10 @@ extension AddViewController : UIImagePickerControllerDelegate, UINavigationContr
 }
 
 //MARK: - 이름 입력을 위해 필요한 Text Field의 프로토콜을 받는 extension
-
 extension AddViewController : UITextFieldDelegate {
     
     // 자판의 return or enter 버튼을 눌렀을 경우 나타날 액션
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        // 고양이 이름 변수에 사용자가 입력한 이름값을 받음.
-        // catName = nameTextField.text ?? ""
         // 자판 사라짐.
         nameTextField.endEditing(true)
         // action
@@ -331,11 +342,11 @@ extension AddViewController : UITextFieldDelegate {
 }
 
 //MARK: - 상세 정보를 입력할 때 필요한 Text View의 extension
-
 extension AddViewController : UITextViewDelegate {
     
     // 정보 입력 시작할 경우
     func textViewDidBeginEditing(_ textView: UITextView) {
+        
         textViewSetupView()
     }
     
