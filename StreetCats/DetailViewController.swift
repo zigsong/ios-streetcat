@@ -11,26 +11,80 @@ import UIKit
 
 class DetailViewController: UIViewController {
     var catName: String?
-      
+    
+    var delegate: ViewToViewDelegate?
+    
     @IBOutlet weak var catNameLabel: UILabel!
     @IBOutlet weak var catImage: UIImageView!
     @IBOutlet weak var likeButton: UIButton!
+    @IBOutlet weak var catDetailLabel: UILabel!
       
+    enum DecodingError: Error {
+        case missingFile
+    }
+    
+    var cats: [CatAnnotation] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // json에서 해당 고양이의 정보(이름, 장소, 이미지, 상세 정보)를 decoding.
         
-        
-        // catNameLabel.text = catName
-        //  catImage.image = #imageLiteral(resourceName: "cat1")
+        do {
+            let catInfo = try showData()
+            print("catInfo: \(catInfo)")
+//            cats = []
+//            for cat in catList.cats {
+//                print("\(cat.name)")
+//            }
+            
+             catNameLabel.text = catInfo.name
+             catImage.image = convertBase64ToImage(catInfo.photo!)
+             // likeButton.isSelected ==
+             catDetailLabel.text = catInfo.details
+        }
+        catch {
+            print(error)
+        }
     }
 
-    
-      // 수정하기 버튼도 추가하는 게 좋을 지는 모르겠네요. 사람마다 입력하고 싶어하는 정보가 다 다를 것 같아서 가장 먼저 등록한 사람이 그 고양이의 주인이 되는 느낌으로.. 하면 될까 싶습니다.
+    func showData() throws -> Cat {
+    //        guard let url = Bundle.main.url(forResource: "cats", withExtension: "json") else {
+    //           throw DecodingError.missingFile
+    //        }
+            
+    //        do {
+                // let documentURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+    //            let documentURL = FileManager.default
+    //            let path = documentURL.urls(for: .documentDirectory, in: .userDomainMask)[0]
+    //            let data = documentURL.contents(atPath: "savedCats.json") // retun type: Data
+                
+    //        }
+    //        catch {
+    //            print(error.localizedDescription)
+    //        }
+           
+        let fileManager = FileManager.default // filemanager 인스턴스 생성
+        let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0] // path 작성
+        let fileURL = documentsURL.appendingPathComponent("savedCats.json")
+        
+        let jsonString = try Data(contentsOf: fileURL)
+        // print("jsonString: \(jsonString)") // -> return 370972 bytes
+        let decoder = JSONDecoder()
+//        let data = try Data(contentsOf: fileURL)
+        let result = try decoder.decode(Cat.self, from: jsonString)
+        // print(result)
+        return result
+            
+    }
       
-      @IBAction func returnToMap(_ sender: UIButton) {
-          self.dismiss(animated: true, completion: nil)
-      }
+    func convertBase64ToImage(_ str: String) -> UIImage {
+        let dataDecoded : Data = Data(base64Encoded: str, options: .ignoreUnknownCharacters)!
+        let decodedimage = UIImage(data: dataDecoded)
+        return decodedimage!
+    }
+    
+    @IBAction func returnToMap(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
+    }
 
     @IBAction func likeButtonTapped(_ sender: UIButton) {
         if likeButton.isSelected == true {

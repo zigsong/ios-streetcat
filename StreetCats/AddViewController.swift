@@ -11,6 +11,10 @@ import MapKit // CLLocation에 값을 넣기 위해 필요
 
 class AddViewController: UIViewController {
     
+    var delegate: ViewToViewDelegate?
+    var color: String = ""
+    // myMap에서 값을 받아오기 위한 롱프레스 변수 설정.
+    var longPressedLocation: CLLocationCoordinate2D?
     let picker = UIImagePickerController()
     
     @IBOutlet weak var addImage: UIButton!
@@ -23,10 +27,8 @@ class AddViewController: UIViewController {
     @IBOutlet weak var whiteButton: UIButton!
     @IBOutlet weak var brownButton: UIButton!
     @IBOutlet weak var orangeButton: UIButton!
-    @IBOutlet weak var greyButton: UIButton!
+    @IBOutlet weak var grayButton: UIButton!
     @IBOutlet weak var blackButton: UIButton!
-    
-    var color: String = ""
     
     struct classConstants{
         // 간결한 버전
@@ -125,15 +127,15 @@ class AddViewController: UIViewController {
         print(color)
     }
     
-    @IBAction func greyButtonTapped() {
-        if greyButton.isSelected == false {
+    @IBAction func grayButtonTapped() {
+        if grayButton.isSelected == false {
             if color != "" {
-                color = "grey"
+                color = "gray"
                 buttonReset()
-                greyButton.isSelected = true
+                grayButton.isSelected = true
             } else {
-                color = "grey"
-                greyButton.isSelected = true
+                color = "gray"
+                grayButton.isSelected = true
             }
         } else {
             color = ""
@@ -163,11 +165,9 @@ class AddViewController: UIViewController {
         whiteButton.isSelected = false
         brownButton.isSelected = false
         orangeButton.isSelected = false
-        greyButton.isSelected = false
+        grayButton.isSelected = false
         blackButton.isSelected = false
     }
-    
-    
     
     @IBAction func addImage(_ sender: UIButton) {
         let alert = UIAlertController(title: nil, message: "고양이 사진을 등록합니다", preferredStyle: .actionSheet)
@@ -183,6 +183,18 @@ class AddViewController: UIViewController {
         
         present(alert, animated: true, completion: nil)
         
+    }
+    
+    func convertImageToBase64(_ image: UIImage) -> String {
+        let imageData:NSData = image.jpegData(compressionQuality: 0.4)! as NSData
+        let strBase64 = imageData.base64EncodedString(options: .lineLength64Characters)
+        return strBase64
+    }
+    
+    func convertBase64ToImage(_ str: String) -> UIImage {
+        let dataDecoded : Data = Data(base64Encoded: str, options: .ignoreUnknownCharacters)!
+        let decodedimage = UIImage(data: dataDecoded)
+        return decodedimage!
     }
     
     // 이름 입력 후 '확인' 버튼을 누르면 나타날 액션
@@ -202,7 +214,29 @@ class AddViewController: UIViewController {
             if infoTextView.text == "" {
                 infoTextView.text = "상세 정보 없음"
             }
-
+            // 임시데이터
+            let lat = longPressedLocation?.latitude
+            let lon = longPressedLocation?.longitude
+            
+            var cat = Cat(name: nameTextField.text!, color: color, photo: convertImageToBase64(imageView.image!),
+                          spot: CLLocation(latitude: lat!, longitude: lon!), details: infoTextView.text, isLiked: likeButton.isSelected)
+            // codable Cat으로 들어가는 photo는 String
+            
+            let encoder = JSONEncoder()
+            encoder.outputFormatting = .prettyPrinted
+            
+            let jsonData = try! encoder.encode(cat)
+            // jsonString으로 제대로 encode되었는지 테스트 출력
+    //        let jsonString = String(data: jsonData, encoding: .utf8)!
+    //        print(jsonString)
+        
+            do {
+                try jsonData.write(to: classConstants.fileURL)
+                print("success") // 정상 작동
+            } catch {
+                print("error")
+            }
+            
             self.dismiss(animated: true, completion: nil)
 
         } else {
@@ -210,59 +244,7 @@ class AddViewController: UIViewController {
             warningSign.text = "입력이 모두 완료되지 않았습니다."
         }
 
-        // 임시데이터
-        let lat = Double.random(in: 37.3 ..< 37.8)
-        let lon = Double.random(in: 126.7 ..< 127.2)
-        
-        var cat = Cat(name: nameTextField.text!, color: "orange",
-                      spot: CLLocation(latitude: lat, longitude: lon), details: infoTextView.text, isLiked: false)
-        
-        let encoder = JSONEncoder()
-        encoder.outputFormatting = .prettyPrinted
-        
-        let jsonData = try! encoder.encode(cat)
-        // jsonString으로 제대로 encode되었는지 테스트 출력
-//        let jsonString = String(data: jsonData, encoding: .utf8)!
-//        print(jsonString)
-    
-        do {
-            try jsonData.write(to: classConstants.fileURL)
-            print("success") // 정상 작동
-        } catch {
-            
-            print("error")
-        }
-        
-        // only for test //
-//        do {
-//            let test1 = try fileManager.contentsOfDirectory(atPath: getDirectoryPath())
-//            print(test1) // result: ["cats.json.cats", "cats.json", "savedCats.json"]
-//        }
-//        catch {
-//            print("test1 error")
-//        }
-        
-        // only for test //
-//        print(getDirectoryPath())
-//        let toknow = fileManager.fileExists(atPath: getDirectoryPath())
-//        print("fileExists?: \(toknow)") // always return true
-        
-//        do {
-//            try jsonData.write(to: path) // URLPath
-//        }
-//        catch {
-//            print("Fail to write JSON data")
-//        }
-        
-//        self.dismiss(animated: true, completion: nil) // 지은 추가 // 조금 위에(if문 안에) 있음
     }
-    
-    // only for test //
-//    func getDirectoryPath() -> String {
-//        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
-//        let documentsDirectory = paths[0]
-//        return documentsDirectory
-//    }
     
 
     @IBAction func finalCancel(_ sender: UIButton) {
@@ -288,11 +270,11 @@ extension AddViewController : UIImagePickerControllerDelegate, UINavigationContr
             print("Camera not available")
         }
     }
-    
+     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             imageView.image = image
-            print(info)
+            print(info) // 작동하는 듯
         }
         dismiss(animated: true, completion: nil)
     }

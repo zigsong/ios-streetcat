@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class ViewController: UIViewController, CLLocationManagerDelegate {
+class ViewController: UIViewController, CLLocationManagerDelegate, ViewToViewDelegate {
     
     enum DecodingError: Error {
         case missingFile
@@ -18,7 +18,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     var cats: [CatAnnotation] = []
     var location = "marker"
-
+    // var tapCoordinate = CLLocationCoordinate2D(latitude: 37.5, longitude: 126.5) // assign을 바꿔야 할 듯 
+    
     @IBOutlet weak var myMap: MKMapView!
     let locationManager = CLLocationManager()
 //    let catAnnotations = CatAnnotations()
@@ -39,9 +40,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     @IBAction func onTapMapView(gestureRecognizer: UILongPressGestureRecognizer) {
            if gestureRecognizer.state == UIGestureRecognizer.State.began {
                let location = gestureRecognizer.location(in: myMap)
-               let coordinate = myMap.convert(location,toCoordinateFrom: myMap)
+               let tapCoordinate = myMap.convert(location,toCoordinateFrom: myMap)
                
-               print("\(coordinate.latitude), \(coordinate.longitude)")
+               print("\(tapCoordinate.latitude), \(tapCoordinate.longitude)")
             
 //               let annotation = MKPointAnnotation()
 //                annotation.coordinate = coordinate
@@ -73,7 +74,18 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         manager.stopUpdatingLocation()
         }
     
-
+    func convertImageToBase64(_ image: UIImage) -> String {
+        let imageData:NSData = image.jpegData(compressionQuality: 0.4)! as NSData
+        let strBase64 = imageData.base64EncodedString(options: .lineLength64Characters)
+        return strBase64
+    }
+    
+    func convertBase64ToImage(_ str: String) -> UIImage {
+        let dataDecoded : Data = Data(base64Encoded: str, options: .ignoreUnknownCharacters)!
+        let decodedimage = UIImage(data: dataDecoded)
+        return decodedimage!
+    }
+    
     func loadMockData() throws -> CatList {
       guard let url = Bundle.main.url(forResource: "cats", withExtension: "json") else {
           throw DecodingError.missingFile
@@ -92,7 +104,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
               cats = []
               for cat in catList.cats {
                   print("\(cat.name)")
-                cats += [CatAnnotation(title: cat.name, color: cat.color, spot: CLLocationCoordinate2D(latitude: cat.spot.coordinate.latitude, longitude: cat.spot.coordinate.longitude), coordinate: CLLocationCoordinate2D(latitude: cat.spot.coordinate.latitude, longitude: cat.spot.coordinate.longitude), details: cat.details, isLiked: cat.isLiked)]
+                cats += [CatAnnotation(title: cat.name, color: cat.color, photo: UIImage(named: "cat1")!, spot: CLLocationCoordinate2D(latitude: cat.spot.coordinate.latitude, longitude: cat.spot.coordinate.longitude), coordinate: CLLocationCoordinate2D(latitude: cat.spot.coordinate.latitude, longitude: cat.spot.coordinate.longitude), details: cat.details, isLiked: cat.isLiked)]
                 
             }
                 myMap.addAnnotations(cats)
@@ -116,6 +128,28 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
+    func catAdded() {
+        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+
+            let file = "savedCats.json"
+            let fileURL = dir.appendingPathComponent(file)
+
+            // reading & decoding & addAnnotation
+            do {
+                let newCatData = try String(contentsOf: fileURL, encoding: .utf8)
+                let decoder = JSONDecoder()
+                let data = Data(newCatData.utf8)
+                let newCat = try decoder.decode(Cat.self, from: data)
+                print(newCat) // test
+                let newCatMark = CatAnnotation(title: newCat.name, color: newCat.color, photo: convertBase64ToImage(newCat.photo!), spot: CLLocationCoordinate2D(latitude: newCat.spot.coordinate.latitude, longitude: newCat.spot.coordinate.longitude), coordinate: CLLocationCoordinate2D(latitude: newCat.spot.coordinate.latitude, longitude: newCat.spot.coordinate.longitude), details: newCat.details, isLiked: false)
+                myMap.addAnnotation(newCatMark)
+                print("add cat success")
+            }
+            catch {
+                print("error: \(error)")
+            }
+        }
+    }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToInfo" {
@@ -173,32 +207,32 @@ extension ViewController: MKMapViewDelegate {
     }
     
     // AddVC로 갔다가 되돌아왔을 떄 실행 (AddVC가 dismiss되면 자동으로 viewWillAppear가 실행됨)
-    override func viewWillAppear(_ animated: Bool){
-        
-        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-
-            let file = "savedCats.json"
-            let fileURL = dir.appendingPathComponent(file)
-
-            // reading & decoding & addAnnotation
-            do {
-                let newCatData = try String(contentsOf: fileURL, encoding: .utf8)
-                // print(newCatData) // 정상작동(json String으로 출력) - AddVC의 추가하기가 내려가면 자동으로 출력됨. 왜 print("viewWillAppear")는 안될까?
-                let decoder = JSONDecoder()
-                let data = Data(newCatData.utf8)
-                let newCat = try decoder.decode(Cat.self, from: data)
-                print(newCat) // test
-
-                let newCatMark = CatAnnotation(title: newCat.name, color: newCat.color, spot: CLLocationCoordinate2D(latitude: newCat.spot.coordinate.latitude, longitude: newCat.spot.coordinate.longitude), coordinate: CLLocationCoordinate2D(latitude: newCat.spot.coordinate.latitude, longitude: newCat.spot.coordinate.longitude), details: newCat.details, isLiked: false)
-                myMap.addAnnotation(newCatMark)
-                print("add cat success")
-            }
-            catch {
-                print("error: \(error)")
-            }
-        }
-        print("viewWillAppear") // for test
-    }
+//    override func viewWillAppear(_ animated: Bool){
+//
+//        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+//
+//            let file = "savedCats.json"
+//            let fileURL = dir.appendingPathComponent(file)
+//
+//            // reading & decoding & addAnnotation
+//            do {
+//                let newCatData = try String(contentsOf: fileURL, encoding: .utf8)
+//                // print(newCatData) // 정상작동(json String으로 출력) - AddVC의 추가하기가 내려가면 자동으로 출력됨
+//                let decoder = JSONDecoder()
+//                let data = Data(newCatData.utf8)
+//                let newCat = try decoder.decode(Cat.self, from: data) // 이때 리턴하는 photo는 UIImage여야 함
+//                print(newCat) // test
+//
+//                let newCatMark = CatAnnotation(title: newCat.name, color: newCat.color, photo: convertBase64ToImage(newCat.photo!), spot: CLLocationCoordinate2D(latitude: newCat.spot.coordinate.latitude, longitude: newCat.spot.coordinate.longitude), coordinate: CLLocationCoordinate2D(latitude: newCat.spot.coordinate.latitude, longitude: newCat.spot.coordinate.longitude), details: newCat.details, isLiked: newCat.isLiked)
+//                myMap.addAnnotation(newCatMark)
+//                print("add cat success")
+//            }
+//            catch {
+//                print("error: \(error)")
+//            }
+//        }
+//        print("viewWillAppear") // for test
+//    }
 }
 
     
@@ -206,4 +240,8 @@ extension ViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return false
     }
+}
+
+protocol ViewToViewDelegate {
+    func catAdded()
 }
