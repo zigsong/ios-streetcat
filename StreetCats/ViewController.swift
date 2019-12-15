@@ -17,12 +17,25 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ViewToViewDel
     }
     
     var cats: [CatAnnotation] = []
+    // 터치한 핀의 좌표값과 비교, 참조하기 위한 좌표들
+    // var catSpot: [CLLocationCoordinate2D] = []
+    
+//     var catNames: [String] = []
+//     var catDetails: [String] = []
+//     var catIsLiked: [Bool] = []
+//     var indexOfCat = 0
+    
     var location = "marker"
-    // var tapCoordinate = CLLocationCoordinate2D(latitude: 37.5, longitude: 126.5) // assign을 바꿔야 할 듯 
+    // var tapCoordinate = CLLocationCoordinate2D(latitude: 37.5, longitude: 126.5) // assign을 바꿔야 할 듯
+    
+    // AddVC와 롱프레스한 위치를 좌표로 받기 위해 변수 값 설정.
+    var longPressedLocation: CLLocationCoordinate2D?
+    // DetailVC로 넘어갈 때 참조할 터치한 핀의 좌표를 받기 위한 변수 설정.
+    var touchedLocation: CLLocationCoordinate2D?
+    let locationManager = CLLocationManager()
+    //    let catAnnotations = CatAnnotations()
     
     @IBOutlet weak var myMap: MKMapView!
-    let locationManager = CLLocationManager()
-//    let catAnnotations = CatAnnotations()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,22 +50,20 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ViewToViewDel
         myMap.isScrollEnabled = true
     }
     
+    
     @IBAction func onTapMapView(gestureRecognizer: UILongPressGestureRecognizer) {
-           if gestureRecognizer.state == UIGestureRecognizer.State.began {
-               let location = gestureRecognizer.location(in: myMap)
-               let tapCoordinate = myMap.convert(location,toCoordinateFrom: myMap)
-               
-               print("\(tapCoordinate.latitude), \(tapCoordinate.longitude)")
+        if gestureRecognizer.state == UIGestureRecognizer.State.began {
+            let location = gestureRecognizer.location(in: myMap)
+            let coordinate = myMap.convert(location,toCoordinateFrom: myMap)
             
-//               let annotation = MKPointAnnotation()
-//                annotation.coordinate = coordinate
-//                annotation.title = "새로운 길냥이"
-//                myMap.addAnnotation(annotation)
-//               // 좌표에 annotation 추가
+            print("\(coordinate.latitude), \(coordinate.longitude)")
+            // 롱프레스한 곳의 좌표를 AddVC에 넘기기 위한 변수 값에 넘김.
+            longPressedLocation = coordinate
             performSegue(withIdentifier: "goToAdd", sender: self)
             
-           }
-       }
+        }
+        
+    }
 
     @IBAction func showCurrentLocation (_ sender: UIButton) {
         locationManager.startUpdatingLocation()
@@ -97,44 +108,46 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ViewToViewDel
        
    }
 
-   func makeMockData() {
-          do {
-              let catList = try loadMockData()
-               // print(catList)
-              cats = []
-              for cat in catList.cats {
-                  print("\(cat.name)")
+  func makeMockData() {
+         do {
+             let catList = try loadMockData()
+             // print(catList)
+             cats = []
+             for cat in catList.cats {
+               print("\(cat.spot.coordinate)")
                 cats += [CatAnnotation(title: cat.name, color: cat.color, photo: UIImage(named: "cat1")!, spot: CLLocationCoordinate2D(latitude: cat.spot.coordinate.latitude, longitude: cat.spot.coordinate.longitude), coordinate: CLLocationCoordinate2D(latitude: cat.spot.coordinate.latitude, longitude: cat.spot.coordinate.longitude), details: cat.details, isLiked: cat.isLiked)]
-                
-            }
-                myMap.addAnnotations(cats)
-          } catch {
-            print(error)
-        }
-    }
+//               catSpot += [cat.spot.coordinate]
+//               catNames += [cat.name]
+//               catDetails += [cat.details]
+//               catIsLiked += [cat.isLiked]
+           }
+               myMap.addAnnotations(cats)
+         } catch {
+           print(error)
+       }
+   }
     
-
+    // remove하면 새로 추가한 핀은 다시 안 생기네요. savedCats의 파일도 별도로 부르는 게 필요함.
     @IBAction func likeFilter(_ sender: UISwitch) {
         if (sender as AnyObject).isOn{
             myMap.removeAnnotations(cats)
             myMap.addAnnotations(cats)
         } else {
             for CatAnnotation in self.myMap.annotations {
-             let annotation = CatAnnotation
-             if (annotation as? CatAnnotation)?.isLiked == false {
-                self.myMap.removeAnnotation(CatAnnotation)
+                let annotation = CatAnnotation
+                if (annotation as? CatAnnotation)?.isLiked == false {
+                    self.myMap.removeAnnotation(CatAnnotation)
                 }
             }
         }
     }
-    
+    // AddVC의 추가가 완료되면 데이터가 인코딩되고 즉시 바로 myMap으로 디코딩할 때, 작동할 catAdded 함수.
     func catAdded() {
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
 
             let file = "savedCats.json"
             let fileURL = dir.appendingPathComponent(file)
 
-            // reading & decoding & addAnnotation
             do {
                 let newCatData = try String(contentsOf: fileURL, encoding: .utf8)
                 let decoder = JSONDecoder()
@@ -150,17 +163,34 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ViewToViewDel
             }
         }
     }
-
+        
+//    func isLikedSent(_ data: [Bool]) {
+//         catIsLiked = data
+//
+//    }
+        
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "goToInfo" {
-            _ = segue.destination as! DetailViewController
-        } else if segue.identifier == "goToAdd" {
-            _ = segue.destination as! AddViewController
+        if segue.identifier == "goToInfo", let dest = segue.destination as? DetailViewController {
+//            dest.catNames = catNames
+//            dest.catDetails = catDetails
+//            dest.catIsLiked = catIsLiked
+//            dest.indexOfCat = indexOfCat
+//            dest.delegate = self
+        } else if segue.identifier == "goToAdd", let dest = segue.destination as? AddViewController {
+            // myMap의 롱프레스 변수를 AddVC에서 쓸 수 있게 AddVC의 롱프레스 변수로 넘겨줌.
+            // AddVC의 delegate를 myMap으로 설정.
+            dest.longPressedLocation = longPressedLocation
+            dest.delegate = self
+            
         }
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
     }
 }
+    
+    
+    // DetailVC에서 수정한 isLiked 데이터를 받아오기 위한 함수
+
+
+//MARK: - 이하 extension 및 protocol
 
 extension ViewController: MKMapViewDelegate {
   func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -198,50 +228,37 @@ extension ViewController: MKMapViewDelegate {
                 view.clusteringIdentifier = identifier
     return view
   }
+    
+
     // 핀의 팝업 혹은 그 안의 i 버튼 클릭하면 디테일 페이지로 넘어감.
-    // 여기서 각 핀에 알맞은 데이터를 불러와야 할 듯.
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
 
-        performSegue(withIdentifier: "goToInfo", sender: self)
-
-    }
-    
-    // AddVC로 갔다가 되돌아왔을 떄 실행 (AddVC가 dismiss되면 자동으로 viewWillAppear가 실행됨)
-//    override func viewWillAppear(_ animated: Bool){
-//
-//        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-//
-//            let file = "savedCats.json"
-//            let fileURL = dir.appendingPathComponent(file)
-//
-//            // reading & decoding & addAnnotation
-//            do {
-//                let newCatData = try String(contentsOf: fileURL, encoding: .utf8)
-//                // print(newCatData) // 정상작동(json String으로 출력) - AddVC의 추가하기가 내려가면 자동으로 출력됨
-//                let decoder = JSONDecoder()
-//                let data = Data(newCatData.utf8)
-//                let newCat = try decoder.decode(Cat.self, from: data) // 이때 리턴하는 photo는 UIImage여야 함
-//                print(newCat) // test
-//
-//                let newCatMark = CatAnnotation(title: newCat.name, color: newCat.color, photo: convertBase64ToImage(newCat.photo!), spot: CLLocationCoordinate2D(latitude: newCat.spot.coordinate.latitude, longitude: newCat.spot.coordinate.longitude), coordinate: CLLocationCoordinate2D(latitude: newCat.spot.coordinate.latitude, longitude: newCat.spot.coordinate.longitude), details: newCat.details, isLiked: newCat.isLiked)
-//                myMap.addAnnotation(newCatMark)
-//                print("add cat success")
-//            }
-//            catch {
-//                print("error: \(error)")
+        touchedLocation = view.annotation?.coordinate
+        // catSpot에서 탭한 좌표와 일치하는 값을 찾으면 그에 해당하는 ..
+//        for i in catSpot {
+//            if i.latitude == touchedLocation!.latitude && i.longitude == touchedLocation!.longitude {
+//                indexOfCat = catSpot.firstIndex(where: {$0.latitude == touchedLocation!.latitude && $0.longitude == touchedLocation!.longitude}) ?? 0
 //            }
 //        }
-//        print("viewWillAppear") // for test
-//    }
+//        print(touchedLocation)
+//        print(catSpot[0])
+//        print(catNames)
+//        print(indexOfCat)
+        
+        performSegue(withIdentifier: "goToInfo", sender: self)
+    }
 }
 
-    
 extension ViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return false
     }
 }
 
+// 다른 뷰 간에 데이터를 넘겨 받기 위한 delegate 프로토콜
 protocol ViewToViewDelegate {
     func catAdded()
+//    func isLikedSent(_ data: [Bool])
 }
+ 
+

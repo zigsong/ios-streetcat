@@ -7,21 +7,27 @@
 
 
 import UIKit
-
+import MapKit
 
 class DetailViewController: UIViewController {
-    var catName: String?
     
+//    var catName: String?
+        
+    enum DecodingError: Error {
+        case missingFile
+    }
+    
+//    var catNames: [String] = []
+//    var catDetails: [String] = []
+//    var catIsLiked: [Bool] = []
+//    var indexOfCat = 0
+
     var delegate: ViewToViewDelegate?
-    
+      
     @IBOutlet weak var catNameLabel: UILabel!
     @IBOutlet weak var catImage: UIImageView!
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var catDetailLabel: UILabel!
-      
-    enum DecodingError: Error {
-        case missingFile
-    }
     
     var cats: [CatAnnotation] = []
     
@@ -36,10 +42,14 @@ class DetailViewController: UIViewController {
 //                print("\(cat.name)")
 //            }
             
-             catNameLabel.text = catInfo.name
-             catImage.image = convertBase64ToImage(catInfo.photo!)
-             // likeButton.isSelected ==
-             catDetailLabel.text = catInfo.details
+            catNameLabel.text = catInfo.name
+            catImage.image = convertBase64ToImage(catInfo.photo!)
+            // likeButton.isSelected ==
+            catDetailLabel.text = catInfo.details
+            
+//            catNameLabel.text = catNames[indexOfCat]
+//            catDetailLabel.text = catDetails[indexOfCat]
+//            likeButton.isSelected = catIsLiked[indexOfCat]
         }
         catch {
             print(error)
@@ -81,19 +91,24 @@ class DetailViewController: UIViewController {
         let decodedimage = UIImage(data: dataDecoded)
         return decodedimage!
     }
-    
+
+
     @IBAction func returnToMap(_ sender: UIButton) {
+        
+        // delegate?.isLikedSent(catIsLiked)
         self.dismiss(animated: true, completion: nil)
     }
-
-    @IBAction func likeButtonTapped(_ sender: UIButton) {
-        if likeButton.isSelected == true {
-          likeButton.isSelected = false
-           //isLiked = false
-        } else {
-          likeButton.isSelected = true
-           //isLiked = true
-        }
-    }
+    
+//    @IBAction func likeButtonTapped(_ sender: UIButton) {
+//        if likeButton.isSelected == true {
+//            likeButton.isSelected = false
+//            catIsLiked[indexOfCat] = false
+//            //isLiked = false
+//        } else {
+//            likeButton.isSelected = true
+//            catIsLiked[indexOfCat] = true
+//            //isLiked = true
+//        }
+//    }
 }
 
