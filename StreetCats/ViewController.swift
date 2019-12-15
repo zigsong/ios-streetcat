@@ -154,6 +154,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ViewToViewDel
                 print(newCat) // test
 
                 let newCatMark = CatAnnotation(title: newCat.name, color: newCat.color, spot: CLLocationCoordinate2D(latitude: newCat.spot.coordinate.latitude, longitude: newCat.spot.coordinate.longitude), coordinate: CLLocationCoordinate2D(latitude: newCat.spot.coordinate.latitude, longitude: newCat.spot.coordinate.longitude), details: newCat.details, isLiked: false)
+                cats += [newCatMark]
+                catSpot += [newCatMark.coordinate]
+                
                 myMap.addAnnotation(newCatMark)
                 print("add cat success")
             }
