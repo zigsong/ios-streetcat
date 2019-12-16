@@ -3,6 +3,7 @@
         {
             "name": "zig",
             "color": "orange",
+            "photo": "",
             "spot": {
                 "lat": 37.50,
                 "lon": 126.95
@@ -13,6 +14,7 @@
         {
             "name": "ahyeon",
             "color": "white",
+            "photo": "",
             "spot": {
                 "lat": 37.52,
                 "lon": 126.97
@@ -23,6 +25,7 @@
         {
             "name": "gummy",
             "color": "black",
+            "photo": "",
             "spot": {
                 "lat": 37.53,
                 "lon": 126.98
