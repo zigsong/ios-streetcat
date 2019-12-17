@@ -32,10 +32,7 @@ class AddViewController: UIViewController {
     @IBOutlet weak var blackButton: UIButton!
     
     struct classConstants{
-        // 간결한 버전
-        // let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("savedCats.json")
-        // savedCats.json이 한번만 생성되게끔
-        static let fileManager = FileManager.default // filemanager 인스턴스 생성
+        static let fileManager = FileManager.default
         static let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0] // path 작성
         static let fileURL = documentsURL.appendingPathComponent("savedCats.json") // savedCats.json 파일 추가
     }
@@ -205,8 +202,6 @@ class AddViewController: UIViewController {
     // 이름 입력 후 '확인' 버튼을 누르면 나타날 액션
     @IBAction func nameButtonPressed(_ sender: UIButton) { // 추가하기 -> 이름 -> 확인
         nameTextField.endEditing(true)
-        // Q. 확인 버튼이 있어야 하나?
-        // A. 원래는 리턴만 넣으면 불편할 것 같아서 넣었는데 빼도 될 듯 합니다.
     }
     
     @IBAction func infoButtonPressed(_ sender: UIButton) { // 정보보기
@@ -297,9 +292,7 @@ extension AddViewController : UITextFieldDelegate {
     
     // 자판의 return or enter 버튼을 눌렀을 경우 나타날 액션
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        // 자판 사라짐.
         nameTextField.endEditing(true)
-        // action
         return true
     }
     
@@ -348,11 +341,11 @@ extension AddViewController : UITextViewDelegate {
     
     // placeholder 역할 대신함.
     func textViewSetupView() {
-        if infoTextView.text == "내용을 입력하세요" {
+        if infoTextView.text == "상세 정보를 입력하세요" {
             infoTextView.text = ""
             infoTextView.textColor = UIColor.label
-        } else if infoTextView.text == "" {
-            infoTextView.text = "내용을 입력하세요"
+        } else if infoTextView.text == "내용을 입력하세요" {
+            infoTextView.text = ""
             infoTextView.textColor = UIColor.label
         } else if infoTextView.text == "" {
             infoTextView.text = "내용을 입력하세요"

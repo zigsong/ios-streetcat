@@ -16,7 +16,7 @@ class CatAnnotation: NSObject, MKAnnotation {
     let color: String
     let photo: UIImage
     let spot: CLLocationCoordinate2D
-    let details: String?
+    var details: String?
     var isLiked: Bool
     
     func convertImageToBase64(_ image: UIImage) -> String {
