@@ -176,22 +176,11 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3cO-tn-duw">
-                                        <rect key="frame" x="324" y="-8" width="30" height="30"/>
-                                        <state key="normal" title="입력">
-                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="infoButtonPressed:" destination="ep4-rW-mus" eventType="touchUpInside" id="sZr-dL-nnL"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="bottomMargin" secondItem="oEg-Qd-JEY" secondAttribute="bottom" constant="5" id="8eJ-b6-Nvc"/>
-                                    <constraint firstAttribute="trailing" secondItem="3cO-tn-duw" secondAttribute="trailing" constant="10" id="JGI-4w-Zgv"/>
-                                    <constraint firstItem="3cO-tn-duw" firstAttribute="top" secondItem="r9h-jW-w2h" secondAttribute="top" constant="10" id="MCh-WT-9kI"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="50" id="MU4-4m-nqO"/>
                                     <constraint firstItem="oEg-Qd-JEY" firstAttribute="centerX" secondItem="r9h-jW-w2h" secondAttribute="centerX" id="UPr-S3-PAA"/>
                                     <constraint firstItem="oEg-Qd-JEY" firstAttribute="top" secondItem="r9h-jW-w2h" secondAttribute="topMargin" constant="5" id="bMt-NG-DFG"/>
