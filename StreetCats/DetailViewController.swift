@@ -9,8 +9,8 @@
 import UIKit
 import MapKit
 
-
-class DetailViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
+// if detailLabel -> conform UITextViewDelegate
+class DetailViewController: UIViewController, UITextFieldDelegate {
             
     enum DecodingError: Error {
         case missingFile
@@ -27,7 +27,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UITextViewDel
 
 
     @IBOutlet weak var nameTextField: UITextField!
-    @IBOutlet weak var detailTextView: UITextView!
+//    @IBOutlet weak var detailTextView: UITextView! // 연결
     
     @IBOutlet weak var orangeButton : UIButton!
     @IBOutlet weak var whiteButton : UIButton!
@@ -43,23 +43,23 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         colorButtonSelected()
         
         catNameLabel.text = (nameTextField.text != "") ? nameTextField.text : cats[indexOfCat].title
-        catDetailLabel.text = (detailTextView.text != "") ? detailTextView.text : cats[indexOfCat].details
+//        catDetailLabel.text = (detailTextView.text != "") ? detailTextView.text : cats[indexOfCat].details
         likeButton.isSelected = cats[indexOfCat].isLiked
         catImage.image = cats[indexOfCat].photo
         
         nameTextField.delegate = self
         nameTextField.isHidden = true
         catNameLabel.isUserInteractionEnabled = true
-        detailTextView.delegate = self
-        detailTextView.isHidden = true
-        catDetailLabel.isUserInteractionEnabled = true
+//        detailTextView.delegate = self
+//        detailTextView.isHidden = true
+//        catDetailLabel.isUserInteractionEnabled = true
         
         let nameTapGesture = UITapGestureRecognizer(target: self, action: #selector(nameLabelTapped))
-        let detailTapGesture = UITapGestureRecognizer(target: self, action: #selector(detailLabelTapped))
+//        let detailTapGesture = UITapGestureRecognizer(target: self, action: #selector(detailLabelTapped))
         nameTapGesture.numberOfTapsRequired = 1
-        detailTapGesture.numberOfTouchesRequired = 1
+//        detailTapGesture.numberOfTouchesRequired = 1
         catNameLabel.addGestureRecognizer(nameTapGesture)
-        catDetailLabel.addGestureRecognizer(detailTapGesture)
+//        catDetailLabel.addGestureRecognizer(detailTapGesture)
 
     }
     
@@ -69,12 +69,12 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         nameTextField.text = catNameLabel.text
     }
     
-    @objc func detailLabelTapped(){
-        catDetailLabel.isHidden = true
-        detailTextView.isHidden = false
-        detailTextView.text = catDetailLabel.text
-        print("detail tapped")
-    }
+//    @objc func detailLabelTapped(){
+//        catDetailLabel.isHidden = true
+//        detailTextView.isHidden = false
+//        detailTextView.text = catDetailLabel.text
+//        print("detail tapped")
+//    }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
 //        textField.resignFirstResponder()
@@ -86,15 +86,15 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         return true
     }
     
-    func textViewShouldReturn(_ textView: UITextView) -> Bool {
-//        textField.resignFirstResponder()
-        detailTextView.endEditing(true)
-        detailTextView.isHidden = true
-        catDetailLabel.isHidden = false
-        catDetailLabel.text = detailTextView.text
-        cats[indexOfCat].details = detailTextView.text
-        return true
-    }
+//    func textViewShouldReturn(_ textView: UITextView) -> Bool {
+////        textField.resignFirstResponder()
+//        detailTextView.endEditing(true)
+//        detailTextView.isHidden = true
+//        catDetailLabel.isHidden = false
+//        catDetailLabel.text = detailTextView.text
+//        cats[indexOfCat].details = detailTextView.text
+//        return true
+//    }
 
     func convertBase64ToImage(_ str: String) -> UIImage {
         let dataDecoded : Data = Data(base64Encoded: str, options: .ignoreUnknownCharacters)!
