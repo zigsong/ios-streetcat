@@ -11,32 +11,41 @@ import MapKit
 
 class DetailViewController: UIViewController {
     
+//    var catName: String?
+        
     enum DecodingError: Error {
         case missingFile
     }
-    
+
     var delegate: ViewToViewDelegate?
     var cats: [CatAnnotation] = []
     var indexOfCat = 0
-    
+      
     @IBOutlet weak var catNameLabel: UILabel!
     @IBOutlet weak var catImage: UIImageView!
-    @IBOutlet weak var catDetailLabel: UILabel!
     @IBOutlet weak var likeButton: UIButton!
-
+    @IBOutlet weak var catDetailLabel: UILabel!
+        
     override func viewDidLoad() {
         super.viewDidLoad()
-        // json에서 해당 고양이의 정보(이름, 장소, 이미지, 상세 정보 등)를 decoding.
-                 
-        // cats.json의 spot이 터치된 coordinates와 같을 경우에 그 해당 json 프로퍼티들을 가져옴.
-        
-        catNameLabel.text = cats[indexOfCat].title
-        catDetailLabel.text = cats[indexOfCat].details
-        likeButton.isSelected = cats[indexOfCat].isLiked
+
+            catNameLabel.text = cats[indexOfCat].title
+            catDetailLabel.text = cats[indexOfCat].details
+            likeButton.isSelected = cats[indexOfCat].isLiked
+            catImage.image = cats[indexOfCat].photo
+
     }
-        
+
+    func convertBase64ToImage(_ str: String) -> UIImage {
+        let dataDecoded : Data = Data(base64Encoded: str, options: .ignoreUnknownCharacters)!
+        let decodedimage = UIImage(data: dataDecoded)
+        return decodedimage!
+    }
+
+
     @IBAction func returnToMap(_ sender: UIButton) {
         
+        // delegate?.isLikedSent(catIsLiked)
         self.dismiss(animated: true, completion: nil)
     }
     

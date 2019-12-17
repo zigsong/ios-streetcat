@@ -6,17 +6,14 @@
 //  Copyright © 2019 songji. All rights reserved.
 //
 
-
 import UIKit
 import MapKit // CLLocation에 값을 넣기 위해 필요
 class AddViewController: UIViewController {
-    
-    // myMap과 데이터를 주고 받기 위한 delegate 설정.
+
     var delegate: ViewToViewDelegate?
     var color: String = ""
     // myMap에서 값을 받아오기 위한 롱프레스 변수 설정.
     var longPressedLocation: CLLocationCoordinate2D?
-    
     let picker = UIImagePickerController()
     
     @IBOutlet weak var addImage: UIButton!
@@ -171,7 +168,7 @@ class AddViewController: UIViewController {
         grayButton.isSelected = false
         blackButton.isSelected = false
     }
-    
+
 //MARK: - 이미지 추가 버튼
     
     @IBAction func addImage(_ sender: UIButton) {
@@ -190,8 +187,24 @@ class AddViewController: UIViewController {
         
     }
     
+    func convertImageToBase64(_ image: UIImage) -> String {
+        let imageData:NSData = image.jpegData(compressionQuality: 0.4)! as NSData
+        let strBase64 = imageData.base64EncodedString(options: .lineLength64Characters)
+        return strBase64
+    }
+    
+    func convertBase64ToImage(_ str: String) -> UIImage {
+        let dataDecoded : Data = Data(base64Encoded: str, options: .ignoreUnknownCharacters)!
+        let decodedimage = UIImage(data: dataDecoded)
+        return decodedimage!
+    }
+    
     // 이름 입력 후 '확인' 버튼을 누르면 나타날 액션
-   
+    @IBAction func nameButtonPressed(_ sender: UIButton) { // 추가하기 -> 이름 -> 확인
+        nameTextField.endEditing(true)
+        // Q. 확인 버튼이 있어야 하나?
+        // A. 원래는 리턴만 넣으면 불편할 것 같아서 넣었는데 빼도 될 듯 합니다.
+    }
     
     @IBAction func infoButtonPressed(_ sender: UIButton) { // 정보보기
         infoTextView.endEditing(true)
@@ -213,7 +226,7 @@ class AddViewController: UIViewController {
             let lat = longPressedLocation?.latitude
             let lon = longPressedLocation?.longitude
             
-            var cat = Cat(name: nameTextField.text!, color: color,
+            var cat = Cat(name: nameTextField.text!, color: color, photo: convertImageToBase64(imageView.image!),
                           spot: CLLocation(latitude: lat!, longitude: lon!), details: infoTextView.text, isLiked: false)
             
             let encoder = JSONEncoder()
@@ -221,20 +234,14 @@ class AddViewController: UIViewController {
             
             let jsonData = try! encoder.encode(cat)
             // jsonString으로 제대로 encode되었는지 테스트 출력
-            //        let jsonString = String(data: jsonData, encoding: .utf8)!
-            //        print(jsonString)
-            
             do {
                 try jsonData.write(to: classConstants.fileURL)
                 print("success") // 정상 작동
                 // myMap의 catAdded 함수를 작동시켜서, 디코딩
                 delegate?.catAdded()
-
             } catch {
-                
                 print("error")
             }
-            
             self.dismiss(animated: true, completion: nil)
 
         } else {
@@ -242,37 +249,8 @@ class AddViewController: UIViewController {
             warningSign.textColor = UIColor.red
             warningSign.text = "입력이 모두 완료되지 않았습니다."
         }
-                
-        // only for test //
-//        do {
-//            let test1 = try fileManager.contentsOfDirectory(atPath: getDirectoryPath())
-//            print(test1) // result: ["cats.json.cats", "cats.json", "savedCats.json"]
-//        }
-//        catch {
-//            print("test1 error")
-//        }
-        
-        // only for test //
-//        print(getDirectoryPath())
-//        let toknow = fileManager.fileExists(atPath: getDirectoryPath())
-//        print("fileExists?: \(toknow)") // always return true
-        
-//        do {
-//            try jsonData.write(to: path) // URLPath
-//        }
-//        catch {
-//            print("Fail to write JSON data")
-//        }
-        
-//        self.dismiss(animated: true, completion: nil) // 지은 추가 // 조금 위에(if문 안에) 있음
+
     }
-    
-    // only for test //
-//    func getDirectoryPath() -> String {
-//        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
-//        let documentsDirectory = paths[0]
-//        return documentsDirectory
-//    }
     
 
     @IBAction func finalCancel(_ sender: UIButton) {
@@ -298,11 +276,11 @@ extension AddViewController : UIImagePickerControllerDelegate, UINavigationContr
             print("Camera not available")
         }
     }
-    
+     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             imageView.image = image
-            print(info)
+            print(info) // 작동하는 듯
         }
         dismiss(animated: true, completion: nil)
     }
@@ -363,11 +341,11 @@ extension AddViewController : UITextViewDelegate {
     
     // placeholder 역할 대신함.
     func textViewSetupView() {
-        if infoTextView.text == "상세 정보" {
+        if infoTextView.text == "내용을 입력하세요" {
             infoTextView.text = ""
             infoTextView.textColor = UIColor.label
-        } else if infoTextView.text == "내용을 입력하세요" {
-            infoTextView.text = ""
+        } else if infoTextView.text == "" {
+            infoTextView.text = "내용을 입력하세요"
             infoTextView.textColor = UIColor.label
         } else if infoTextView.text == "" {
             infoTextView.text = "내용을 입력하세요"
