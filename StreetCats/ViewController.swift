@@ -185,6 +185,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ViewToViewDel
     
     
     // DetailVC에서 수정한 isLiked 데이터를 받아오기 위한 함수
+<<<<<<< HEAD
+=======
+
+>>>>>>> eb502853b23cfdd7933f574ac9b642b8f3d7f901
 
 //MARK: - 이하 extension 및 protocol
 extension ViewController: MKMapViewDelegate {

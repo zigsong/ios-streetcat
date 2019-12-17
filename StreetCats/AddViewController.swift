@@ -20,6 +20,7 @@ class AddViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var infoTextView: UITextView!
+    @IBOutlet weak var 색깔: UILabel!
     @IBOutlet weak var warningSign: UILabel!
     
     @IBOutlet weak var likeButton: UIButton!
@@ -30,10 +31,7 @@ class AddViewController: UIViewController {
     @IBOutlet weak var blackButton: UIButton!
     
     struct classConstants{
-        // 간결한 버전
-        // let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("savedCats.json")
-        // savedCats.json이 한번만 생성되게끔
-        static let fileManager = FileManager.default // filemanager 인스턴스 생성
+        static let fileManager = FileManager.default
         static let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0] // path 작성
         static let fileURL = documentsURL.appendingPathComponent("savedCats.json") // savedCats.json 파일 추가
     }
@@ -58,9 +56,10 @@ class AddViewController: UIViewController {
         // textview의 placeholder 역할 -> 아직 미완성
         self.infoTextView.text = "상세 정보를 입력하세요"
         self.infoTextView.textColor = UIColor.lightGray
-
+        
         self.warningSign.text = ""
         self.warningSign.textColor = UIColor.lightGray
+
     }
     
     //좋아요 버튼 관리
@@ -202,8 +201,6 @@ class AddViewController: UIViewController {
     // 이름 입력 후 '확인' 버튼을 누르면 나타날 액션
     @IBAction func nameButtonPressed(_ sender: UIButton) { // 추가하기 -> 이름 -> 확인
         nameTextField.endEditing(true)
-        // Q. 확인 버튼이 있어야 하나?
-        // A. 원래는 리턴만 넣으면 불편할 것 같아서 넣었는데 빼도 될 듯 합니다.
     }
     
     @IBAction func infoButtonPressed(_ sender: UIButton) { // 정보보기
@@ -234,6 +231,10 @@ class AddViewController: UIViewController {
             
             let jsonData = try! encoder.encode(cat)
             // jsonString으로 제대로 encode되었는지 테스트 출력
+<<<<<<< HEAD
+=======
+
+>>>>>>> eb502853b23cfdd7933f574ac9b642b8f3d7f901
             do {
                 try jsonData.write(to: classConstants.fileURL)
                 print("success") // 정상 작동
@@ -291,9 +292,7 @@ extension AddViewController : UITextFieldDelegate {
     
     // 자판의 return or enter 버튼을 눌렀을 경우 나타날 액션
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        // 자판 사라짐.
         nameTextField.endEditing(true)
-        // action
         return true
     }
     
@@ -341,7 +340,10 @@ extension AddViewController : UITextViewDelegate {
     
     // placeholder 역할 대신함.
     func textViewSetupView() {
-        if infoTextView.text == "내용을 입력하세요" {
+        if infoTextView.text == "상세 정보를 입력하세요" {
+            infoTextView.text = ""
+            infoTextView.textColor = UIColor.label
+        } else if infoTextView.text == "내용을 입력하세요" {
             infoTextView.text = ""
             infoTextView.textColor = UIColor.label
         } else if infoTextView.text == "" {
