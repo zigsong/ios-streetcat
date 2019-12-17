@@ -203,7 +203,7 @@ extension ViewController: MKMapViewDelegate {
     else if annotation.color == "gray" { identifier = "Gray"
     color = .gray}
     else {identifier = "else"
-        color = .red }
+        color = .orange }
         
     var view: MKMarkerAnnotationView
     if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
