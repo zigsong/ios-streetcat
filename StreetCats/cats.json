@@ -32,6 +32,51 @@
             },
             "details": "with friends",
             "isLiked": true
-        }
+        },
+        {
+            "name": "모아냥",
+            "color": "brown",
+            "photo": "",
+            "spot": {
+                "lat": 37.466388,
+                "lon": 126.949475
+            },
+            "details": "yawning",
+            "isLiked": true
+        },
+        {
+            "name": "긱사냥",
+            "color": "orange",
+            "photo": "",
+            "spot": {
+                "lat": 37.463090,
+                "lon": 126.958373
+            },
+            "details": "has kitten",
+            "isLiked": false
+        },
+        {
+            "name": "83동냥",
+            "color": "gray",
+            "photo": "",
+            "spot": {
+                "lat": 37.463632,
+                "lon": 126.951726
+            },
+            "details": "invisible",
+            "isLiked": false
+        },
+        {
+            "name": "중도냥",
+            "color": "black",
+            "photo": "",
+            "spot": {
+                "lat": 37.459237,
+                "lon": 126.952630
+            },
+            "details": "잘 걸어다님",
+            "isLiked": false
+               }
+    
     ]
 }
