@@ -8,6 +8,6 @@
 
 import UIKit
 
-class infoViewController: UIViewController {
+class InfoViewController: UIViewController {
     
 }

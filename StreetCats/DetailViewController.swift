@@ -9,15 +9,9 @@
 import UIKit
 import MapKit
 
-<<<<<<< HEAD
-class DetailViewController: UIViewController {
-    
-//    var catName: String?
-        
-=======
+
 class DetailViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
             
->>>>>>> eb502853b23cfdd7933f574ac9b642b8f3d7f901
     enum DecodingError: Error {
         case missingFile
     }
@@ -30,25 +24,23 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UITextViewDel
     @IBOutlet weak var catImage: UIImageView!
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var catDetailLabel: UILabel!
-<<<<<<< HEAD
-        
-    override func viewDidLoad() {
-        super.viewDidLoad()
 
-            catNameLabel.text = cats[indexOfCat].title
-            catDetailLabel.text = cats[indexOfCat].details
-            likeButton.isSelected = cats[indexOfCat].isLiked
-            catImage.image = cats[indexOfCat].photo
 
-    }
-=======
-    
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var detailTextView: UITextView!
     
+    @IBOutlet weak var orangeButton : UIButton!
+    @IBOutlet weak var whiteButton : UIButton!
+    @IBOutlet weak var brownButton : UIButton!
+    @IBOutlet weak var grayButton : UIButton!
+    @IBOutlet weak var blackButton : UIButton!
+    
+    
         
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        colorButtonSelected()
         
         catNameLabel.text = (nameTextField.text != "") ? nameTextField.text : cats[indexOfCat].title
         catDetailLabel.text = (detailTextView.text != "") ? detailTextView.text : cats[indexOfCat].details
@@ -103,7 +95,6 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         cats[indexOfCat].details = detailTextView.text
         return true
     }
->>>>>>> eb502853b23cfdd7933f574ac9b642b8f3d7f901
 
     func convertBase64ToImage(_ str: String) -> UIImage {
         let dataDecoded : Data = Data(base64Encoded: str, options: .ignoreUnknownCharacters)!
@@ -113,10 +104,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UITextViewDel
 
 
     @IBAction func returnToMap(_ sender: UIButton) {
-<<<<<<< HEAD
-        
-=======
->>>>>>> eb502853b23cfdd7933f574ac9b642b8f3d7f901
+
         // delegate?.isLikedSent(catIsLiked)
         self.dismiss(animated: true, completion: nil)
     }
@@ -130,6 +118,20 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UITextViewDel
             likeButton.isSelected = true
             cats[indexOfCat].isLiked = true
             //isLiked = true
+        }
+    }
+    
+    func colorButtonSelected() {
+        if cats[indexOfCat].color == "orange" {
+            orangeButton.isSelected = true
+        } else if cats[indexOfCat].color == "white" {
+            whiteButton.isSelected = true
+        } else if cats[indexOfCat].color == "gray" {
+            grayButton.isSelected = true
+        } else if cats[indexOfCat].color == "brown" {
+            brownButton.isSelected = true
+        } else if cats[indexOfCat].color == "black" {
+            blackButton.isSelected = true
         }
     }
     

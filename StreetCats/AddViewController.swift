@@ -231,10 +231,7 @@ class AddViewController: UIViewController {
             
             let jsonData = try! encoder.encode(cat)
             // jsonString으로 제대로 encode되었는지 테스트 출력
-<<<<<<< HEAD
-=======
 
->>>>>>> eb502853b23cfdd7933f574ac9b642b8f3d7f901
             do {
                 try jsonData.write(to: classConstants.fileURL)
                 print("success") // 정상 작동
