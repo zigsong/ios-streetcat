@@ -43,7 +43,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         colorButtonSelected()
         
         catNameLabel.text = (nameTextField.text != "") ? nameTextField.text : cats[indexOfCat].title
-//        catDetailLabel.text = (detailTextView.text != "") ? detailTextView.text : cats[indexOfCat].details
+        catDetailLabel.text = cats[indexOfCat].details
         likeButton.isSelected = cats[indexOfCat].isLiked
         catImage.image = cats[indexOfCat].photo
         
